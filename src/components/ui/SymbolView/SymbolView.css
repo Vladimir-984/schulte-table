@@ -1,0 +1,13 @@
+.Symbol {
+    width: 100%;
+    height: 100%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 500;
+}
+.Symbol--disabled {
+    opacity: .7;
+}
