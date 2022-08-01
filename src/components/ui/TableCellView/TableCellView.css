@@ -1,0 +1,17 @@
+.TableCell {
+
+}
+
+.TableCell.TableCell--mode-rect {
+    border-radius: 4px;
+}
+.TableCell.TableCell--mode-round {
+    border-radius: 50%;
+}
+
+.TableCell__content {
+    border-radius: inherit;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}

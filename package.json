@@ -1,19 +1,26 @@
 {
-  "name": "shulte-table",
+  "name": "schulte-table",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "@happysanta/router": "^0.3.1",
+    "@reduxjs/toolkit": "^1.8.3",
+    "@vkontakte/icons": "^1.180.0",
+    "@vkontakte/vk-bridge": "^2.7.0",
+    "@vkontakte/vkui": "^4.34.1",
+    "eruda": "^2.5.0",
+    "react": "^17.0.2",
+    "react-colorful": "^5.5.1",
+    "react-dom": "^17.0.2",
+    "react-redux": "^8.0.2",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "react-scripts build && gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -34,5 +41,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/node": "^18.6.2",
+    "@types/react": "^17.0.39",
+    "@types/react-dom": "^17.0.12",
+    "@types/react-redux": "^7.1.24",
+    "gh-pages": "^4.0.0",
+    "typescript": "^4.7.4"
   }
 }

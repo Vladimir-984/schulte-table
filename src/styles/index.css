@@ -1,0 +1,41 @@
+.vkuiPopoutRoot__popout:empty,.vkuiPopoutRoot--absolute:empty {
+  display: none;
+}
+.vkuiButton.Button--round {
+  border-radius: 500px;
+}
+
+.Tappable--active-opacity {
+  transition: opacity .1s ease-out;
+}
+
+.vkuiCardGrid.vkuiCardGrid--l .vkuiSimpleCell:first-of-type {
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+.vkuiCardGrid.vkuiCardGrid--l .vkuiSimpleCell:last-of-type {
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+}
+
+.vkuiEpic .vkuiPanel.Panel--no-tabbar .vkuiPanel__in,
+.vkuiEpic .vkuiPanel.Panel--no-tabbar .vkuiFixedLayout--bottom {
+  padding-bottom: 0;
+  padding-bottom: var(--safe-area-inset-bottom);
+}
+
+
+
+.TableGroup {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+.TableGroup > div {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}

@@ -1,0 +1,1 @@
+export const BUTTON_ACTIVE_EFFECT_DELAY = 200
