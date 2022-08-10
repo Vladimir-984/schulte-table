@@ -1,13 +1,23 @@
 .Symbol {
     width: 100%;
     height: 100%;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 18px;
-    font-weight: 500;
+    color: white;   
 }
 .Symbol--disabled {
     opacity: .7;
+}
+
+.Symbol__text {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.Symbol__text--sz-s {
+    font-size: 20px;
+}
+.Symbol__text--sz-m {
+    font-size: 25px;
+}
+.Symbol__text--sz-l {
+    font-size: 30px;
 }

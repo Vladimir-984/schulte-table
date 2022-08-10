@@ -2,7 +2,7 @@ import React from 'react'
 import { NavIdProps } from '@vkontakte/vkui'
 
 interface PopoutRootProps {
-   activePopout: string
+   activePopout: string | null
 }
 
 export const PopoutRoot: React.FC<PopoutRootProps> = ({ children, activePopout }) => {

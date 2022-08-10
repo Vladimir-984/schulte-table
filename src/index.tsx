@@ -13,19 +13,15 @@ import '@vkontakte/vkui/dist/fonts.css'
 
 import 'styles/index.css'
 
-const element = document.getElementById('root')
-
-if (!element) throw new Error()
-
 eruda.init()
+
 if (process.env.NODE_ENV !== 'production') {
    eruda.remove('console')
 }
-// const root = ReactDOM.createRoot(element)
 
 ReactDOM.render(
    <React.StrictMode>
       <App />
    </React.StrictMode>,
-   element
+   document.getElementById('root')
 )

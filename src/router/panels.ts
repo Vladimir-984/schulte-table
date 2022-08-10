@@ -13,10 +13,18 @@ const PANEL_SETTINGS_CELLS = 'panel_settings_cells'
 
 const PANEL_TABLE = 'panel_table'
 
-const PANEL_STATISTICS = 'panel_statistics'
+const PANEL_ABOUT = 'panel_about'
+const PANEL_HELP = 'panel_help'
+
+const PANEL_PROFILE = 'panel_profile'
+
+// const PANEL_STATISTICS = 'panel_statistics'
 
 export const PANELS = {
    MAIN: PANEL_MAIN,
+   HELP: PANEL_HELP,
+   ABOUT: PANEL_ABOUT,
+
    OPTIONS: PANEL_OPTIONS,
    SETTINGS: PANEL_SETTINGS,
    SETTINGS_HINTS: PANEL_SETTINGS_HINTS,
@@ -29,15 +37,13 @@ export const PANELS = {
    SETTINGS_CELLS: PANEL_SETTINGS_CELLS,
 
    TABLE: PANEL_TABLE,
-
-   STATISTICS: PANEL_STATISTICS,
+   PROFILE: PANEL_PROFILE,
+   // STATISTICS: PANEL_STATISTICS,
 }
 
 export const PANELS_TABBAR = {
    [PANELS.MAIN]: true,
-   [PANELS.STATISTICS]: true,
+   [PANELS.PROFILE]: true,
 }
 
-export const PANELS_TABBAR_SHADOW = {
-   [PANELS.MAIN]: true,
-}
+export const PANELS_TABBAR_SHADOW = {}

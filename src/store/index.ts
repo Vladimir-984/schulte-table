@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { appReducer } from './slices/appSlice'
+import { applicationReducer } from './slices/applicationSlice'
+import { tableParamsReducer } from './slices/tablePramsSlice'
 
 export const store = configureStore({
-   reducer: appReducer,
+   reducer: { application: applicationReducer, tableParams: tableParamsReducer },
 })
 
 export type RootState = ReturnType<typeof store.getState>

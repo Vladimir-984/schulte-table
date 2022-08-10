@@ -3,14 +3,14 @@ import { useLocation } from '@happysanta/router'
 import { View } from '@vkontakte/vkui'
 import { PANELS } from 'router/panels'
 import { NavProp } from 'types/nav'
-import { PanelStatistics } from '../panels/PanelStatistics'
+import { PanelProfile } from '../panels/PanelProfile'
 
-export const ViewStatistics: React.FC<NavProp> = ({ nav }) => {
+export const ViewProfile: React.FC<NavProp> = ({ nav }) => {
    const location = useLocation()
-   const activePanel = location.getViewActivePanel(nav) || PANELS.STATISTICS
+   const activePanel = location.getViewActivePanel(nav) || PANELS.PROFILE
    return (
       <View activePanel={activePanel}>
-         <PanelStatistics nav={PANELS.STATISTICS} />
+         <PanelProfile nav={PANELS.PROFILE} />
       </View>
    )
 }

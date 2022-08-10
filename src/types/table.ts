@@ -3,11 +3,11 @@ export enum TableType {
    CYRILLIC = 'cyrillic',
    LATIN = 'latin',
 }
+
 /**возрастающем порядке черные числа, и в убывающем порядке красные */
 export enum TableVariant {
    STANDARD = 'standard',
-   GORBOV_1 = 'gorbov_1',
-   GROBOV_1 = 'gorbov_2',
+   GORBOV = 'gorbov',
    PLATONOV = 'platonov',
 }
 export enum TableMode {
@@ -19,47 +19,42 @@ export enum TableMode {
 export enum TableSequence {
    DEFAULT = 'default',
    RIGHT = 'right',
-   LEFT = 'left',
    RANDOM = 'random',
 }
-export enum TableCell {
-   RECT = 'rect',
-   ROUND = 'round',
-}
+
 export enum TableColor {
    DEFAULT = 'default',
    RANDOM = 'random',
 }
 
-type TypeTableColor = TableColor
-
 export interface ISettingsCells {
-   typeCell: TableCell
-   colorCell: TypeTableColor
-   colorSymdol: TypeTableColor
+   colorCell: TableColor
+   colorSymdol: TableColor
 
    markSelectedCells: boolean
    showErrors: boolean
 }
 
-export interface ITable {
-   tableSize: number
+export interface IMainTableParams {
    tableType: TableType
+   tableVariant: TableVariant
+   tableMode: TableMode
+}
+export interface ICstomTableParams {
+   tableSize: number
    typeSequence: TableSequence
-
-   cells: ICell[]
-   /**добавлять - к значению для идентификации красно-чёрных */
-   sequence: string[]
 
    isShuffleCells: boolean
    isFlipHorizontally: boolean
    isFlipVertically: boolean
+}
+
+export interface IT {
+   cells: ICell[]
+   sequence: string[]
 
    tsStart: number
 }
-
-//@ts-ignore
-const table: ITable = {}
 
 export interface ICell {
    id: number
