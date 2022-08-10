@@ -1,11 +1,21 @@
 .Symbol {
     width: 100%;
     height: 100%;
+<<<<<<< HEAD
     color: white;   
+=======
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 500;
+>>>>>>> 9883f9bb75e478a8b88a625d50a2fee7fbf368e4
 }
 .Symbol--disabled {
     opacity: .7;
 }
+<<<<<<< HEAD
 
 .Symbol__text {
     font-size: 20px;
@@ -21,3 +31,5 @@
 .Symbol__text--sz-l {
     font-size: 30px;
 }
+=======
+>>>>>>> 9883f9bb75e478a8b88a625d50a2fee7fbf368e4
