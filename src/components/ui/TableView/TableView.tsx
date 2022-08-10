@@ -1,13 +1,12 @@
 import React from 'react'
 import { classNames } from '@vkontakte/vkui'
 
-import './TableView.css'
-import { TableCell, ICell, ISymbol, ITable } from 'types/table'
+import { ICell, ISymbol } from 'types/table'
 import { TableCellView } from '../TableCellView/TableCellView'
 
-interface TableViewProps {
-   // extends ITable
-}
+import './TableView.css'
+
+interface TableViewProps {}
 
 const cells: ICell[] = []
 
@@ -42,7 +41,7 @@ export const TableView: React.FC<TableViewProps> = () => {
                }}
             >
                {cells.map((cell) => (
-                  <TableCellView key={`cell--${cell.id}`} {...cell} typeCell={TableCell.RECT} />
+                  <TableCellView key={`cell--${cell.id}`} {...cell} />
                ))}
             </div>
          </div>

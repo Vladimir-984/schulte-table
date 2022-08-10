@@ -1,13 +1,12 @@
 import React from 'react'
 import { classNames, Tappable } from '@vkontakte/vkui'
-import { TableCell, ICell } from 'types/table'
+import { ICell } from 'types/table'
 import { SymbolView } from '../SymbolView/SymbolView'
 
 import './TableCellView.css'
 
 interface TableCellViewProps extends ICell {
    onClick?: () => void
-   typeCell: TableCell
 }
 
 export const TableCellView: React.FC<TableCellViewProps> = ({
@@ -16,7 +15,7 @@ export const TableCellView: React.FC<TableCellViewProps> = ({
    disabledTappable,
    effect,
    symbol,
-   typeCell,
+
    onClick,
 }) => {
    return (
@@ -26,7 +25,7 @@ export const TableCellView: React.FC<TableCellViewProps> = ({
          hoverMode='opacity'
          activeEffectDelay={200}
          disabled={disabledTappable}
-         className={classNames('TableCell', 'TableCell--tappable', `TableCell--mode-${typeCell}`)}
+         className={classNames('TableCell', 'TableCell--tappable')}
       >
          <div
             style={{ backgroundColor: `#${color}` }}

@@ -1,5 +1,3 @@
-import { AppearanceSchemeType } from '@vkontakte/vk-bridge'
-import { Scheme } from '@vkontakte/vkui'
 import { PromoBannerData } from 'types/vkui'
 
 export const defaultPromoBannerData: PromoBannerData = {
@@ -15,8 +13,4 @@ export const defaultPromoBannerData: PromoBannerData = {
       { url: '', type: 'playbackStarted' },
       { url: '', type: 'click' },
    ],
-}
-
-export const deriveAppearance = (scheme: AppearanceSchemeType) => {
-   return scheme === Scheme.SPACE_GRAY || scheme === Scheme.VKCOM_DARK ? 'dark' : 'light'
 }

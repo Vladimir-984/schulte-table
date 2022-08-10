@@ -10,7 +10,7 @@ export const RootStatistics: React.FC<NavProp> = ({ nav }) => {
    const activeView = location.getViewId()
    return (
       <Root activeView={activeView}>
-         <ViewStatistics nav={VIEWS.STATISTICS} />
+         <ViewStatistics nav={VIEWS.PROFILE} />
       </Root>
    )
 }

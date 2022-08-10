@@ -17,7 +17,6 @@ import { useRouter } from '@happysanta/router'
 import { TableColor } from 'types/table'
 import { SelectColorCell } from 'components/ui/Selects/SelectColorCell'
 import { SelectColorSymbol } from 'components/ui/Selects/SelectColorSymbol'
-import { SelectTypeCell } from 'components/ui/Selects/SelectTypeCell'
 
 export const TABLE_COLOR = {
    [TableColor.DEFAULT]: 'По умолчанию',
@@ -49,13 +48,7 @@ export const PanelSettingsCells: React.FC<PanelProps> = (panelProps) => {
                   </Card>
                </CardGrid>
             </Group>
-            <Group mode='plain' separator='hide' description='TODO: написать описание'>
-               <CardGrid size='l'>
-                  <Card>
-                     <SelectTypeCell />
-                  </Card>
-               </CardGrid>
-            </Group>
+
             <Group mode='plain' separator='hide' description='TODO: написать описание'>
                <CardGrid size='l'>
                   <Card>
@@ -78,30 +71,3 @@ export const PanelSettingsCells: React.FC<PanelProps> = (panelProps) => {
       </Panel>
    )
 }
-/*   <Separator wide />
-      <SimpleCell
-         sizeY={SizeType.COMPACT}
-         after={
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-               <Avatar size={28} mode='image' style={{ color: '#fcb' }} />
-               <Icon24ChevronDown
-                  style={{
-                     color: `var(--icon_tertiary)`,
-                     paddingRight: 4,
-                     paddingLeft: 4,
-                  }}
-               />
-            </div>
-         }
-         activeEffectDelay={BUTTON_ACTIVE_EFFECT_DELAY}
-      >
-         Свой
-      </SimpleCell>
-      <Div>
-         <HexColorPicker />
-      </Div> */
-//    after={
-//       <div style={{ display: 'flex', alignItems: 'center' }}>
-//          <Avatar mode='image' size={28} style={{ color: '#fcd' }} />
-//       </div>
-//    }

@@ -1,5 +1,4 @@
 import React from 'react'
-<<<<<<< HEAD
 import { AdaptivityProvider, ConfigProvider, Platform, WebviewType } from '@vkontakte/vkui'
 
 import bridge, { VKBridgeSubscribeHandler } from '@vkontakte/vk-bridge'
@@ -26,36 +25,18 @@ export const VKUIProvider: React.FC = ({ children }) => {
       },
       [dispatch]
    )
-=======
-import { AdaptivityProvider, Appearance, ConfigProvider, Platform, WebviewType } from '@vkontakte/vkui'
-
-import bridge, { VKBridgeSubscribeHandler } from '@vkontakte/vk-bridge'
-
-export const VKUIProvider: React.FC = ({ children }) => {
-   const [appearance, setAppearance] = React.useState<Appearance>(Appearance.LIGHT)
-
-   const listener: VKBridgeSubscribeHandler = (e) => {}
->>>>>>> 9883f9bb75e478a8b88a625d50a2fee7fbf368e4
 
    React.useEffect(() => {
       bridge.subscribe(listener)
       bridge.send('VKWebAppInit')
 
       return () => bridge.unsubscribe(listener)
-<<<<<<< HEAD
    }, [listener])
-=======
-   }, [])
->>>>>>> 9883f9bb75e478a8b88a625d50a2fee7fbf368e4
 
    return (
       <ConfigProvider
          webviewType={WebviewType.VKAPPS}
-<<<<<<< HEAD
          appearance={appearanceValue}
-=======
-         appearance={appearance}
->>>>>>> 9883f9bb75e478a8b88a625d50a2fee7fbf368e4
          platform={Platform.IOS}
          hasNewTokens={false}
       >

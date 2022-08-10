@@ -4,16 +4,15 @@ import { ISymbol } from 'types/table'
 
 import './SymbolView.css'
 
-<<<<<<< HEAD
-interface SymbolViewProps extends Pick<ISymbol, 'value'>, Partial<Omit<ISymbol, 'value'>> {}
-=======
-interface SymbolViewProps extends ISymbol {}
->>>>>>> 9883f9bb75e478a8b88a625d50a2fee7fbf368e4
+export type TypeSize = 's' | 'm' | 'l'
+interface SymbolViewProps extends Pick<ISymbol, 'value'>, Partial<Omit<ISymbol, 'value'>> {
+   size?: TypeSize
+}
 
 export const SymbolView: React.FC<SymbolViewProps> = ({
    value,
    disabled,
-<<<<<<< HEAD
+   size = 'm',
    isFlipHorizontally,
    isFlipVertically,
    color,
@@ -27,18 +26,11 @@ export const SymbolView: React.FC<SymbolViewProps> = ({
                alignmentBaseline='central'
                dominantBaseline='central'
                fill='currentColor'
-               className='Symbol__text'
+               className={classNames('Symbol__text', `Symbol__text--sz-${size}`)}
             >
                {value}
             </text>
          </svg>
       </div>
    )
-=======
-   id,
-   isFlipHorizontally,
-   isFlipVertically,
-}) => {
-   return <div className={classNames('Symbol', disabled && 'Symbol--disabled')}>{value}</div>
->>>>>>> 9883f9bb75e478a8b88a625d50a2fee7fbf368e4
 }

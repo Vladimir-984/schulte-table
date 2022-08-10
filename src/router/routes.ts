@@ -1,15 +1,10 @@
 import { Page, RouteList } from '@happysanta/router'
 import {
-<<<<<<< HEAD
    PAGE_ABOUT,
    PAGE_HELP,
    PAGE_MAIN,
    PAGE_OPTIONS,
    PAGE_PROFILE,
-=======
-   PAGE_MAIN,
-   PAGE_OPTIONS,
->>>>>>> 9883f9bb75e478a8b88a625d50a2fee7fbf368e4
    PAGE_SETTINGS,
    PAGE_SETTINGS_APPEARANCE,
    PAGE_SETTINGS_CELLS,
@@ -17,27 +12,18 @@ import {
    PAGE_SETTINGS_HINTS_STYLE,
    PAGE_SETTINGS_HINTS_TIMEOUT,
    PAGE_SETTINGS_NOTIFICATIONS,
-<<<<<<< HEAD
    PAGE_TABLE,
 } from './pages'
 
-=======
-   PAGE_STATISTICS,
-   PAGE_TABLE,
-} from './pages'
->>>>>>> 9883f9bb75e478a8b88a625d50a2fee7fbf368e4
 import { PANELS } from './panels'
 import { ROOTS } from './roots'
 import { VIEWS } from './views'
 
 export const routes: RouteList = {
    [PAGE_MAIN]: new Page(PANELS.MAIN, VIEWS.MAIN, ROOTS.MAIN),
-<<<<<<< HEAD
+
    [PAGE_HELP]: new Page(PANELS.HELP, VIEWS.OPTIONS, ROOTS.MAIN),
    [PAGE_ABOUT]: new Page(PANELS.ABOUT, VIEWS.OPTIONS, ROOTS.MAIN),
-
-=======
->>>>>>> 9883f9bb75e478a8b88a625d50a2fee7fbf368e4
    [PAGE_OPTIONS]: new Page(PANELS.OPTIONS, VIEWS.OPTIONS, ROOTS.MAIN),
    [PAGE_SETTINGS]: new Page(PANELS.SETTINGS, VIEWS.OPTIONS, ROOTS.MAIN),
    [PAGE_SETTINGS_HINTS]: new Page(PANELS.SETTINGS_HINTS, VIEWS.OPTIONS, ROOTS.MAIN),
@@ -51,9 +37,5 @@ export const routes: RouteList = {
 
    [PAGE_TABLE]: new Page(PANELS.TABLE, VIEWS.MAIN, ROOTS.MAIN),
 
-<<<<<<< HEAD
    [PAGE_PROFILE]: new Page(PANELS.PROFILE, VIEWS.PROFILE, ROOTS.PROFILE),
-=======
-   [PAGE_STATISTICS]: new Page(PANELS.STATISTICS, VIEWS.STATISTICS, ROOTS.STATISTICS),
->>>>>>> 9883f9bb75e478a8b88a625d50a2fee7fbf368e4
 }
