@@ -8,7 +8,7 @@ export enum TableType {
 export enum TableVariant {
    STANDARD = 'standard',
    GORBOV = 'gorbov',
-   PLATONOV = 'platonov',
+   // PLATONOV = 'platonov',
 }
 export enum TableMode {
    CLASSIC = 'classic',
@@ -16,7 +16,7 @@ export enum TableMode {
    CUSTOM = 'custom',
 }
 
-export enum TableSequence {
+export enum TableTypeSequence {
    DEFAULT = 'default',
    RIGHT = 'right',
    RANDOM = 'random',
@@ -40,13 +40,13 @@ export interface IMainTableParams {
    tableVariant: TableVariant
    tableMode: TableMode
 }
-export interface ICstomTableParams {
+export interface ICustomTableParams {
    tableSize: number
-   typeSequence: TableSequence
+   tableTypeSequence: TableTypeSequence
 
-   isShuffleCells: boolean
-   isFlipHorizontally: boolean
-   isFlipVertically: boolean
+   tableIsShuffleCells: boolean
+   tableIsFlipHorizontally: boolean
+   tableIsFlipVertically: boolean
 }
 
 export interface IT {

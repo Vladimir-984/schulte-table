@@ -1,6 +1,7 @@
 import { useRouter } from '@happysanta/router'
 import { Icon28DoneOutline } from '@vkontakte/icons'
 import {
+   Appearance,
    Card,
    CardGrid,
    FixedLayout,
@@ -14,6 +15,7 @@ import {
    SimpleCell,
    Switch,
 } from '@vkontakte/vkui'
+import { BUTTON_ACTIVE_EFFECT_DELAY } from 'constants/constants'
 import React from 'react'
 import {
    PAGE_SETTINGS_APPEARANCE,
@@ -21,6 +23,17 @@ import {
    PAGE_SETTINGS_HINTS,
    PAGE_SETTINGS_NOTIFICATIONS,
 } from 'router/pages'
+import { TypeApplicationAppearance } from 'store/slices/applicationSlice'
+
+const getHintsIsActiveIndicator = (hints: boolean) => (hints ? 'Включены' : 'Выключены')
+
+const getNotificationsIsActiveIndicator = (notifications: boolean) => (notifications ? 'Разрешены' : 'Запрещены')
+
+export const APPEARANCE_TYPE: { [P in TypeApplicationAppearance]: string } = {
+   auto: 'Системная',
+   [Appearance.DARK]: 'Тёмная',
+   [Appearance.LIGHT]: 'Светлая',
+}
 
 export const PanelSettings: React.FC<PanelProps> = (panelProps) => {
    const router = useRouter()
@@ -63,11 +76,21 @@ export const PanelSettings: React.FC<PanelProps> = (panelProps) => {
                         Вибрация
                      </SimpleCell>
                      <Separator wide />
-                     <SimpleCell onClick={onClickSettingsAppearance} expandable indicator={'Светлая'}>
+                     <SimpleCell
+                        activeEffectDelay={BUTTON_ACTIVE_EFFECT_DELAY}
+                        onClick={onClickSettingsAppearance}
+                        expandable
+                        indicator={'Светлая'}
+                     >
                         Тема
                      </SimpleCell>
                      <Separator wide />
-                     <SimpleCell onClick={onClickSettingsNotifications} expandable indicator={'Запрещены'}>
+                     <SimpleCell
+                        activeEffectDelay={BUTTON_ACTIVE_EFFECT_DELAY}
+                        onClick={onClickSettingsNotifications}
+                        expandable
+                        indicator={'Запрещены'}
+                     >
                         Уведомления
                      </SimpleCell>
                   </Card>
@@ -76,11 +99,20 @@ export const PanelSettings: React.FC<PanelProps> = (panelProps) => {
             <Group separator='hide' mode='plain' header={<Header mode='secondary'>Таблица</Header>}>
                <CardGrid size='l'>
                   <Card>
-                     <SimpleCell onClick={onClickSettingsHints} expandable indicator={'Выключены'}>
+                     <SimpleCell
+                        activeEffectDelay={BUTTON_ACTIVE_EFFECT_DELAY}
+                        onClick={onClickSettingsHints}
+                        expandable
+                        indicator={'Выключены'}
+                     >
                         Подсказки
                      </SimpleCell>
                      <Separator wide />
-                     <SimpleCell onClick={onClickSettingsCells} expandable>
+                     <SimpleCell
+                        activeEffectDelay={BUTTON_ACTIVE_EFFECT_DELAY}
+                        onClick={onClickSettingsCells}
+                        expandable
+                     >
                         Ячейки
                      </SimpleCell>
                   </Card>

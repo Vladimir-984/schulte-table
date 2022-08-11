@@ -1,26 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { IAppearance, TypeAppearanceType } from 'store/slices/applicationSlice'
+import { IApplicationAppearance, TypeApplicationAppearance } from 'store/slices/applicationSlice'
 import { RootState } from 'store'
 
-import bridge, { AppearanceType, RequestPropsMap } from '@vkontakte/vk-bridge'
-import { Appearance } from '@vkontakte/vkui'
+import { VKWebAppSetViewSettings } from 'API/bridge'
 
-export type TypeViewSettingsProps = RequestPropsMap['VKWebAppSetViewSettings']
-
-export type TypeProps = {
-   [P in AppearanceType]: TypeViewSettingsProps
-}
-
-export const VIEW_SETTINGS_PROPS: TypeProps = {
-   [Appearance.LIGHT]: { status_bar_style: 'dark', action_bar_color: '#fff', navigation_bar_color: '#ddd' },
-   [Appearance.DARK]: { status_bar_style: 'light', action_bar_color: '#000', navigation_bar_color: '#222' },
-}
-
-export const setAppearanceManual = createAsyncThunk<IAppearance, TypeAppearanceType>(
+export const setAppearanceManual = createAsyncThunk<IApplicationAppearance, TypeApplicationAppearance>(
    'application/setAppearanceManual',
-   async (type: TypeAppearanceType, thunkAPI) => {
+   async (type: TypeApplicationAppearance, thunkAPI) => {
       try {
-         const appearance: IAppearance = {
+         const appearance: IApplicationAppearance = {
             type,
             value: 'light',
          }
@@ -31,7 +19,7 @@ export const setAppearanceManual = createAsyncThunk<IAppearance, TypeAppearanceT
             appearance.value = type
          }
 
-         await bridge.send('VKWebAppSetViewSettings', VIEW_SETTINGS_PROPS[appearance.value])
+         await VKWebAppSetViewSettings(appearance.value)
 
          return appearance
       } catch (e) {

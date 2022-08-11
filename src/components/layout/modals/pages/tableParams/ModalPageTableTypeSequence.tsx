@@ -1,10 +1,9 @@
 import React from 'react'
 import { ModalPage, ModalPageHeader, ModalPageProps, PanelHeaderBack, Separator } from '@vkontakte/vkui'
 import { useRouter } from '@happysanta/router'
+import { GroupTableTypeSequence } from 'components/ui/groups/tableParams/GroupTableTypeSequence'
 
-import { GroupTableType } from 'components/ui/groups/tableParams/GroupTableType'
-
-export const ModalPageTableType: React.FC<ModalPageProps> = (modalPageProps) => {
+export const ModalPageTableTypeSequence: React.FC<ModalPageProps> = (modalPageProps) => {
    const router = useRouter()
 
    const onClose = () => router.popPageTo(-2)
@@ -15,12 +14,12 @@ export const ModalPageTableType: React.FC<ModalPageProps> = (modalPageProps) => 
          onClose={onClose}
          header={
             <>
-               <ModalPageHeader before={<PanelHeaderBack onClick={onClickBack} />}>Тип</ModalPageHeader>
+               <ModalPageHeader before={<PanelHeaderBack onClick={onClickBack} />}>Порядок</ModalPageHeader>
                <Separator wide />
             </>
          }
       >
-         <GroupTableType />
+         <GroupTableTypeSequence />
       </ModalPage>
    )
 }

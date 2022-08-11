@@ -1,14 +1,22 @@
 import React from 'react'
-import { Group, Header } from '@vkontakte/vkui'
-import { useRouter } from '@happysanta/router'
-import { useAppSelector } from 'hooks/redux'
+import { Card, CardGrid, Group, Header, Separator } from '@vkontakte/vkui'
+
+import { CellTableType } from 'components/ui/cells/CellTableType'
+import { CellTableVariant } from 'components/ui/cells/CellTableVariant'
+import { CellTableMode } from 'components/ui/cells/CellTableMode'
 
 export const GroupMainTableParams: React.FC = () => {
-   const router = useRouter()
-   const s = useAppSelector((state) => state.tableParams)
-
-   const onClickTableType = () => {}
-   const onClickTableVariant = () => {}
-   const onClickTableMode = () => {}
-   return <Group mode='plain' separator='hide' header={<Header mode='secondary'>Основные</Header>}></Group>
+   return (
+      <Group mode='plain' separator='hide' header={<Header mode='secondary'>Основные</Header>}>
+         <CardGrid size='l'>
+            <Card>
+               <CellTableType />
+               <Separator wide />
+               <CellTableVariant />
+               <Separator wide />
+               <CellTableMode />
+            </Card>
+         </CardGrid>
+      </Group>
+   )
 }

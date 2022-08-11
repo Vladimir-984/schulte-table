@@ -1,45 +1,60 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppearanceType, ParentConfigData } from '@vkontakte/vk-bridge'
+import { VKWebAppSetViewSettings } from 'API/bridge'
 import { setAppearanceManual } from 'store/asyncThunks/application'
 
-export type TypeAppearanceType = AppearanceType | 'auto'
+interface ISettingsNotifications {}
 
-export interface IAppearance {
+export type TypeApplicationAppearance = AppearanceType | 'auto'
+
+export interface IApplicationAppearance {
+   type: TypeApplicationAppearance
    value: AppearanceType
-   type: TypeAppearanceType
 }
-interface INotifitations {}
 
-interface IApplicationState {
+interface ISettingsApp {
    sounds: boolean
    vibration: boolean
-   appearance: IAppearance
+   appearance: IApplicationAppearance
+   notifications: ISettingsNotifications
+}
 
+interface IApplicationState extends ISettingsApp {
    config: ParentConfigData
-   notifications: INotifitations
 }
 
 const initialState: IApplicationState = {
-   sounds: false,
-   vibration: false,
+   sounds: true,
+   vibration: true,
    appearance: {
-      type: 'auto',
       value: 'light',
+      type: null!,
    },
    notifications: {},
-   config: null!,
+
+   config: {} as ParentConfigData,
 }
 
 const applicationSlice = createSlice({
    name: 'application',
    initialState,
    reducers: {
-      setSounds: (state, action: PayloadAction<boolean>) => {},
-      setVibration: (state, action: PayloadAction<boolean>) => {},
-      setConfig: (state, action: PayloadAction<ParentConfigData>) => {},
-      setAppearance: (state, action: PayloadAction<AppearanceType>) => {},
+      //application
+      setSounds: (state, action: PayloadAction<boolean>) => {
+         state.sounds = action.payload
+      },
+      setVibration: (state, action: PayloadAction<boolean>) => {
+         state.vibration = action.payload
+      },
 
-      setSoundss: (state, action: PayloadAction<boolean>) => {},
+      setConfig: (state, action: PayloadAction<ParentConfigData>) => {
+         state.config = action.payload
+
+         if (state.appearance.type === 'auto') {
+            state.appearance.value = state.config.appearance
+            VKWebAppSetViewSettings(state.config.appearance)
+         }
+      },
    },
    extraReducers: (builder) => {
       builder.addCase(setAppearanceManual.pending, (state, action) => {})
@@ -51,6 +66,6 @@ const applicationSlice = createSlice({
    },
 })
 
-export const { setSounds, setVibration, setAppearance, setConfig } = applicationSlice.actions
+export const { setSounds, setVibration, setConfig } = applicationSlice.actions
 
 export const applicationReducer = applicationSlice.reducer

@@ -5,7 +5,7 @@ import { Epic } from './Epic'
 import { useAdaptivity } from '@vkontakte/vkui/dist/hooks/useAdaptivity'
 import { ModalRoot } from './modals/ModalRoot'
 
-export const Layout: React.FC = () => {
+export const Layout: React.FC = React.memo(() => {
    const { viewWidth } = useAdaptivity()
 
    const isAnimate = viewWidth < ViewWidth.SMALL_TABLET
@@ -19,4 +19,4 @@ export const Layout: React.FC = () => {
          </SplitLayout>
       </AppRoot>
    )
-}
+})

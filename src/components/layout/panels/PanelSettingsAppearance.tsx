@@ -12,13 +12,23 @@ import {
    Separator,
    SimpleCell,
 } from '@vkontakte/vkui'
+import { BUTTON_ACTIVE_EFFECT_DELAY } from 'constants/constants'
+import { useAppDispatch, useAppSelector } from 'hooks/redux'
 import React from 'react'
+import { setAppearanceManual } from 'store/asyncThunks/application'
+import { TypeApplicationAppearance } from 'store/slices/applicationSlice'
 
 export const PanelSettingsAppearance: React.FC<PanelProps> = (panelProps) => {
    const router = useRouter()
+   const dispatch = useAppDispatch()
+
+   const appearance = useAppSelector((state) => state.application.appearance.type)
 
    const onClickBack = () => {
       router.popPage()
+   }
+   const onClickAppearance = (_appearance: TypeApplicationAppearance) => () => {
+      if (_appearance !== appearance) dispatch(setAppearanceManual(_appearance))
    }
 
    return (
@@ -35,9 +45,15 @@ export const PanelSettingsAppearance: React.FC<PanelProps> = (panelProps) => {
                   <Card>
                      <SimpleCell>Системная</SimpleCell>
                      <Separator wide />
-                     <SimpleCell after={<Icon28DoneOutline />}>Светлая</SimpleCell>
+                     <SimpleCell>Светлая</SimpleCell>
                      <Separator wide />
-                     <SimpleCell>Тёмная</SimpleCell>
+                     <SimpleCell
+                        activeEffectDelay={BUTTON_ACTIVE_EFFECT_DELAY}
+                        after={appearance === 'dark' && <Icon28DoneOutline />}
+                        onClick={onClickAppearance('dark')}
+                     >
+                        Тёмная
+                     </SimpleCell>
                   </Card>
                </CardGrid>
             </Group>

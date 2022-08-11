@@ -5,13 +5,16 @@ import { store } from 'store'
 import { router } from 'router'
 import { Layout } from './Layout'
 import { VKUIProvider } from './VKUIProvider'
+import { SnackbarProvider } from './snackbar/SnackbarContext'
 
 export const App: React.FC = () => {
    return (
       <RouterContext.Provider value={router}>
          <Provider store={store}>
             <VKUIProvider>
-               <Layout />
+               <SnackbarProvider>
+                  <Layout />
+               </SnackbarProvider>
             </VKUIProvider>
          </Provider>
       </RouterContext.Provider>

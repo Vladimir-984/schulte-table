@@ -1,41 +1,79 @@
 .vkuiPopoutRoot__popout:empty,.vkuiPopoutRoot--absolute:empty {
   display: none;
 }
-.vkuiButton.Button--round {
-  border-radius: 500px;
+
+.vkuiButton.Button--round {  border-radius: 500px;}
+
+.vkuiButton.Button--stretched-content>.vkuiButton__in>.vkuiButton__content { 
+  flex: 1 1; 
 }
 
-.Tappable--active-opacity {
+.Tappable--active-opacity { 
   transition: opacity .1s ease-out;
 }
 
-.vkuiCardGrid.vkuiCardGrid--l .vkuiSimpleCell:first-of-type {
-  border-top-left-radius: inherit;
-  border-top-right-radius: inherit;
+.vkuiCardGrid.vkuiCardGrid--l .vkuiSimpleCell { 
+  border-radius: initial;
 }
-.vkuiCardGrid.vkuiCardGrid--l .vkuiSimpleCell:last-of-type {
+.vkuiCardGrid.vkuiCardGrid--l .vkuiSimpleCell:first-of-type {
+   border-top-left-radius: inherit;
+   border-top-right-radius: inherit;
+}
+
+.vkuiCardGrid.vkuiCardGrid--l .vkuiSimpleCell:last-of-type { 
   border-bottom-left-radius: inherit;
   border-bottom-right-radius: inherit;
 }
-
+.vkuiCardGrid.vkuiCardGrid--l .vkuiSimpleCell:only-of-type { 
+  border-radius: inherit;
+}
 .vkuiEpic .vkuiPanel.Panel--no-tabbar .vkuiPanel__in,
 .vkuiEpic .vkuiPanel.Panel--no-tabbar .vkuiFixedLayout--bottom {
   padding-bottom: 0;
   padding-bottom: var(--safe-area-inset-bottom);
 }
 
+.Group--full-height { 
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column; 
+  height: 100%;
+  width: 100%;
+}
 
+.Group--full-height > div {
+  flex: 1 1 auto;
+  display: flex; 
+  flex-direction: column;
+}
 
 .TableGroup {
   flex: 1 1 auto;
-  display: flex;
+  display: flex;  
   flex-direction: column;
   height: 100%;
   width: 100%;
 }
+
 .TableGroup > div {
   flex: 1 1 auto;
   display: flex;
   justify-content: center;
   flex-direction: column;
 }
+.vkuiHeader.TableHeader .vkuiHeader__content-in {
+  display: flex;
+}
+.vkuiGroup.TableElement > div {
+  display: flex;
+  justify-content: center;
+}
+.ButtonGroup--h-pad {
+  padding: 0 var(--vkui--size_base_padding_horizontal--regular,12px); 
+  box-sizing: border-box;}.ButtonGroup--max-w350 > button {  
+  max-width: 350px;
+}
+
+text {  
+ dominant-baseline: central; 
+ text-anchor:middle;}
