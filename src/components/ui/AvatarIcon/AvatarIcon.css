@@ -1,4 +1,20 @@
-.AvatarIcon {}
-.AvatarIcon.AvatarIcon--clr-blue {}
-.AvatarIcon.AvatarIcon--clr-red {}
-.AvatarIcon.AvatarIcon--clr-green {}
+.AvatarIcon {
+}
+.AvatarIcon.AvatarIcon--clr-red {
+   color: var(--vkui--color_accent_red);
+}
+.AvatarIcon.AvatarIcon--clr-green {
+   color: var(--vkui--color_accent_green);
+}
+.AvatarIcon.AvatarIcon--clr-blue {
+   color: var(--vkui--color_accent_blue);
+}
+.AvatarIcon.AvatarIcon--clr-violet {
+   color: var(--vkui--color_accent_violet);
+}
+.AvatarIcon.AvatarIcon--clr-orange {
+   color: var(--vkui--color_accent_orange);
+}
+.AvatarIcon.AvatarIcon--clr-purple {
+   color: var(--vkui--color_accent_purple);
+}

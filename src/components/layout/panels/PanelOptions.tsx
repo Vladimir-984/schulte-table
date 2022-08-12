@@ -1,18 +1,10 @@
-import { useRouter } from '@happysanta/router'
-import {
-   Card,
-   CardGrid,
-   FixedLayout,
-   Group,
-   Panel,
-   PanelHeader,
-   PanelHeaderClose,
-   PanelProps,
-   Separator,
-   SimpleCell,
-} from '@vkontakte/vkui'
 import React from 'react'
-import { PAGE_SETTINGS } from 'router/pages'
+import { useRouter } from '@happysanta/router'
+
+import { FixedLayout, Group, Panel, PanelHeader, PanelHeaderClose, PanelProps, Separator } from '@vkontakte/vkui'
+
+import { GroupAbout } from 'components/ui/groups/options/GroupAbout'
+import { GroupSettings } from 'components/ui/groups/options/GroupSettings'
 
 export const PanelOptions: React.FC<PanelProps> = (panelProps) => {
    const router = useRouter()
@@ -20,9 +12,6 @@ export const PanelOptions: React.FC<PanelProps> = (panelProps) => {
       router.popPage()
    }
 
-   const onClickSettings = () => {
-      router.pushPage(PAGE_SETTINGS)
-   }
    return (
       <Panel {...panelProps}>
          <PanelHeader before={<PanelHeaderClose onClick={onClickBack} />} separator={false}>
@@ -32,24 +21,8 @@ export const PanelOptions: React.FC<PanelProps> = (panelProps) => {
             <Separator wide />
          </FixedLayout>
          <Group>
-            <Group separator='hide' mode='plain'>
-               <CardGrid size='l'>
-                  <Card>
-                     <SimpleCell expandable onClick={onClickSettings}>
-                        Настройки
-                     </SimpleCell>
-                  </Card>
-               </CardGrid>
-            </Group>
-            <Group separator='hide' mode='plain'>
-               <CardGrid size='l'>
-                  <Card>
-                     <SimpleCell expandable>Помощь</SimpleCell>
-                     <Separator wide />
-                     <SimpleCell expandable>О приложении</SimpleCell>
-                  </Card>
-               </CardGrid>
-            </Group>
+            <GroupSettings />
+            <GroupAbout />
          </Group>
       </Panel>
    )

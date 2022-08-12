@@ -1,11 +1,8 @@
 import React from 'react'
 import { useRouter } from '@happysanta/router'
 import {
+   Avatar,
    Button,
-   ButtonGroup,
-   Card,
-   CardGrid,
-   Div,
    FixedLayout,
    Group,
    Panel,
@@ -14,23 +11,13 @@ import {
    PanelProps,
    PromoBanner,
    Separator,
-   SimpleCell,
-   Switch,
    Title,
 } from '@vkontakte/vkui'
-import {
-   Icon16ClockOutline,
-   Icon20ClockOutline,
-   Icon24ClockOutline,
-   Icon24RefreshOutline,
-   Icon28ClockCircleFillGray,
-   Icon28ClockOutline,
-   Icon28RefreshOutline,
-   Icon28SearchOutline,
-} from '@vkontakte/icons'
+import { Icon24ClockOutline, Icon24RefreshOutline } from '@vkontakte/icons'
 import { TableView } from 'components/ui/TableView/TableView'
 import { defaultPromoBannerData } from 'utils/vkui'
 import { BUTTON_ACTIVE_EFFECT_DELAY } from 'constants/constants'
+import { SymbolView } from 'components/ui/SymbolView/SymbolView'
 
 export const PanelTable: React.FC<PanelProps> = (panelProps) => {
    const router = useRouter()
@@ -50,16 +37,6 @@ export const PanelTable: React.FC<PanelProps> = (panelProps) => {
             <Timer />
             <SearchElement />
             <TableView />
-            {/*  <Div>
-               <Button
-                  align='center'
-                  size='m'
-                  activeEffectDelay={BUTTON_ACTIVE_EFFECT_DELAY}
-                  before={<Icon28RefreshOutline />}
-               >
-                  Заново
-               </Button>
-            </Div> */}
          </Group>
          <div style={{ visibility: 'hidden' }}>
             <PromoBanner bannerData={defaultPromoBannerData} onClose={() => {}} />
@@ -71,12 +48,6 @@ export const PanelTable: React.FC<PanelProps> = (panelProps) => {
    )
 }
 
-const format = new Intl.DateTimeFormat(undefined, {
-   fractionalSecondDigits: 2,
-   timeZone: 'UTC',
-   minute: '2-digit',
-   second: '2-digit',
-})
 export const Timer = () => {
    const startRef = React.useRef(Date.now())
 
@@ -168,12 +139,9 @@ export const Timer = () => {
 export const SearchElement = () => {
    return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '12px 12px' }}>
-         <Title level='2' weight='2'>
-            Найдите:
-         </Title>
-         <Title level='2' weight='2' style={{ marginLeft: 4 }}>
-            3
-         </Title>
+         <Avatar size={56} mode='app'>
+            <SymbolView value='3' color='var(--vkui--color_accent_blue)' />
+         </Avatar>
       </div>
    )
 }

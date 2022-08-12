@@ -15,3 +15,5 @@ export const selectChangeableTableIsFlipVertically = (state: RootState) =>
    state.tableParams.changeableParams.tableIsFlipVertically
 
 export const selectAvailableTableSizes = (state: RootState) => state.tableParams.availableTableSizes
+
+export const selectShownOtherParams = (state: RootState) => state.tableParams.shownOtherParams

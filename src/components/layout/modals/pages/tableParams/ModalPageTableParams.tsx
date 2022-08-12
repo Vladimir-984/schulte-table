@@ -9,16 +9,19 @@ import {
    Separator,
 } from '@vkontakte/vkui'
 import { useModalClose } from 'hooks/modal'
-import { useAppDispatch } from 'hooks/redux'
+import { useAppDispatch, useAppSelector } from 'hooks/redux'
 
 import { GroupMainTableParams } from 'components/ui/groups/tableParams/GroupMainTableParams'
 import { GroupOtherTableParams } from 'components/ui/groups/tableParams/GroupOtherTableParams'
 import { applyTableParams } from 'store/asyncThunks/tableParams'
 import { GroupCellsTableParams } from 'components/ui/groups/tableParams/GroupCellsTableParams'
+import { selectShownOtherParams } from 'store/selectors/tableParams'
 
 export const ModalPageTableParams: React.FC<ModalPageProps> = (modalPageProps) => {
    const onClose = useModalClose()
    const dispatch = useAppDispatch()
+
+   const shownOtherParams = useAppSelector(selectShownOtherParams)
 
    const onClickSubmit = async () => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -43,8 +46,12 @@ export const ModalPageTableParams: React.FC<ModalPageProps> = (modalPageProps) =
       >
          <Group>
             <GroupMainTableParams />
-            <GroupOtherTableParams />
-            <GroupCellsTableParams />
+            {shownOtherParams && (
+               <>
+                  <GroupOtherTableParams />
+                  <GroupCellsTableParams />
+               </>
+            )}
          </Group>
       </ModalPage>
    )

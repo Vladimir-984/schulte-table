@@ -1,7 +1,10 @@
 import React from 'react'
 import { Avatar, AvatarProps, classNames } from '@vkontakte/vkui'
 
-type TypeAvatarIconColor = 'red' | 'green' | 'blue'
+import './AvatarIcon.css'
+
+type TypeAvatarIconColor = 'red' | 'green' | 'blue' | 'violet' | 'orange' | 'purple'
+
 interface AvatarIconProps extends Pick<AvatarProps, 'size' | 'shadow' | 'mode'> {
    color: TypeAvatarIconColor
 }

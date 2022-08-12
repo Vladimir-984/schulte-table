@@ -1,8 +1,8 @@
 import React from 'react'
 import { Card, CardGrid, Group, Header, Separator } from '@vkontakte/vkui'
-import { CellTableShuffleCells } from 'components/ui/cells/CellTableShuffleCells'
-import { CellTableFlipHorizontallyCell } from 'components/ui/cells/CellTableFlipHorizontallyCell'
-import { CellTableFlipVerticallyCell } from 'components/ui/cells/CellTableFlipVerticallyCell'
+import { CellTableShuffleCells } from 'components/ui/listCells/CellTableShuffleCells'
+import { CellTableFlipHorizontallyCell } from 'components/ui/listCells/CellTableFlipHorizontallyCell'
+import { CellTableFlipVerticallyCell } from 'components/ui/listCells/CellTableFlipVerticallyCell'
 
 export const GroupCellsTableParams: React.FC = () => {
    return (

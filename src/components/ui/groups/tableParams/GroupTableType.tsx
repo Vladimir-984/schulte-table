@@ -10,7 +10,7 @@ import { TableType } from 'types/table'
 import { createReactKeyIdx } from 'utils/list'
 
 export const TABLE_TYPE = {
-   [TableType.NUMBERS]: 'Цыфры',
+   [TableType.NUMBERS]: 'Цифры',
    [TableType.LATIN]: 'Латиница',
    [TableType.CYRILLIC]: 'Кириллица',
 }
