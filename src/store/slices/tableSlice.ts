@@ -61,7 +61,7 @@ const initialState: ITableState = {
 }
 
 const tableSlice = createSlice({
-   name: 'table',
+   name: 'activeTable',
    initialState,
    reducers: {},
    extraReducers: (builder) => {

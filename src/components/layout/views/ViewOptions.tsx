@@ -13,6 +13,7 @@ import { PanelSettingsHintsStyle } from '../panels/PanelSettingsHintsStyle'
 import { PanelSettingsCells } from '../panels/PanelSettingsCells'
 import { PanelAbout } from '../panels/PanelAbout'
 import { PanelHelp } from '../panels/PanelHelp'
+import { PanelSettingsTableView } from '../panels/PanelSettingsTableView'
 
 export const ViewOptions: React.FC<NavProp> = ({ nav }) => {
    const location = useLocation()
@@ -25,6 +26,7 @@ export const ViewOptions: React.FC<NavProp> = ({ nav }) => {
          <PanelHelp nav={PANELS.HELP} />
 
          <PanelSettings nav={PANELS.SETTINGS} />
+         <PanelSettingsTableView nav={PANELS.SETTINGS_TABLE_VIEW} />
          <PanelSettingsHints nav={PANELS.SETTINGS_HINTS} />
          <PanelSettingsHintsTimeout nav={PANELS.SETTINGS_HINTS_TIMEOUT} />
          <PanelSettingsHintsStyle nav={PANELS.SETTINGS_HINTS_STYLE} />

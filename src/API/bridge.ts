@@ -14,7 +14,13 @@ export const VIEW_SETTINGS_PROPS: TypeProps = {
 
 export const VKWebAppSetViewSettings = async (value: AppearanceType) => {
    try {
-      return bridge.send('VKWebAppSetViewSettings', VIEW_SETTINGS_PROPS[value])
+      if (process.env.NODE_ENV !== 'production') {
+         return { result: false }
+      }
+
+      const data = await bridge.send('VKWebAppSetViewSettings', VIEW_SETTINGS_PROPS[value])
+
+      return data
    } catch (_) {
       return { result: false }
    }

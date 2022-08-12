@@ -1,20 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { TableHintsStyle } from 'lists'
 
-export enum TableHintStyle {
-   GLOW = 'glow',
-   PULSATION = 'pulsation',
-   SCALE = 'scale',
-}
 export interface ITableHintsSettings {
    hintsIsActive: boolean
    hintsTimeoutSeconds: number
-   hintsStyle: TableHintStyle
+   hintsStyle: TableHintsStyle
 }
 interface IHintsSettingsState extends ITableHintsSettings {}
 const initialState: IHintsSettingsState = {
    hintsIsActive: false,
    hintsTimeoutSeconds: 10,
-   hintsStyle: TableHintStyle.GLOW,
+   hintsStyle: TableHintsStyle.GLOW,
 }
 const hintsSettingsSlice = createSlice({
    name: 'hintsSettings',

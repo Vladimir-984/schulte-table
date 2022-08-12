@@ -4,10 +4,11 @@ import { AdaptivityProvider, ConfigProvider, Platform, WebviewType } from '@vkon
 import bridge, { VKBridgeSubscribeHandler } from '@vkontakte/vk-bridge'
 import { useAppDispatch, useAppSelector } from 'hooks/redux'
 import { setConfig } from 'store/slices/applicationSlice'
+import { selectAppAppearanceValue } from 'store/selectors/application'
 
 export const VKUIProvider: React.FC = ({ children }) => {
    const dispatch = useAppDispatch()
-   const appearanceValue = useAppSelector((state) => state.application.appearance.value)
+   const appearanceValue = useAppSelector(selectAppAppearanceValue)
 
    const listener: VKBridgeSubscribeHandler = React.useCallback(
       (e) => {
@@ -21,7 +22,7 @@ export const VKUIProvider: React.FC = ({ children }) => {
             }
          }
 
-         console.log(e.detail.type, e.detail.data)
+         console.log(e)
       },
       [dispatch]
    )

@@ -3,8 +3,8 @@ import { useRouter } from '@happysanta/router'
 
 import { FixedLayout, Group, Panel, PanelHeader, PanelHeaderClose, PanelProps, Separator } from '@vkontakte/vkui'
 
-import { GroupAbout } from 'components/ui/groups/options/GroupAbout'
-import { GroupSettings } from 'components/ui/groups/options/GroupSettings'
+import { GroupOptionsAbout } from 'components/ui/groups/options/GroupOptionsAbout'
+import { GroupOptionsSettings } from 'components/ui/groups/options/GroupOptionsSettings'
 
 export const PanelOptions: React.FC<PanelProps> = (panelProps) => {
    const router = useRouter()
@@ -21,8 +21,8 @@ export const PanelOptions: React.FC<PanelProps> = (panelProps) => {
             <Separator wide />
          </FixedLayout>
          <Group>
-            <GroupSettings />
-            <GroupAbout />
+            <GroupOptionsSettings />
+            <GroupOptionsAbout />
          </Group>
       </Panel>
    )

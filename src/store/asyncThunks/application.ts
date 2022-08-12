@@ -4,24 +4,23 @@ import { RootState } from 'store'
 
 import { VKWebAppSetViewSettings } from 'API/bridge'
 
-export const setAppearanceManual = createAsyncThunk<IApplicationAppearance, TypeApplicationAppearance>(
-   'application/setAppearanceManual',
+export const setAppearance = createAsyncThunk<IApplicationAppearance, TypeApplicationAppearance>(
+   'application/setAppearance',
    async (type: TypeApplicationAppearance, thunkAPI) => {
       try {
-         const appearance: IApplicationAppearance = {
+         const appAppearance: IApplicationAppearance = {
             type,
             value: 'light',
          }
          if (type === 'auto') {
-            const value = (thunkAPI.getState() as RootState).application.config.appearance
-            appearance.value = value
+            const configValue = (thunkAPI.getState() as RootState).application.config.appearance
+            appAppearance.value = configValue
          } else {
-            appearance.value = type
+            appAppearance.value = type
          }
+         VKWebAppSetViewSettings(appAppearance.value)
 
-         await VKWebAppSetViewSettings(appearance.value)
-
-         return appearance
+         return appAppearance
       } catch (e) {
          return thunkAPI.rejectWithValue(e)
       }

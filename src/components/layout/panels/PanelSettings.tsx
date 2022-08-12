@@ -1,9 +1,10 @@
 import React from 'react'
 import { useRouter } from '@happysanta/router'
-import { FixedLayout, Group, Panel, PanelHeader, PanelHeaderBack, PanelProps, Separator } from '@vkontakte/vkui'
+import { Group, Panel, PanelHeaderBack, PanelProps } from '@vkontakte/vkui'
 
 import { GroupApplicationSettings } from 'components/ui/groups/settings/GroupApplicationSettings'
 import { GroupTableSettings } from 'components/ui/groups/settings/GroupTableSettings'
+import { PanelHeaderSeparator } from 'components/ui/PanelHeaderSeparator/PanelHeaderSeparator'
 
 export const PanelSettings: React.FC<PanelProps> = (panelProps) => {
    const router = useRouter()
@@ -13,12 +14,10 @@ export const PanelSettings: React.FC<PanelProps> = (panelProps) => {
 
    return (
       <Panel {...panelProps}>
-         <PanelHeader before={<PanelHeaderBack onClick={onClickBack} />} separator={false}>
+         <PanelHeaderSeparator before={<PanelHeaderBack onClick={onClickBack} label={'Опции'} />}>
             Настройки
-         </PanelHeader>
-         <FixedLayout vertical='top'>
-            <Separator wide />
-         </FixedLayout>
+         </PanelHeaderSeparator>
+
          <Group separator='hide'>
             <GroupApplicationSettings />
             <GroupTableSettings />

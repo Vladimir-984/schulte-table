@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { applicationReducer } from './slices/applicationSlice'
-import { hintsSettingsReducer } from './slices/hintsSettingsSlice'
 import { tableParamsReducer } from './slices/tablePramsSlice'
+import { tableSettingsReducer } from './slices/tableSettingsSlice'
 import { tableReducer } from './slices/tableSlice'
 
 export const store = configureStore({
@@ -9,7 +9,7 @@ export const store = configureStore({
       application: applicationReducer,
       tableParams: tableParamsReducer,
       table: tableReducer,
-      hintsSettings: hintsSettingsReducer,
+      tableSettings: tableSettingsReducer,
    },
 })
 

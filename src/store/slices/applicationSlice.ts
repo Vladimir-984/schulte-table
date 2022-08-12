@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppearanceType, ParentConfigData } from '@vkontakte/vk-bridge'
 import { VKWebAppSetViewSettings } from 'API/bridge'
-import { setAppearanceManual } from 'store/asyncThunks/application'
+import { setAppearance } from 'store/asyncThunks/application'
 
 interface ISettingsNotifications {}
 
@@ -28,7 +28,7 @@ const initialState: IApplicationState = {
    vibration: true,
    appearance: {
       value: 'light',
-      type: null!,
+      type: 'auto',
    },
    notifications: {},
 
@@ -57,12 +57,12 @@ const applicationSlice = createSlice({
       },
    },
    extraReducers: (builder) => {
-      builder.addCase(setAppearanceManual.pending, (state, action) => {})
-      builder.addCase(setAppearanceManual.fulfilled, (state, action) => {
+      builder.addCase(setAppearance.pending, (state, action) => {})
+      builder.addCase(setAppearance.fulfilled, (state, action) => {
          state.appearance.type = action.payload.type
          state.appearance.value = action.payload.value
       })
-      builder.addCase(setAppearanceManual.rejected, (state, action) => {})
+      builder.addCase(setAppearance.rejected, (state, action) => {})
    },
 })
 
