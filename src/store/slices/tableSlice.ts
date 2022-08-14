@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {
    IMainTableParams,
    TableMode,
-   TableTypeSequence,
+   TableSequence,
    TableType,
    TableVariant,
    ICustomTableParams,
@@ -51,7 +51,7 @@ const initialState: ITableState = {
       tableVariant: TableVariant.STANDARD,
       tableMode: TableMode.CLASSIC,
       tableSize: 5,
-      tableTypeSequence: TableTypeSequence.DEFAULT,
+      tableSequence: TableSequence.DEFAULT,
       tableIsFlipVertically: false,
       tableIsFlipHorizontally: false,
       tableIsShuffleCells: false,

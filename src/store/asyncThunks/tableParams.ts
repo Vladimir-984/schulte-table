@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { RootState } from 'store'
-import { defaultTableParams } from 'store/slices/tablePramsSlice'
+import { defaultTableParams } from 'store/slices/tableParamsSlice'
 
 export const getTableParams = createAsyncThunk('tableParams/get', async (_, thunkAPI) => {
    try {

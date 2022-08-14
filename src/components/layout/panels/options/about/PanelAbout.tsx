@@ -13,7 +13,7 @@ export const PanelAbout: React.FC<PanelProps> = (panelProps) => {
       <Panel {...panelProps}>
          <PanelHeaderSeparator before={<PanelHeaderBack onClick={onClickBack} />}>О приложении</PanelHeaderSeparator>
 
-         <Group>
+         <Group separator='hide'>
             <Group>about</Group>
          </Group>
       </Panel>

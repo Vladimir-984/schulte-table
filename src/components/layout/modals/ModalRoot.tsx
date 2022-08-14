@@ -2,13 +2,13 @@ import React from 'react'
 
 import { ModalRoot as VKUIModalRoot } from '@vkontakte/vkui'
 import { useLocation, useRouter } from '@happysanta/router'
-import { ModalPageTableParams } from './pages/tableParams/ModalPageTableParams'
+import { ModalPageTableParams } from './pages/tableParams/params/ModalPageTableParams'
 import { MODAL_PAGES } from 'router/modals'
-import { ModalPageTableType } from './pages/tableParams/ModalPageTableType'
-import { ModalPageTableVariant } from './pages/tableParams/ModalPageTableVariant'
-import { ModalPageTableMode } from './pages/tableParams/ModalPageTableMode'
-import { ModalPageTableSize } from './pages/tableParams/ModalPageTableSize'
-import { ModalPageTableTypeSequence } from './pages/tableParams/ModalPageTableTypeSequence'
+import { ModalPageTableParamsType } from './pages/tableParams/type/ModalPageTableParamsType'
+import { ModalPageTableParamsVariant } from './pages/tableParams/variant/ModalPageTableParamsVariant'
+import { ModalPageTableParamsMode } from './pages/tableParams/mode/ModalPageTableParamsMode'
+import { ModalPageTableParamsSize } from './pages/tableParams/size/ModalPageTableParamsSize'
+import { ModalPageTableParamsSequence } from './pages/tableParams/sequence/ModalPageTableParamsSequence'
 
 export const ModalRoot: React.FC = () => {
    const router = useRouter()
@@ -30,13 +30,11 @@ export const ModalRoot: React.FC = () => {
          onClosed={onClosed}
       >
          <ModalPageTableParams nav={MODAL_PAGES.TABLE_PARAMS} />
-
-         <ModalPageTableType nav={MODAL_PAGES.TABLE_TYPE} />
-         <ModalPageTableVariant nav={MODAL_PAGES.TABLE_VARIANT} />
-         <ModalPageTableMode nav={MODAL_PAGES.TABLE_MODE} />
-
-         <ModalPageTableSize nav={MODAL_PAGES.TABLE_SIZE} />
-         <ModalPageTableTypeSequence nav={MODAL_PAGES.TABLE_SEQUENCE} />
+         <ModalPageTableParamsType nav={MODAL_PAGES.TABLE_TYPE} />
+         <ModalPageTableParamsVariant nav={MODAL_PAGES.TABLE_VARIANT} />
+         <ModalPageTableParamsMode nav={MODAL_PAGES.TABLE_MODE} />
+         <ModalPageTableParamsSize nav={MODAL_PAGES.TABLE_SIZE} />
+         <ModalPageTableParamsSequence nav={MODAL_PAGES.TABLE_SEQUENCE} />
       </VKUIModalRoot>
    )
 }

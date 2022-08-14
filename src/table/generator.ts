@@ -1,11 +1,4 @@
-import {
-   ICustomTableParams,
-   IMainTableParams,
-   TableMode,
-   TableTypeSequence,
-   TableType,
-   TableVariant,
-} from 'types/table'
+import { ICustomTableParams, IMainTableParams, TableMode, TableSequence, TableType, TableVariant } from 'types/table'
 import { randomSort } from 'utils/array'
 const GORBOV_MODIFIER_BLACK = '+'
 const GROBOV_MODIFIER_RED = '-'
@@ -433,38 +426,38 @@ export const resolveTableSize = (tableMode: TableMode, tableSize: number) => {
    }
 }
 
-export const resolveTableTypeSequence = (
+export const resolveTableSequence = (
    tableMode: TableMode,
    tableVariant: TableVariant,
-   tableTypeSequence: TableTypeSequence
+   tableSequence: TableSequence
 ) => {
    switch (tableMode) {
       case TableMode.CLASSIC: {
-         return TableTypeSequence.DEFAULT
+         return TableSequence.DEFAULT
       }
       case TableMode.HARD: {
-         if (tableVariant !== TableVariant.GORBOV) return TableTypeSequence.RANDOM
-         return TableTypeSequence.DEFAULT
+         if (tableVariant !== TableVariant.GORBOV) return TableSequence.RANDOM
+         return TableSequence.DEFAULT
       }
       case TableMode.CUSTOM: {
-         if (tableVariant !== TableVariant.GORBOV) return tableTypeSequence
-         return TableTypeSequence.DEFAULT
+         if (tableVariant !== TableVariant.GORBOV) return tableSequence
+         return TableSequence.DEFAULT
       }
    }
 }
 
 interface IResolveSequenceAndSizeTableParams
    extends Pick<IMainTableParams, 'tableVariant' | 'tableMode'>,
-      Pick<ICustomTableParams, 'tableSize' | 'tableTypeSequence'> {}
+      Pick<ICustomTableParams, 'tableSize' | 'tableSequence'> {}
 
-interface IResolvedSequenceAndSizeTable extends Pick<ICustomTableParams, 'tableSize' | 'tableTypeSequence'> {}
+interface IResolvedSequenceAndSizeTable extends Pick<ICustomTableParams, 'tableSize' | 'tableSequence'> {}
 
 export const resolveSequenceAndSizeTable = (
    params: IResolveSequenceAndSizeTableParams
 ): IResolvedSequenceAndSizeTable => {
    const resolvedParams: IResolvedSequenceAndSizeTable = {
       tableSize: resolveTableSize(params.tableMode, params.tableSize),
-      tableTypeSequence: resolveTableTypeSequence(params.tableMode, params.tableVariant, params.tableTypeSequence),
+      tableSequence: resolveTableSequence(params.tableMode, params.tableVariant, params.tableSequence),
    }
 
    return resolvedParams

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { applicationReducer } from './slices/applicationSlice'
-import { tableParamsReducer } from './slices/tablePramsSlice'
+import { tableParamsReducer } from './slices/tableParamsSlice'
 import { tableSettingsReducer } from './slices/tableSettingsSlice'
 import { tableReducer } from './slices/tableSlice'
 

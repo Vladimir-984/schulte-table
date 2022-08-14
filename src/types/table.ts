@@ -16,7 +16,7 @@ export enum TableMode {
    CUSTOM = 'custom',
 }
 
-export enum TableTypeSequence {
+export enum TableSequence {
    DEFAULT = 'default',
    RIGHT = 'right',
    RANDOM = 'random',
@@ -42,7 +42,7 @@ export interface IMainTableParams {
 }
 export interface ICustomTableParams {
    tableSize: number
-   tableTypeSequence: TableTypeSequence
+   tableSequence: TableSequence
 
    tableIsShuffleCells: boolean
    tableIsFlipHorizontally: boolean

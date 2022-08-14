@@ -12,7 +12,7 @@ export const PanelHelp: React.FC<PanelProps> = (panelProps) => {
    return (
       <Panel {...panelProps}>
          <PanelHeaderSeparator before={<PanelHeaderBack onClick={onClickBack} />}>Помощь</PanelHeaderSeparator>
-         <Group>
+         <Group separator='hide'>
             <Group>help</Group>
          </Group>
       </Panel>
