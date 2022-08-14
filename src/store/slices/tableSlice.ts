@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {
    IMainTableParams,
    TableMode,
@@ -9,6 +9,8 @@ import {
    ICell,
 } from 'types/table'
 
+type TypeTableCompletedStatus = 'done' | 'terminated' | 'closed' | null
+
 interface IActiveTable extends IMainTableParams, ICustomTableParams {
    nextValue: string
    cells: ICell[]
@@ -16,6 +18,8 @@ interface IActiveTable extends IMainTableParams, ICustomTableParams {
    cellClicks: ICellClick[]
    cellHints: IHintCell[]
    tsStart: number
+
+   completedStatus: TypeTableCompletedStatus
 }
 
 /**
@@ -57,13 +61,28 @@ const initialState: ITableState = {
       cellHints: [],
       nextValue: '',
       tsStart: Date.now(),
+      completedStatus: null,
    },
 }
 
 const tableSlice = createSlice({
    name: 'activeTable',
    initialState,
-   reducers: {},
+   reducers: {
+      clickCell: (state, action: PayloadAction<number>) => {
+         const cell = state.activeTable.cells[action.payload]
+         if (cell === undefined) return
+
+         if (cell.sequenceValue === state.activeTable.nextValue) {
+         }
+
+         const click: ICellClick = {
+            ts: Date.now(),
+            cellIdx: action.payload,
+            action: 'mark',
+         }
+      },
+   },
    extraReducers: (builder) => {
       /*  builder.addCase(startTable.pending, (state, action) => {})  
  builder.addCase(startTable.fulfilled, (state, action) => {})    

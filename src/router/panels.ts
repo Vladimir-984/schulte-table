@@ -1,17 +1,20 @@
 const PANEL_MAIN = 'panel_main'
 const PANEL_OPTIONS = 'panel_options'
 const PANEL_SETTINGS = 'panel_settings'
-const PANEL_SETTINGS_HINTS = 'panel_settings_hints'
 
-const PANEL_SETTINGS_TABLE_VIEW = 'panel_settings_table_view'
+const PANEL_SETTINGS_APPEARANCE = 'panel_settings_appearance'
+const PANEL_SETTINGS_NOTIFICATIONS = 'panel_settings_notifications'
+
+const PANEL_SETTINGS_HINTS = 'panel_settings_hints'
 
 const PANEL_SETTINGS_HINTS_TIMEOUT = 'panel_settings_hints_timeout'
 const PANEL_SETTINGS_HINTS_STYLE = 'panel_settings_hints_style'
 
-const PANEL_SETTINGS_NOTIFICATIONS = 'panel_settings_notifications'
-const PANEL_SETTINGS_APPEARANCE = 'panel_settings_appearance'
+const PANEL_SETTINGS_TABLE_VIEW = 'panel_settings_table_view'
 
 const PANEL_SETTINGS_CELLS = 'panel_settings_cells'
+const PANEL_SETTINGS_CELLS_COLOR_CELL = 'panel_settings_cells_color_cell'
+const PANEL_SETTINGS_CELLS_COLOR_SYMBOL = 'panel_settings_cells_color_symbol'
 
 const PANEL_TABLE = 'panel_table'
 
@@ -39,6 +42,8 @@ export const PANELS = {
    SETTINGS_APPEARANCE: PANEL_SETTINGS_APPEARANCE,
 
    SETTINGS_CELLS: PANEL_SETTINGS_CELLS,
+   SETTINGS_CELLS_COLOR_CELL: PANEL_SETTINGS_CELLS_COLOR_CELL,
+   SETTINGS_CELLS_COLOR_SYMBOL: PANEL_SETTINGS_CELLS_COLOR_SYMBOL,
 
    TABLE: PANEL_TABLE,
    PROFILE: PANEL_PROFILE,

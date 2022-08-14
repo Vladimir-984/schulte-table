@@ -1,3 +1,6 @@
+:root {
+   --timing--fast_out_slow_in: cubic-bezier(0.4, 0, 0.2, 1);
+}
 .vkuiPopoutRoot__popout:empty,
 .vkuiPopoutRoot--absolute:empty {
    display: none;
@@ -79,28 +82,28 @@ text {
    text-anchor: middle;
 }
 
-@keyframes group-scale-show {
-   from {
-      transform: scaleY(0);
-   }
-   to {
-      transform: scaleY(1);
-   }
-}
-@keyframes group-scale-hide {
-   from {
-      transform: scaleY(1);
-   }
-   to {
-      transform: scaleY(0);
-   }
-}
+/* .Group {
+   transform-origin: top;
+} */
 
-.Group--animation-show {
+.Group-enter {
    transform-origin: top;
-   animation: group-scale-show 0.2s ease-out;
+   transform: scaleY(0);
 }
-.Group--animation-hide {
+.Group-enter-active {
    transform-origin: top;
-   animation: group-scale-hide 0.2s ease-out;
+   transform: scaleY(1);
+   transition: transform 0.2s var(--timing--fast_out_slow_in);
 }
+/* .Group-enter-active-done {} */
+
+.Group-exit {
+   transform-origin: top;
+   transform: scaleY(1);
+}
+.Group-exit-active {
+   transform-origin: top;
+   transform: scaleY(0);
+   transition: transform 0.2s var(--timing--fast_out_slow_in);
+}
+/* .Group-exit-active-done {} */

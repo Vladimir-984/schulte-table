@@ -3,7 +3,7 @@ import { useLocation } from '@happysanta/router'
 import { View } from '@vkontakte/vkui'
 import { PANELS } from 'router/panels'
 import { NavProp } from 'types/nav'
-import { PanelStatistics } from '../panels/PanelStatistics'
+import { PanelStatistics } from '../panels/profile/PanelStatistics'
 
 export const ViewStatistics: React.FC<NavProp> = ({ nav }) => {
    const location = useLocation()

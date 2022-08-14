@@ -14,6 +14,8 @@ export const PAGE_SETTINGS_HINTS_TIMEOUT = '/settings-hints-timeout'
 export const PAGE_SETTINGS_HINTS_STYLE = '/settings-hints-style'
 
 export const PAGE_SETTINGS_CELLS = '/settings-cells'
+export const PAGE_SETTINGS_CELLS_COLOR_CELL = '/settings-cells-color-cell'
+export const PAGE_SETTINGS_CELLS_COLOR_SYMBOL = '/settings-cells-color-symbol'
 
 export const PAGE_SETTINGS_NOTIFICATIONS = '/settings-notifications'
 export const PAGE_SETTINGS_APPEARANCE = '/settings-appearance'

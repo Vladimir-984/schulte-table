@@ -5,21 +5,26 @@ import { TableColor } from 'types/table'
 export interface ITableSettingsState {
    colorCell: TableColor
    colorSymbol: TableColor
-   markSelectedCells: boolean
-   showMistakes: boolean
+   isMarkSelectedCells: boolean
+   isShowMistakes: boolean
 
-   hintsIsActive: boolean
+   isEnabledHints: boolean
    hintsTimeout: number
    hintsStyle: TableHintsStyle
+
+   //
+   isShowTime?: boolean
+   isShowNextValue?: boolean
+   isTerminateOnWrong?: boolean
 }
 
 const initialState: ITableSettingsState = {
    colorCell: TableColor.DEFAULT,
    colorSymbol: TableColor.DEFAULT,
-   markSelectedCells: true,
-   showMistakes: true,
+   isMarkSelectedCells: true,
+   isShowMistakes: true,
 
-   hintsIsActive: false,
+   isEnabledHints: false,
    hintsTimeout: 10,
    hintsStyle: TableHintsStyle.GLOW,
 }
@@ -28,27 +33,37 @@ const tableSettingsSlice = createSlice({
    name: 'tableSettings',
    initialState,
    reducers: {
-      setColorCell: (state, action) => {
+      setColorCell: (state, action: PayloadAction<TableColor>) => {
          state.colorCell = action.payload
       },
-      setColorSymbol: (state, action) => {
+      setColorSymbol: (state, action: PayloadAction<TableColor>) => {
          state.colorSymbol = action.payload
       },
-      setMarkSelectedCells: (state, action) => {
-         state.markSelectedCells = action.payload
+      setMarkSelectedCells: (state, action: PayloadAction<boolean>) => {
+         state.isMarkSelectedCells = action.payload
       },
-      setShowMistakes: (state, action) => {
-         state.showMistakes = action.payload
+      setShowMistakes: (state, action: PayloadAction<boolean>) => {
+         state.isShowMistakes = action.payload
       },
 
-      setHintsIsActive: (state, action: PayloadAction<boolean>) => {
-         state.hintsIsActive = action.payload
+      setEnabledHints: (state, action: PayloadAction<boolean>) => {
+         state.isEnabledHints = action.payload
       },
       setHintsTimeout: (state, action: PayloadAction<number>) => {
          state.hintsTimeout = action.payload
       },
       setHintsStyle: (state, action: PayloadAction<TableHintsStyle>) => {
          state.hintsStyle = action.payload
+      },
+
+      setShowTime: (state, action: PayloadAction<boolean>) => {
+         state.isShowTime = action.payload
+      },
+      setShowNextValue: (state, action: PayloadAction<boolean>) => {
+         state.isShowNextValue = action.payload
+      },
+      setTerminateOnWrong: (state, action: PayloadAction<boolean>) => {
+         state.isTerminateOnWrong = action.payload
       },
    },
    /*   extraReducers: builder => {
@@ -57,5 +72,13 @@ const tableSettingsSlice = createSlice({
       builder.addCase(getCellsSettings.rejected, (state, action) => {});
     } */
 })
-export const { setHintsIsActive, setHintsTimeout, setHintsStyle } = tableSettingsSlice.actions
+export const {
+   setEnabledHints,
+   setHintsTimeout,
+   setHintsStyle,
+   setColorCell,
+   setColorSymbol,
+   setMarkSelectedCells,
+   setShowMistakes,
+} = tableSettingsSlice.actions
 export const tableSettingsReducer = tableSettingsSlice.reducer

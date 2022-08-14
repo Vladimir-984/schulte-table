@@ -1,6 +1,7 @@
-import { APPEARANCE_TYPE, HINTS_STYLE_TYPE, TableHintsStyle } from 'lists'
+import { APPEARANCE_TYPE, HINTS_STYLE_TYPE, TableHintsStyle, TABLE_COLOR_TYPE } from 'lists'
 import { TypeApplicationAppearance } from 'store/slices/applicationSlice'
 import { IListItem } from 'types/list'
+import { TableColor } from 'types/table'
 import { secondLongFormatter } from 'utils/format'
 
 export const appearanceItems: IListItem<TypeApplicationAppearance>[] = [
@@ -25,3 +26,8 @@ export const hintsTimeoutItems: IListItem<number>[] = new Array(5).fill('').map(
    const value = (idx + 1) * 10 - idx * 5
    return { value, label: secondLongFormatter.format(value) }
 })
+
+export const tableColorItems: IListItem<TableColor>[] = [
+   { value: TableColor.DEFAULT, label: TABLE_COLOR_TYPE[TableColor.DEFAULT] },
+   { value: TableColor.RANDOM, label: TABLE_COLOR_TYPE[TableColor.RANDOM] },
+]

@@ -5,16 +5,16 @@
   "homepage": "./",
   "dependencies": {
     "@happysanta/router": "^0.3.1",
-    "@reduxjs/toolkit": "^1.8.3",
-    "@vkontakte/icons": "^1.180.0",
+    "@reduxjs/toolkit": "^1.8.4",
+    "@vkontakte/icons": "^1.183.0",
     "@vkontakte/vk-bridge": "^2.7.0",
-    "@vkontakte/vkui": "^4.34.1",
+    "@vkontakte/vkui": "^4.35.1",
     "eruda": "^2.5.0",
     "react": "^17.0.2",
-    "react-colorful": "^5.5.1",
     "react-dom": "^17.0.2",
     "react-redux": "^8.0.2",
     "react-scripts": "5.0.1",
+    "react-transition-group": "^4.4.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -47,6 +47,7 @@
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.12",
     "@types/react-redux": "^7.1.24",
+    "@types/react-transition-group": "^4.4.5",
     "gh-pages": "^4.0.0",
     "typescript": "^4.7.4"
   }
