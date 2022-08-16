@@ -62,13 +62,6 @@
    flex-direction: column;
 }
 
-.vkuiHeader.TableHeader .vkuiHeader__content-in {
-   display: flex;
-}
-.vkuiGroup.TableElement > div {
-   display: flex;
-   justify-content: center;
-}
 .ButtonGroup--h-pad {
    padding: 0 var(--vkui--size_base_padding_horizontal--regular, 12px);
    box-sizing: border-box;
@@ -107,3 +100,7 @@ text {
    transition: transform 0.2s var(--timing--fast_out_slow_in);
 }
 /* .Group-exit-active-done {} */
+
+.SeparatorList > * {
+   margin-left: calc(var(--vkui--size_base_padding_horizontal--regular, 16px) + 12px + 4px + 28px);
+}

@@ -6,9 +6,10 @@ export const PAGE_HELP = '/help'
 
 export const PAGE_OPTIONS = '/options'
 export const PAGE_SETTINGS = '/settings'
-export const PAGE_SETTINGS_HINTS = '/settings-hints'
 
-export const PAGE_SETTINGS_TABLE_VIEW = '/settings-table-view'
+export const PAGE_SETTINGS_TABLE_DISPLAY = '/settings-table-display'
+
+export const PAGE_SETTINGS_HINTS = '/settings-hints'
 
 export const PAGE_SETTINGS_HINTS_TIMEOUT = '/settings-hints-timeout'
 export const PAGE_SETTINGS_HINTS_STYLE = '/settings-hints-style'

@@ -13,7 +13,8 @@ export interface IApplicationAppearance {
 }
 
 interface ISettingsApp {
-   sounds: boolean
+   isOnline: boolean
+   sound: boolean
    vibration: boolean
    appearance: IApplicationAppearance
    notifications: ISettingsNotifications
@@ -24,7 +25,8 @@ interface IApplicationState extends ISettingsApp {
 }
 
 const initialState: IApplicationState = {
-   sounds: true,
+   isOnline: navigator.onLine,
+   sound: true,
    vibration: true,
    appearance: {
       value: 'light',
@@ -40,8 +42,12 @@ const applicationSlice = createSlice({
    initialState,
    reducers: {
       //application
-      setSounds: (state, action: PayloadAction<boolean>) => {
-         state.sounds = action.payload
+
+      setOnline: (state, action: PayloadAction<boolean>) => {
+         state.isOnline = action.payload
+      },
+      setSound: (state, action: PayloadAction<boolean>) => {
+         state.sound = action.payload
       },
       setVibration: (state, action: PayloadAction<boolean>) => {
          state.vibration = action.payload
@@ -66,6 +72,6 @@ const applicationSlice = createSlice({
    },
 })
 
-export const { setSounds, setVibration, setConfig } = applicationSlice.actions
+export const { setOnline, setSound, setVibration, setConfig } = applicationSlice.actions
 
 export const applicationReducer = applicationSlice.reducer

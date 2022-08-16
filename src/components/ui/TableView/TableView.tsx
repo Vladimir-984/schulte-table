@@ -1,43 +1,25 @@
 import React from 'react'
 import { classNames } from '@vkontakte/vkui'
 
-import { ICell, ISymbol } from 'types/table'
+import { TableColor, TableVariant } from 'types/table'
 import { TableCellView } from '../TableCellView/TableCellView'
+import { ITableParams } from 'store/slices/tableParamsSlice'
 
 import './TableView.css'
+import { useAppSelector } from 'hooks/redux'
 
-interface TableViewProps {}
+interface TableViewProps extends Partial<Pick<ITableParams, 'tableSize'>> {}
 
-const cells: ICell[] = []
-
-for (let idx = 1; idx <= 49; idx++) {
-   const symbol: ISymbol = {
-      id: idx,
-      disabled: false,
-      value: `${idx}`,
-   }
-   const cell: ICell = {
-      id: idx,
-      symbol,
-      sequenceValue: '',
-      color: Math.random().toString(16).slice(-6),
-      disabledTappable: false,
-   }
-
-   cells.push(cell)
-}
-
-export const TableView: React.FC<TableViewProps> = () => {
-   //    console.log(cells)
-
+export const TableView: React.FC<TableViewProps> = ({}) => {
+   const { tableSize, cells } = useAppSelector((state) => state.table.activeTable)
    return (
       <div className={classNames('TableView')}>
          <div className='TableView__in'>
             <div
                className='TableView__cells'
                style={{
-                  gridTemplateColumns: `repeat(${7},1fr)`,
-                  gridTemplateRows: `repeat(${7},1fr)`,
+                  gridTemplateColumns: `repeat(${tableSize}, 1fr)`,
+                  gridTemplateRows: `repeat(${tableSize}, 1fr)`,
                }}
             >
                {cells.map((cell) => (
@@ -49,6 +31,21 @@ export const TableView: React.FC<TableViewProps> = () => {
    )
 }
 
+interface ITableContext {
+   variant: TableVariant
+   size: number
+   tableCellColor: TableColor
+   tableSymbolColor: TableColor
+   markSelectedCells: boolean
+   showMistakes: boolean
+}
+const TableContext = React.createContext({})
+const TableProvider: React.FC = ({ children }) => {
+   const value = React.useMemo(() => {
+      return {}
+   }, [])
+   return <TableContext.Provider value={value}>{children}</TableContext.Provider>
+}
 /*
 import React from 'react'
 import { classNames } from '@vkontakte/vkui'

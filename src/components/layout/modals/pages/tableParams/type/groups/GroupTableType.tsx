@@ -4,7 +4,7 @@ import { Group, SimpleCell } from '@vkontakte/vkui'
 import { BUTTON_ACTIVE_EFFECT_DELAY } from 'constants/constants'
 import { useAppDispatch, useAppSelector } from 'hooks/redux'
 import { selectChangeableTableType } from 'store/selectors/tableParams'
-import { setTableType } from 'store/slices/tableParamsSlice'
+import { setTableParamsType } from 'store/slices/tableParamsSlice'
 import { TableType } from 'types/table'
 import { createReactKeyIdx } from 'utils/list'
 import { tableTypeItems } from 'lists/items'
@@ -17,7 +17,7 @@ export const GroupTableType: React.FC = () => {
 
    const onClickTableType = (_tabelType: TableType) => () => {
       if (_tabelType !== tableType) {
-         dispatch(setTableType(_tabelType))
+         dispatch(setTableParamsType(_tabelType))
       }
    }
    return (

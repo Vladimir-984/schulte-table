@@ -46,14 +46,14 @@ const tableParamsSlice = createSlice({
    name: 'tableParams',
    initialState,
    reducers: {
-      setTableType: (state, action: PayloadAction<TableType>) => {
+      setTableParamsType: (state, action: PayloadAction<TableType>) => {
          state.changeableParams.tableType = action.payload
 
          // if(state.changeableParams.tableVariant === TableVariant.PLATONOV) {
          //     state.changeableParams.tableVariant = TableVariant.STANDARD
          // }
       },
-      setTableVariant: (state, action: PayloadAction<TableVariant>) => {
+      setTableParamsVariant: (state, action: PayloadAction<TableVariant>) => {
          state.changeableParams.tableVariant = action.payload
 
          if (state.changeableParams.tableSequence !== TableSequence.DEFAULT) {
@@ -61,7 +61,7 @@ const tableParamsSlice = createSlice({
          }
       },
 
-      setTableMode: (state, action: PayloadAction<TableMode>) => {
+      setTableParamsMode: (state, action: PayloadAction<TableMode>) => {
          state.changeableParams.tableMode = action.payload
 
          if (action.payload === TableMode.CUSTOM) {
@@ -71,22 +71,22 @@ const tableParamsSlice = createSlice({
          }
       },
 
-      setTableSize: (state, action: PayloadAction<number>) => {
+      setTableParamsSize: (state, action: PayloadAction<number>) => {
          state.changeableParams.tableSize = action.payload
       },
-      setTableSequence: (state, action: PayloadAction<TableSequence>) => {
+      setTableParamsSequence: (state, action: PayloadAction<TableSequence>) => {
          // if(false){}
 
          state.changeableParams.tableSequence = action.payload
       },
 
-      setTableIsFlipHorizontally: (state, action: PayloadAction<boolean>) => {
+      setTableParamsIsFlipHorizontally: (state, action: PayloadAction<boolean>) => {
          state.changeableParams.tableIsFlipHorizontally = action.payload
       },
-      setTableIsFlipVertically: (state, action: PayloadAction<boolean>) => {
+      setTableParamsIsFlipVertically: (state, action: PayloadAction<boolean>) => {
          state.changeableParams.tableIsFlipVertically = action.payload
       },
-      setTableIsShuffleCells: (state, action: PayloadAction<boolean>) => {
+      setTableParamsIsShuffleCells: (state, action: PayloadAction<boolean>) => {
          state.changeableParams.tableIsShuffleCells = action.payload
       },
    },
@@ -108,14 +108,14 @@ const tableParamsSlice = createSlice({
 })
 
 export const {
-   setTableIsShuffleCells,
-   setTableIsFlipHorizontally,
-   setTableIsFlipVertically,
-   setTableMode,
-   setTableSize,
-   setTableType,
-   setTableSequence,
-   setTableVariant,
+   setTableParamsIsFlipHorizontally,
+   setTableParamsIsFlipVertically,
+   setTableParamsIsShuffleCells,
+   setTableParamsMode,
+   setTableParamsSequence,
+   setTableParamsSize,
+   setTableParamsType,
+   setTableParamsVariant,
 } = tableParamsSlice.actions
 
 export const tableParamsReducer = tableParamsSlice.reducer

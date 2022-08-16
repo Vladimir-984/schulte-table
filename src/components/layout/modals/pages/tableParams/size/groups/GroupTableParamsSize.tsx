@@ -5,7 +5,7 @@ import { selectAvailableTableSizes, selectChangeableTableSize } from 'store/sele
 import { createReactKeyIdx, isAddSeparator } from 'utils/list'
 import { BUTTON_ACTIVE_EFFECT_DELAY } from 'constants/constants'
 import { Icon28DoneOutline } from '@vkontakte/icons'
-import { setTableSize } from 'store/slices/tableParamsSlice'
+import { setTableParamsSize } from 'store/slices/tableParamsSlice'
 import { GroupCard } from 'components/ui/GroupCard/GroupCard'
 
 export const GroupTableParamsSize: React.FC = () => {
@@ -15,7 +15,7 @@ export const GroupTableParamsSize: React.FC = () => {
    const tableSize = useAppSelector(selectChangeableTableSize)
 
    const onClickTableSize = (_tableSize: number) => () => {
-      dispatch(setTableSize(_tableSize))
+      dispatch(setTableParamsSize(_tableSize))
    }
 
    return (

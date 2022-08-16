@@ -1,6 +1,7 @@
 import { RootState } from 'store'
 
-export const selectAppIsActiveSounds = (state: RootState) => state.application.sounds
+export const selectAppIsOnline = (state: RootState) => state.application.isOnline
+export const selectAppIsActiveSound = (state: RootState) => state.application.sound
 export const selectAppIsActiveVibration = (state: RootState) => state.application.vibration
 
 export const selectAppAppearanceType = (state: RootState) => state.application.appearance.type

@@ -1,24 +1,49 @@
 import React from 'react'
-import { classNames } from '@vkontakte/vkui'
-import { ISymbol } from 'types/table'
+import { classNames, useAppearance } from '@vkontakte/vkui'
+import { ISymbol, TypeRedBlack } from 'types/table'
 
 import './SymbolView.css'
+import { normalizeHEXColor } from 'utils/color'
 
 export type TypeSize = 's' | 'm' | 'l'
 interface SymbolViewProps extends Pick<ISymbol, 'value'>, Partial<Omit<ISymbol, 'value'>> {
-   size?: TypeSize
+   textSize?: TypeSize
+   /**
+    * `primary` - цвет зависит от темы;
+    * `custom` - устанавлиет цвет из `color`;
+    * `white` - для красно-чёрной таблицы;
+    */
+   symbolColor?: //TypeRedBlack |
+   'primary' | 'white' | 'custom'
 }
 
 export const SymbolView: React.FC<SymbolViewProps> = ({
    value,
    disabled,
-   size = 'm',
+   textSize = 'm',
+   animation,
+   symbolColor = 'primary',
+
    isFlipHorizontally,
    isFlipVertically,
    color,
 }) => {
+   const appearance = useAppearance()
+   const resolvedStyleColor = symbolColor === 'custom' ? normalizeHEXColor(color) : undefined
+
+   const resolvedTextFlip =
+      isFlipHorizontally && isFlipVertically ? 'both' : isFlipHorizontally ? 'h' : isFlipVertically ? 'v' : undefined
+
    return (
-      <div className={classNames('Symbol', disabled && 'Symbol--disabled')} style={{ color }}>
+      <div
+         className={classNames(
+            'Symbol',
+            `Symbol--appearance-${appearance}`,
+            disabled && 'Symbol--disabled',
+            symbolColor && `Symbol--clr-${symbolColor}`
+         )}
+         style={{ color: resolvedStyleColor }}
+      >
          <svg
             x={0}
             y={0}
@@ -34,7 +59,11 @@ export const SymbolView: React.FC<SymbolViewProps> = ({
                textAnchor='middle'
                dominantBaseline='central'
                fill='currentColor'
-               className={classNames('Symbol__text', `Symbol__text--sz-${size}`)}
+               className={classNames(
+                  'Symbol__text',
+                  `Symbol__text--sz-${textSize}`,
+                  resolvedTextFlip && `Symbol__text--flip-${resolvedTextFlip}`
+               )}
             >
                {value}
             </text>

@@ -1,10 +1,15 @@
 .TableView {
    padding: 0 var(--vkui--size_base_padding_horizontal--regular, 12px);
    position: relative;
+
    margin-bottom: auto;
    margin-top: auto;
+
+   width: 100%;
+   box-sizing: border-box;
 }
 .TableView__in {
+   width: 100%;
    position: relative;
    height: 0;
    padding-bottom: 100%;

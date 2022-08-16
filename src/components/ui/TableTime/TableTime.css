@@ -1,0 +1,11 @@
+.TableTime {
+   display: flex;
+   align-items: center;
+}
+.TableTime > .TableTime__icon {
+   color: var(--vkui--color_icon_accent);
+}
+.TableTime > .TableTime__text {
+   color: var(--vkui--color_text_secondary);
+   margin-left: 4px;
+}

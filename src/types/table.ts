@@ -64,6 +64,7 @@ export interface ICell {
    disabledTappable: boolean
    color?: string
 
+   animation?: string
    /**для какого то супер режима */
    effect?: string
 }
@@ -74,9 +75,11 @@ export interface ISymbol {
    value: string
 
    color?: string
-
-   /**для какого то супер режима */
+   animation?: string
+   /**для какого то режима */
    isFlipHorizontally?: boolean
-   /**для какого то супер режима */
+   /**для какого то режима */
    isFlipVertically?: boolean
 }
+
+export type TypeRedBlack = 'red' | 'black'

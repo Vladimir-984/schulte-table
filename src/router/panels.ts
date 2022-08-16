@@ -10,7 +10,7 @@ const PANEL_SETTINGS_HINTS = 'panel_settings_hints'
 const PANEL_SETTINGS_HINTS_TIMEOUT = 'panel_settings_hints_timeout'
 const PANEL_SETTINGS_HINTS_STYLE = 'panel_settings_hints_style'
 
-const PANEL_SETTINGS_TABLE_VIEW = 'panel_settings_table_view'
+const PANEL_SETTINGS_TABLE_DISPLAY = 'panel_settings_table_display'
 
 const PANEL_SETTINGS_CELLS = 'panel_settings_cells'
 const PANEL_SETTINGS_CELLS_COLOR_CELL = 'panel_settings_cells_color_cell'
@@ -33,7 +33,7 @@ export const PANELS = {
    OPTIONS: PANEL_OPTIONS,
    SETTINGS: PANEL_SETTINGS,
 
-   SETTINGS_TABLE_VIEW: PANEL_SETTINGS_TABLE_VIEW,
+   SETTINGS_TABLE_DISPLAY: PANEL_SETTINGS_TABLE_DISPLAY,
    SETTINGS_HINTS: PANEL_SETTINGS_HINTS,
    SETTINGS_HINTS_TIMEOUT: PANEL_SETTINGS_HINTS_TIMEOUT,
    SETTINGS_HINTS_STYLE: PANEL_SETTINGS_HINTS_STYLE,

@@ -7,7 +7,10 @@ import {
    TableVariant,
    ICustomTableParams,
    ICell,
+   ISymbol,
 } from 'types/table'
+import { randomSort } from 'utils/array'
+import { getRandomColor } from 'utils/color'
 
 type TypeTableCompletedStatus = 'done' | 'terminated' | 'closed' | null
 
@@ -64,23 +67,74 @@ const initialState: ITableState = {
       completedStatus: null,
    },
 }
+const sequence = Array(49)
+   .fill('')
+   .map((_, idx) => String(idx + 1))
+
+const cells: ICell[] = sequence
+   .map((v, idx) => ({
+      disabledTappable: false,
+      id: `${v}--idx` as any as number,
+      sequenceValue: v,
+      symbol: {
+         id: `s--${v}-${idx}` as any as number,
+         disabled: false,
+         value: v,
+         color: getRandomColor(),
+      },
+   }))
+   .sort(randomSort)
+
+initialState.activeTable.cells = cells
+initialState.activeTable.sequence = sequence
+initialState.activeTable.nextValue = sequence[0]
+initialState.activeTable.tableSize = 7
+
+// for (let idx = 1; idx <= 49; idx++) {
+//    const symbol: ISymbol = {
+//       id: idx,
+//       disabled: idx % 3 === 0 ? true : false,
+//       value: `${idx}`,
+//    }
+//    const cell: ICell = {
+//       id: idx,
+//       symbol,
+//       sequenceValue: '',
+//       color: Math.random().toString(16).slice(-6),
+//       disabledTappable: false,
+//    }
+
+//    cells.push(cell)
+// }
 
 const tableSlice = createSlice({
    name: 'activeTable',
    initialState,
    reducers: {
-      clickCell: (state, action: PayloadAction<number>) => {
-         const cell = state.activeTable.cells[action.payload]
-         if (cell === undefined) return
-
-         if (cell.sequenceValue === state.activeTable.nextValue) {
-         }
+      clickCell: (state, action: PayloadAction<string>) => {
+         const cellIdx = state.activeTable.cells.findIndex((c) => c.sequenceValue === action.payload)
+         if (cellIdx === -1) return
+         const cell = state.activeTable.cells[cellIdx]
 
          const click: ICellClick = {
             ts: Date.now(),
-            cellIdx: action.payload,
+            cellIdx,
             action: 'mark',
          }
+         const value = state.activeTable.nextValue
+         if (cell.sequenceValue === value) {
+            cell.disabledTappable = true
+            cell.symbol.disabled = true
+            const currentSeqIdx = state.activeTable.sequence.findIndex((s) => s === value)
+
+            state.activeTable.nextValue = state.activeTable.sequence[currentSeqIdx + 1]
+            state.activeTable.cells.sort(randomSort)
+         } else if (cell.disabledTappable) {
+            click.action = 'repeated'
+         } else {
+            click.action = 'mistake'
+         }
+         state.activeTable.cellClicks.push(click)
       },
    },
    extraReducers: (builder) => {
@@ -89,7 +143,7 @@ const tableSlice = createSlice({
  builder.addCase(startTable.rejected, (state, action) => {})  */
    },
 })
-export const {} = tableSlice.actions
+export const { clickCell } = tableSlice.actions
 export const tableReducer = tableSlice.reducer
 
 /*

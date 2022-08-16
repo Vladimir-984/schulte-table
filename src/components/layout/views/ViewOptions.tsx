@@ -13,7 +13,7 @@ import { PanelSettingsHintsStyle } from '../panels/options/settingsHintsStyle/Pa
 import { PanelSettingsCells } from '../panels/options/settingsCells/PanelSettingsCells'
 import { PanelAbout } from '../panels/options/about/PanelAbout'
 import { PanelHelp } from '../panels/options/help/PanelHelp'
-import { PanelSettingsTableView } from '../panels/options/settingsTable/PanelSettingsTableView'
+import { PanelSettingsTableDisplay } from '../panels/options/settingsTableDisplay/PanelSettingsTableDisplay'
 import { PanelSettingsCellsColorCell } from '../panels/options/settingsCellsColorCell/PanelSettingsCellsColorCell'
 import { PanelSettingsCellsColorSymbol } from '../panels/options/settingsCellsColorSymbol/PanelSettingsCellsColorSymbol'
 
@@ -28,7 +28,7 @@ export const ViewOptions: React.FC<NavProp> = ({ nav }) => {
          <PanelSettingsNotifications nav={PANELS.SETTINGS_NOTIFICATIONS} />
          <PanelSettingsAppearance nav={PANELS.SETTINGS_APPEARANCE} />
 
-         <PanelSettingsTableView nav={PANELS.SETTINGS_TABLE_VIEW} />
+         <PanelSettingsTableDisplay nav={PANELS.SETTINGS_TABLE_DISPLAY} />
          <PanelSettingsHints nav={PANELS.SETTINGS_HINTS} />
          <PanelSettingsHintsTimeout nav={PANELS.SETTINGS_HINTS_TIMEOUT} />
          <PanelSettingsHintsStyle nav={PANELS.SETTINGS_HINTS_STYLE} />

@@ -9,7 +9,7 @@ export const GroupOptionsAbout: React.FC = () => {
    return (
       <GroupCard>
          <CellHelp />
-         <Separator wide />
+         <Separator className='SeparatorList' wide />
          <CellAbout />
       </GroupCard>
    )
