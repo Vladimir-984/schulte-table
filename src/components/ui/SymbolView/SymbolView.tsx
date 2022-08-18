@@ -1,50 +1,38 @@
 import React from 'react'
-import { classNames, useAppearance } from '@vkontakte/vkui'
-import { ISymbol, TypeRedBlack } from 'types/table'
-
-import './SymbolView.css'
+import { classNames } from '@vkontakte/vkui'
+import { ISymbol } from 'types/table'
 import { normalizeHEXColor } from 'utils/color'
 
+import './SymbolView.css'
+
 export type TypeSize = 's' | 'm' | 'l'
+
 interface SymbolViewProps extends Pick<ISymbol, 'value'>, Partial<Omit<ISymbol, 'value'>> {
    textSize?: TypeSize
-   /**
-    * `primary` - цвет зависит от темы;
-    * `custom` - устанавлиет цвет из `color`;
-    * `white` - для красно-чёрной таблицы;
-    */
-   symbolColor?: //TypeRedBlack |
-   'primary' | 'white' | 'custom'
 }
 
 export const SymbolView: React.FC<SymbolViewProps> = ({
    value,
    disabled,
    textSize = 'm',
-   animation,
-   symbolColor = 'primary',
+   typeColor = 'white',
 
    isFlipHorizontally,
    isFlipVertically,
    color,
 }) => {
-   const appearance = useAppearance()
-   const resolvedStyleColor = symbolColor === 'custom' ? normalizeHEXColor(color) : undefined
+   const resolvedStyleColor = typeColor === 'custom' ? normalizeHEXColor(color) : undefined
 
    const resolvedTextFlip =
       isFlipHorizontally && isFlipVertically ? 'both' : isFlipHorizontally ? 'h' : isFlipVertically ? 'v' : undefined
 
    return (
       <div
-         className={classNames(
-            'Symbol',
-            `Symbol--appearance-${appearance}`,
-            disabled && 'Symbol--disabled',
-            symbolColor && `Symbol--clr-${symbolColor}`
-         )}
+         className={classNames('Symbol', disabled && 'Symbol--disabled', typeColor && `Symbol--clr-${typeColor}`)}
          style={{ color: resolvedStyleColor }}
       >
          <svg
+            className='Symbol__svg'
             x={0}
             y={0}
             width='100%'

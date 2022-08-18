@@ -1,0 +1,6 @@
+{
+    "NODE_TLS_REJECT_UNAUTHORIZED": 0,
+    "PROXY_PORT": 3000,
+    "app_id": "8233242",
+    "endpoints": ["mobile", "mvk", "web"]
+}

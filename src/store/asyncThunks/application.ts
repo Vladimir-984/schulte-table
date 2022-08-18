@@ -26,3 +26,11 @@ export const setAppearance = createAsyncThunk<IApplicationAppearance, TypeApplic
       }
    }
 )
+
+export const getPromoBannerData = createAsyncThunk('application/getPromoBannerData', async (_, thunkAPI) => {
+   try {
+      const data = ''
+   } catch (e) {
+      return thunkAPI.rejectWithValue(e)
+   }
+})

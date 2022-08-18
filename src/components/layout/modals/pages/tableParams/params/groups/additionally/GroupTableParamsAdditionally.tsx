@@ -15,11 +15,11 @@ export const GroupTableParamsAdditionally: React.FC = () => {
    return (
       <GroupCard
          header={<Header mode='secondary'>Дополнительно</Header>}
-         description={`Изменение порядка недоступно для варианта - "${TABLE_VARIANT[TableVariant.GORBOV]}"`}
+         /*  description={`Изменение порядка недоступно для варианта - "${TABLE_VARIANT[TableVariant.GORBOV]}"`} */
       >
          <CellTableParamsAdditionallySize />
          <Separator wide />
-         <CellTableParamsAdditionallySequence />
+         {/* <CellTableParamsAdditionallySequence /> */}
       </GroupCard>
    )
 }

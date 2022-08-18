@@ -34,7 +34,7 @@ export const ModalRoot: React.FC = () => {
          <ModalPageTableParamsVariant nav={MODAL_PAGES.TABLE_VARIANT} />
          <ModalPageTableParamsMode nav={MODAL_PAGES.TABLE_MODE} />
          <ModalPageTableParamsSize nav={MODAL_PAGES.TABLE_SIZE} />
-         <ModalPageTableParamsSequence nav={MODAL_PAGES.TABLE_SEQUENCE} />
+         {/*   <ModalPageTableParamsSequence nav={MODAL_PAGES.TABLE_SEQUENCE} /> */}
       </VKUIModalRoot>
    )
 }

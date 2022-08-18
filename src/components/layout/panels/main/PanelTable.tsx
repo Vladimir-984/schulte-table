@@ -10,6 +10,7 @@ import { PanelHeaderSeparator } from 'components/ui/PanelHeaderSeparator/PanelHe
 import { TableHeader } from 'components/ui/TableHeader/TableHeader'
 import { VisibilityHidden } from 'components/ui/VisibilityHidden/VisibilityHidden'
 import { useAppSelector } from 'hooks/redux'
+import { TableCellContent } from 'components/ui/TableCellContent/TableCellContent'
 
 export const PanelTable: React.FC<PanelProps> = (panelProps) => {
    const router = useRouter()
@@ -26,22 +27,31 @@ export const PanelTable: React.FC<PanelProps> = (panelProps) => {
             <TableNextValue />
             <TableView />
          </Group>
-         <VisibilityHidden>
+         {/*  <VisibilityHidden>
             <PromoBanner bannerData={defaultPromoBannerData} onClose={() => {}} />
          </VisibilityHidden>
          <FixedLayout vertical='bottom'>
             <PromoBanner bannerData={defaultPromoBannerData} onClose={() => {}} />
-         </FixedLayout>
+         </FixedLayout> */}
       </Panel>
    )
 }
 
 export const TableNextValue = () => {
-   const value = useAppSelector((state) => state.table.activeTable.nextValue)
+   const value = useAppSelector((state) => state.table.active.nextCell)
    return (
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-         <Avatar size={48} mode='app'>
-            <SymbolView value={value} symbolColor='primary' />
+      <div
+         style={{
+            display: 'flex',
+            justifyContent: 'center',
+            position: 'absolute',
+            pointerEvents: 'none',
+            right: 0,
+            left: 0,
+         }}
+      >
+         <Avatar size={48} mode='image'>
+            <TableCellContent {...value} />
          </Avatar>
       </div>
    )

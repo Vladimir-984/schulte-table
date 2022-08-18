@@ -2,9 +2,14 @@ import React from 'react'
 import { Icon24RefreshOutline } from '@vkontakte/icons'
 import { Button } from '@vkontakte/vkui'
 import { BUTTON_ACTIVE_EFFECT_DELAY } from 'constants/constants'
+import { useAppDispatch } from 'hooks/redux'
+import { restart } from 'store/slices/tableSlice'
 
 export const TableHeaderAside: React.FC = () => {
-   const onClickButton = () => {}
+   const dispatch = useAppDispatch()
+   const onClickButton = () => {
+      dispatch(restart())
+   }
    return (
       <Button
          mode='tertiary'

@@ -1,19 +1,20 @@
 import React from 'react'
-import { classNames, Title } from '@vkontakte/vkui'
+import { Title } from '@vkontakte/vkui'
 import { Icon28ClockOutline } from '@vkontakte/icons'
+
+import { useAppSelector } from 'hooks/redux'
 
 import './TableTime.css'
 
 export const TableTime: React.FC = () => {
-   //TODO: брать время старта таблицы
-   const timestampStart = React.useRef(Date.now())
+   const startedAt = useAppSelector((state) => state.table.active.startedAt)
 
    const [time, setTime] = React.useState('')
    const intervalRef = React.useRef<NodeJS.Timer | null>(null)
 
    const updateTime = React.useCallback(() => {
-      setTime(formatTime(timestampStart.current))
-   }, [timestampStart])
+      setTime(formatTime(startedAt))
+   }, [startedAt])
 
    React.useEffect(() => {
       updateTime()
@@ -28,7 +29,7 @@ export const TableTime: React.FC = () => {
    }, [updateTime])
 
    return (
-      <div className={classNames('TableTime')}>
+      <div className={'TableTime'}>
          <Icon28ClockOutline width={24} height={24} className='TableTime__icon' />
          <Title level='2' weight='2' className='TableTime__text'>
             {time}
@@ -37,8 +38,8 @@ export const TableTime: React.FC = () => {
    )
 }
 
-const formatTime = (timestampStart: number) => {
-   const milliseconds = Date.now() - timestampStart
+const formatTime = (timestampStart: number | null) => {
+   const milliseconds = Date.now() - (timestampStart || Date.now())
 
    const secondsPassed = milliseconds / 1000
 

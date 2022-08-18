@@ -27,59 +27,64 @@ export enum TableColor {
    RANDOM = 'random',
 }
 
-export interface ISettingsCells {
-   colorCell: TableColor
-   colorSymdol: TableColor
-
-   markSelectedCells: boolean
-   showErrors: boolean
-}
-
-export interface IMainTableParams {
+export interface ITableParams {
    tableType: TableType
    tableVariant: TableVariant
    tableMode: TableMode
-}
-export interface ICustomTableParams {
    tableSize: number
-   tableSequence: TableSequence
 
    tableIsShuffleCells: boolean
    tableIsFlipHorizontally: boolean
    tableIsFlipVertically: boolean
 }
 
-export interface IT {
-   cells: ICell[]
-   sequence: string[]
+export type TypeOutlineCell = 'primary' | 'secondary'
+export type TypeTappableMode = 'opacity' | 'background'
 
-   tsStart: number
-}
+export type TypeColorCell = TypeRedBlack | 'custom' | 'none'
 
 export interface ICell {
-   id: number
-   sequenceValue: string
-
+   id: string
    symbol: ISymbol
-   disabledTappable: boolean
+   tappableMode?: TypeTappableMode
+   isTappableDisabled?: boolean
+
+   typeOutline?: TypeOutlineCell
+   typeColor?: TypeColorCell
    color?: string
 
    animation?: string
-   /**для какого то супер режима */
-   effect?: string
 }
 
+/**
+ * `primary` - цвет зависит от темы;
+ * `custom` - устанавлиет цвет из `color`;
+ * `white` - для красно-чёрной таблицы;
+ */
+export type TypeColorSymbol = 'primary' | 'white' | 'custom'
+
 export interface ISymbol {
-   id: number
-   disabled: boolean
+   id: string
    value: string
 
+   disabled?: boolean
+   typeColor?: TypeColorSymbol
    color?: string
-   animation?: string
-   /**для какого то режима */
+   // animation?: string
+
    isFlipHorizontally?: boolean
-   /**для какого то режима */
    isFlipVertically?: boolean
 }
 
 export type TypeRedBlack = 'red' | 'black'
+
+//TODO
+const getTypeColor = (modeRedBlack: TypeRedBlack | undefined, color: string | undefined) => {
+   if (!!modeRedBlack) {
+      return 'white'
+   }
+   if (!!color) {
+      return 'custom'
+   }
+   return 'primary'
+}

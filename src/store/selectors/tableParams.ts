@@ -4,7 +4,7 @@ export const selectChangeableTableType = (state: RootState) => state.tableParams
 export const selectChangeableTableVariant = (state: RootState) => state.tableParams.changeableParams.tableVariant
 export const selectChangeableTableMode = (state: RootState) => state.tableParams.changeableParams.tableMode
 export const selectChangeableTableSize = (state: RootState) => state.tableParams.changeableParams.tableSize
-export const selectChangeableTableSequence = (state: RootState) => state.tableParams.changeableParams.tableSequence
+// export const selectChangeableTableSequence = (state: RootState) => state.tableParams.changeableParams.tableSequence
 
 export const selectChangeableTableIsShuffleCells = (state: RootState) =>
    state.tableParams.changeableParams.tableIsShuffleCells

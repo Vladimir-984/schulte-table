@@ -1,4 +1,4 @@
-import { ICustomTableParams, IMainTableParams, TableMode, TableSequence, TableType, TableVariant } from 'types/table'
+import { ITableParams, TableMode, TableType, TableVariant } from 'types/table'
 import { randomSort } from 'utils/array'
 const GORBOV_MODIFIER_BLACK = '+'
 const GROBOV_MODIFIER_RED = '-'
@@ -426,38 +426,13 @@ export const resolveTableSize = (tableMode: TableMode, tableSize: number) => {
    }
 }
 
-export const resolveTableSequence = (
-   tableMode: TableMode,
-   tableVariant: TableVariant,
-   tableSequence: TableSequence
-) => {
-   switch (tableMode) {
-      case TableMode.CLASSIC: {
-         return TableSequence.DEFAULT
-      }
-      case TableMode.HARD: {
-         if (tableVariant !== TableVariant.GORBOV) return TableSequence.RANDOM
-         return TableSequence.DEFAULT
-      }
-      case TableMode.CUSTOM: {
-         if (tableVariant !== TableVariant.GORBOV) return tableSequence
-         return TableSequence.DEFAULT
-      }
-   }
-}
+interface IResolveSizeTableParams extends Pick<ITableParams, 'tableSize' | 'tableVariant' | 'tableMode'> {}
 
-interface IResolveSequenceAndSizeTableParams
-   extends Pick<IMainTableParams, 'tableVariant' | 'tableMode'>,
-      Pick<ICustomTableParams, 'tableSize' | 'tableSequence'> {}
+interface IResolvedSizeTable extends Pick<ITableParams, 'tableSize'> {}
 
-interface IResolvedSequenceAndSizeTable extends Pick<ICustomTableParams, 'tableSize' | 'tableSequence'> {}
-
-export const resolveSequenceAndSizeTable = (
-   params: IResolveSequenceAndSizeTableParams
-): IResolvedSequenceAndSizeTable => {
-   const resolvedParams: IResolvedSequenceAndSizeTable = {
+export const resolveSequenceAndSizeTable = (params: IResolveSizeTableParams): IResolvedSizeTable => {
+   const resolvedParams: IResolvedSizeTable = {
       tableSize: resolveTableSize(params.tableMode, params.tableSize),
-      tableSequence: resolveTableSequence(params.tableMode, params.tableVariant, params.tableSequence),
    }
 
    return resolvedParams

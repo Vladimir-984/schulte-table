@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { applyTableParams, getTableParams } from 'store/asyncThunks/tableParams'
 import { IListItem } from 'types/list'
-import { ICustomTableParams, IMainTableParams, TableMode, TableSequence, TableType, TableVariant } from 'types/table'
+import { ITableParams, TableMode, TableType, TableVariant } from 'types/table'
 
 export const getSizeWithX = (size: number) => `${size}x${size}`
 
@@ -19,13 +19,10 @@ export const defaultTableParams: ITableParams = {
    tableMode: TableMode.CLASSIC,
 
    tableSize: 5,
-   tableSequence: TableSequence.DEFAULT,
    tableIsFlipHorizontally: false,
    tableIsFlipVertically: false,
    tableIsShuffleCells: false,
 }
-
-export interface ITableParams extends IMainTableParams, ICustomTableParams {}
 
 interface ITableParamsState {
    currentParams: ITableParams
@@ -55,10 +52,6 @@ const tableParamsSlice = createSlice({
       },
       setTableParamsVariant: (state, action: PayloadAction<TableVariant>) => {
          state.changeableParams.tableVariant = action.payload
-
-         if (state.changeableParams.tableSequence !== TableSequence.DEFAULT) {
-            state.changeableParams.tableSequence = TableSequence.DEFAULT
-         }
       },
 
       setTableParamsMode: (state, action: PayloadAction<TableMode>) => {
@@ -73,11 +66,6 @@ const tableParamsSlice = createSlice({
 
       setTableParamsSize: (state, action: PayloadAction<number>) => {
          state.changeableParams.tableSize = action.payload
-      },
-      setTableParamsSequence: (state, action: PayloadAction<TableSequence>) => {
-         // if(false){}
-
-         state.changeableParams.tableSequence = action.payload
       },
 
       setTableParamsIsFlipHorizontally: (state, action: PayloadAction<boolean>) => {
@@ -112,7 +100,6 @@ export const {
    setTableParamsIsFlipVertically,
    setTableParamsIsShuffleCells,
    setTableParamsMode,
-   setTableParamsSequence,
    setTableParamsSize,
    setTableParamsType,
    setTableParamsVariant,

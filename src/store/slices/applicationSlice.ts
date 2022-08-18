@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppearanceType, ParentConfigData } from '@vkontakte/vk-bridge'
 import { VKWebAppSetViewSettings } from 'API/bridge'
 import { setAppearance } from 'store/asyncThunks/application'
+import { PromoBannerData } from 'types/vkui'
 
 interface ISettingsNotifications {}
 
@@ -22,6 +23,8 @@ interface ISettingsApp {
 
 interface IApplicationState extends ISettingsApp {
    config: ParentConfigData
+
+   promoBannerData: PromoBannerData
 }
 
 const initialState: IApplicationState = {
@@ -35,6 +38,7 @@ const initialState: IApplicationState = {
    notifications: {},
 
    config: {} as ParentConfigData,
+   promoBannerData: {},
 }
 
 const applicationSlice = createSlice({

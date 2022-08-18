@@ -1,9 +1,8 @@
 import React from 'react'
 import { classNames } from '@vkontakte/vkui'
 
-import { TableColor, TableVariant } from 'types/table'
+import { ITableParams, TableColor, TableVariant } from 'types/table'
 import { TableCellView } from '../TableCellView/TableCellView'
-import { ITableParams } from 'store/slices/tableParamsSlice'
 
 import './TableView.css'
 import { useAppSelector } from 'hooks/redux'
@@ -11,7 +10,8 @@ import { useAppSelector } from 'hooks/redux'
 interface TableViewProps extends Partial<Pick<ITableParams, 'tableSize'>> {}
 
 export const TableView: React.FC<TableViewProps> = ({}) => {
-   const { tableSize, cells } = useAppSelector((state) => state.table.activeTable)
+   const cells = useAppSelector((state) => state.table.active.cells)
+   const tableSize = useAppSelector((state) => state.table.params.tableSize)
    return (
       <div className={classNames('TableView')}>
          <div className='TableView__in'>
@@ -23,7 +23,7 @@ export const TableView: React.FC<TableViewProps> = ({}) => {
                }}
             >
                {cells.map((cell) => (
-                  <TableCellView key={`cell--${cell.id}`} {...cell} />
+                  <TableCellView key={cell.id} {...cell} />
                ))}
             </div>
          </div>

@@ -2,9 +2,11 @@
    padding: 0 var(--vkui--size_base_padding_horizontal--regular, 12px);
    position: relative;
 
-   margin-bottom: auto;
-   margin-top: auto;
+   /* margin-bottom: auto;
+   margin-top: auto; */
+   margin: auto;
 
+   max-width: 400px;
    width: 100%;
    box-sizing: border-box;
 }
