@@ -66,6 +66,7 @@ export type TypeColorSymbol = 'primary' | 'white' | 'custom'
 export interface ISymbol {
    id: string
    value: string
+   sequenceItemIdx: number
 
    disabled?: boolean
    typeColor?: TypeColorSymbol

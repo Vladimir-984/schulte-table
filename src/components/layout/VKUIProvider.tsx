@@ -34,6 +34,10 @@ export const VKUIProvider: React.FC = ({ children }) => {
       return () => bridge.unsubscribe(listener)
    }, [listener])
 
+   // React.useEffect(() => {
+   //    document.addEventListener('click', (e) => console.log(e))
+   // }, [])
+
    return (
       <ConfigProvider
          webviewType={WebviewType.VKAPPS}

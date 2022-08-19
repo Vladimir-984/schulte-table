@@ -1,11 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { VKWebAppTapticImpactOccurred } from 'API/bridge'
 import { TableMode, TableType, TableVariant, ICell, ITableParams } from 'types/table'
 import { randomSort } from 'utils/array'
 import { getRandomColor } from 'utils/color'
 
 type TypeTableCompletedStatus = 'done' | 'terminated' | 'closed' | null
 
-interface INextCell extends Pick<ICell, 'id' | 'typeColor' | 'color' | 'symbol'> {}
+interface INextCell extends Required<Pick<ICell, 'id' | 'symbol'>>, Pick<ICell, 'color' | 'typeColor'> {
+   // sequenceItemIdx: number
+}
 
 interface IActiveTable {
    nextCell: INextCell
@@ -27,7 +30,7 @@ interface IActiveTable {
 type TypeCellClickAction = 'ok' | 'mistake' | 'repeated'
 
 interface ICellClick {
-   cellId: string
+   cell: ICell
    action: TypeCellClickAction
    ts: number
 }
@@ -41,7 +44,7 @@ interface IHintCell {
 
 interface ITableState {
    active: IActiveTable
-   params: ITableParams
+   options: ITableParams
 }
 
 const initialState: ITableState = {
@@ -50,12 +53,12 @@ const initialState: ITableState = {
       cells: [],
       cellClicks: [],
       cellHints: [],
-      nextCell: { id: '1', symbol: { id: '1', value: '' } },
+      nextCell: { id: '1', symbol: { id: '1', value: '', sequenceItemIdx: 0 } },
       startedAt: null,
       completedAt: null,
       completedStatus: null,
    },
-   params: {
+   options: {
       tableType: TableType.NUMBERS,
       tableVariant: TableVariant.STANDARD,
       tableMode: TableMode.CLASSIC,
@@ -90,6 +93,7 @@ const tableSlice = createSlice({
                   id: `symbol--id--${v}`,
                   disabled: false,
                   value: v,
+                  sequenceItemIdx: idx,
                   // color: getRandomColor(),
                   typeColor: 'primary',
                },
@@ -97,33 +101,42 @@ const tableSlice = createSlice({
             return cell
          })
 
-         state.active.nextCell = cells[0]
+         const cell: ICell = { ...cells[0] }
+         const symbol = { ...cell.symbol }
+         const nextCell = { ...cell, symbol }
+
+         state.active.nextCell = nextCell
+
+         // cells[0].symbol.value = '22'
+         // cell.symbol.isFlipVertically = true
 
          state.active.cells = cells.sort(randomSort)
          state.active.sequence = sequence
          state.active.startedAt = Date.now()
 
-         state.params.tableSize = size
+         state.options.tableSize = size
          if (size < 7) {
             size++
          }
       },
       clickCell: (state, action: PayloadAction<string>) => {
-         //payload == cell.id
-         const cell = state.active.cells.find((c) => c.id === action.payload)
+         const cellId = action.payload
+         const cell = state.active.cells.find((c) => c.id === cellId)
          if (!cell) return
 
+         const clickCell: ICell = { ...cell }
+         const symbol = { ...cell.symbol }
+
          const click: ICellClick = {
-            cellId: cell.id,
+            cell: { ...clickCell, symbol },
             ts: Date.now(),
             action: 'ok',
          }
 
-         if (state.active.nextCell.id === cell.id) {
-            const currentSeqIdx = state.active.sequence.findIndex((s) => s === state.active.nextCell.symbol.value)
-            const nextSeqValue = state.active.sequence[currentSeqIdx + 1]
+         if (state.active.nextCell.id === cellId) {
+            const nextSeqIdx = cell.symbol.sequenceItemIdx + 1
+            const nextCell = state.active.cells.find((c) => c.symbol.sequenceItemIdx === nextSeqIdx)
 
-            const nextCell = state.active.cells.find((c) => c.symbol.value === nextSeqValue)
             cell.isTappableDisabled = true
             cell.symbol.disabled = true
 
@@ -135,35 +148,14 @@ const tableSlice = createSlice({
                   symbol: nextCell.symbol,
                }
             }
-         } else if (state.active.cellClicks.findIndex((cl) => cl.cellId === click.cellId) !== -1) {
+
+            VKWebAppTapticImpactOccurred()
+         } else if (state.active.cellClicks.findIndex((cl) => cl.cell.id === cellId) !== -1) {
             click.action = 'repeated'
          } else {
             click.action = 'mistake'
          }
          state.active.cellClicks.push(click)
-         /*      const cellIdx = state.active.cells.findIndex((c) => c.sequenceValue === action.payload)
-         if (cellIdx === -1) return
-         const cell = state.active.cells[cellIdx]
-
-         const value = state.active.nextValue.sequenceValue
-
-         if (cell.sequenceValue === value) {
-            cell.disabledTappable = true
-            cell.symbol.disabled = true
-            const currentSeqIdx = state.active.sequence.findIndex((s) => s === value)
-
-            const nextSequenceValue = state.active.sequence[currentSeqIdx + 1]
-            const next = state.active.cells.find((c) => c.sequenceValue === nextSequenceValue)
-            if (next !== undefined) {
-               state.active.nextValue = next
-            }
-            // state.activeTable.cells.sort(randomSort)
-         } else if (cell.disabledTappable) {
-            click.action = 'repeated'
-         } else {
-            click.action = 'mistake'
-         }
-         state.active.cellClicks.push(click) */
       },
    },
    extraReducers: (builder) => {

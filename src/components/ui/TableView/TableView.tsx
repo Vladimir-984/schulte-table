@@ -11,7 +11,7 @@ interface TableViewProps extends Partial<Pick<ITableParams, 'tableSize'>> {}
 
 export const TableView: React.FC<TableViewProps> = ({}) => {
    const cells = useAppSelector((state) => state.table.active.cells)
-   const tableSize = useAppSelector((state) => state.table.params.tableSize)
+   const tableSize = useAppSelector((state) => state.table.options.tableSize)
    return (
       <div className={classNames('TableView')}>
          <div className='TableView__in'>
