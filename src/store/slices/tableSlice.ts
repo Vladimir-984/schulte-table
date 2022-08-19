@@ -4,6 +4,8 @@ import { TableMode, TableType, TableVariant, ICell, ITableParams } from 'types/t
 import { randomSort } from 'utils/array'
 import { getRandomColor } from 'utils/color'
 
+import cloneDeep from 'lodash/cloneDeep'
+
 type TypeTableCompletedStatus = 'done' | 'terminated' | 'closed' | null
 
 interface INextCell extends Required<Pick<ICell, 'id' | 'symbol'>>, Pick<ICell, 'color' | 'typeColor'> {
@@ -101,14 +103,7 @@ const tableSlice = createSlice({
             return cell
          })
 
-         const cell: ICell = { ...cells[0] }
-         const symbol = { ...cell.symbol }
-         const nextCell = { ...cell, symbol }
-
-         state.active.nextCell = nextCell
-
-         // cells[0].symbol.value = '22'
-         // cell.symbol.isFlipVertically = true
+         state.active.nextCell = cloneDeep(cells[0])
 
          state.active.cells = cells.sort(randomSort)
          state.active.sequence = sequence
@@ -124,11 +119,8 @@ const tableSlice = createSlice({
          const cell = state.active.cells.find((c) => c.id === cellId)
          if (!cell) return
 
-         const clickCell: ICell = { ...cell }
-         const symbol = { ...cell.symbol }
-
          const click: ICellClick = {
-            cell: { ...clickCell, symbol },
+            cell: cloneDeep(cell),
             ts: Date.now(),
             action: 'ok',
          }
@@ -141,20 +133,17 @@ const tableSlice = createSlice({
             cell.symbol.disabled = true
 
             if (nextCell) {
-               state.active.nextCell = {
-                  id: nextCell.id,
-                  color: nextCell.color,
-                  typeColor: nextCell.typeColor,
-                  symbol: nextCell.symbol,
-               }
+               state.active.nextCell = cloneDeep(nextCell)
             }
 
             VKWebAppTapticImpactOccurred()
-         } else if (state.active.cellClicks.findIndex((cl) => cl.cell.id === cellId) !== -1) {
+         } else if (state.active.cellClicks.findIndex((click) => click.cell.id === cellId) !== -1) {
             click.action = 'repeated'
          } else {
             click.action = 'mistake'
          }
+         // console.log(click.ts - (state.active.cellClicks.at(-1)?.ts as any as number))
+
          state.active.cellClicks.push(click)
       },
    },
