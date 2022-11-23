@@ -49,7 +49,7 @@ const ButtonStart = () => {
 
    const onClickTableParams: React.MouseEventHandler = (e) => {
       e.stopPropagation()
-      router.pushModal(MODAL_PAGES.TABLE_PARAMS)
+      router.pushModal(MODAL_PAGES.TABLE_OPTIONS)
    }
 
    return (

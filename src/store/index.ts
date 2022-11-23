@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { applicationReducer } from './slices/applicationSlice'
-import { tableParamsReducer } from './slices/tableParamsSlice'
+import { tableOptionsReducer } from './slices/tableOptions'
 import { tableSettingsReducer } from './slices/tableSettingsSlice'
 import { tableReducer } from './slices/tableSlice'
 
 export const store = configureStore({
    reducer: {
       application: applicationReducer,
-      tableParams: tableParamsReducer,
+      tableOptions: tableOptionsReducer,
       table: tableReducer,
       tableSettings: tableSettingsReducer,
    },

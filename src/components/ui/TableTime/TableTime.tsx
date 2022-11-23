@@ -8,7 +8,21 @@ import './TableTime.css'
 
 export const TableTime: React.FC = () => {
    const startedAt = useAppSelector((state) => state.table.active.startedAt)
+   const completedAt = useAppSelector((state) => state.table.active.completedAt)
 
+   const time = useStopwatch(startedAt, completedAt)
+
+   return (
+      <div className={'TableTime'}>
+         <Icon28ClockOutline width={24} height={24} className='TableTime__icon' />
+         <Title level='2' weight='2' className='TableTime__text'>
+            {time}
+         </Title>
+      </div>
+   )
+}
+
+const useStopwatch = (startedAt: number | null, completedAt: number | null) => {
    const [time, setTime] = React.useState('')
    const intervalRef = React.useRef<NodeJS.Timer | null>(null)
 
@@ -28,14 +42,15 @@ export const TableTime: React.FC = () => {
       }
    }, [updateTime])
 
-   return (
-      <div className={'TableTime'}>
-         <Icon28ClockOutline width={24} height={24} className='TableTime__icon' />
-         <Title level='2' weight='2' className='TableTime__text'>
-            {time}
-         </Title>
-      </div>
-   )
+   React.useEffect(() => {
+      if (completedAt !== null) {
+         if (intervalRef.current !== null) {
+            clearInterval(intervalRef.current)
+         }
+      }
+   }, [startedAt, completedAt])
+
+   return time
 }
 
 const formatTime = (timestampStart: number | null) => {

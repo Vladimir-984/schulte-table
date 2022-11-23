@@ -29,7 +29,7 @@ interface IApplicationState extends ISettingsApp {
 
 const initialState: IApplicationState = {
    isOnline: navigator.onLine,
-   sound: true,
+   sound: false,
    vibration: true,
    appearance: {
       value: 'light',

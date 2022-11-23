@@ -1,27 +1,27 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { TableHintsStyle } from 'lists'
-import { TableColor } from 'types/table'
 
-export interface ITableSettingsState {
-   colorCell: TableColor
-   colorSymbol: TableColor
-   isMarkSelectedCells: boolean
-   isShowMistakes: boolean
+export interface ITableSettingsDisplayState {
+   isShowTime: boolean
 
+   isShowCorrect: boolean
+   //Анимация, если не та ячейка
+   isShowMistakes?: boolean
+}
+// isTerminateOnWrongPress?: boolean
+
+export interface ITableSettingsHintsState {
    isEnabledHints: boolean
    hintsTimeout: number
    hintsStyle: TableHintsStyle
-
-   //
-   isShowTime?: boolean
-   isShowNextValue?: boolean
-   isTerminateOnWrong?: boolean
 }
 
+export interface ITableSettingsState extends ITableSettingsDisplayState, ITableSettingsHintsState {}
+
 const initialState: ITableSettingsState = {
-   colorCell: TableColor.DEFAULT,
-   colorSymbol: TableColor.DEFAULT,
-   isMarkSelectedCells: true,
+   isShowTime: true,
+
+   isShowCorrect: true,
    isShowMistakes: true,
 
    isEnabledHints: false,
@@ -33,16 +33,10 @@ const tableSettingsSlice = createSlice({
    name: 'tableSettings',
    initialState,
    reducers: {
-      setColorCell: (state, action: PayloadAction<TableColor>) => {
-         state.colorCell = action.payload
+      setIsShowCorrect: (state, action: PayloadAction<boolean>) => {
+         state.isShowCorrect = action.payload
       },
-      setColorSymbol: (state, action: PayloadAction<TableColor>) => {
-         state.colorSymbol = action.payload
-      },
-      setMarkSelectedCells: (state, action: PayloadAction<boolean>) => {
-         state.isMarkSelectedCells = action.payload
-      },
-      setShowMistakes: (state, action: PayloadAction<boolean>) => {
+      setIsShowMistakes: (state, action: PayloadAction<boolean>) => {
          state.isShowMistakes = action.payload
       },
 
@@ -59,12 +53,9 @@ const tableSettingsSlice = createSlice({
       setShowTime: (state, action: PayloadAction<boolean>) => {
          state.isShowTime = action.payload
       },
-      setShowNextValue: (state, action: PayloadAction<boolean>) => {
-         state.isShowNextValue = action.payload
-      },
-      setTerminateOnWrong: (state, action: PayloadAction<boolean>) => {
-         state.isTerminateOnWrong = action.payload
-      },
+      // setTerminateOnWrong: (state, action: PayloadAction<boolean>) => {
+      //    state.isTerminateOnWrong = action.payload
+      // },
    },
    /*   extraReducers: builder => {
       builder.addCase(getCellsSettings.pending, (state, action) => {});
@@ -72,13 +63,6 @@ const tableSettingsSlice = createSlice({
       builder.addCase(getCellsSettings.rejected, (state, action) => {});
     } */
 })
-export const {
-   setEnabledHints,
-   setHintsTimeout,
-   setHintsStyle,
-   setColorCell,
-   setColorSymbol,
-   setMarkSelectedCells,
-   setShowMistakes,
-} = tableSettingsSlice.actions
+export const { setEnabledHints, setHintsTimeout, setHintsStyle, setIsShowCorrect, setIsShowMistakes, setShowTime } =
+   tableSettingsSlice.actions
 export const tableSettingsReducer = tableSettingsSlice.reducer

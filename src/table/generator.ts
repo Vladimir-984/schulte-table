@@ -1,4 +1,4 @@
-import { ITableParams, TableMode, TableType, TableVariant } from 'types/table'
+import { IMainTableOptions } from 'types/table'
 import { randomSort } from 'utils/array'
 const GORBOV_MODIFIER_BLACK = '+'
 const GROBOV_MODIFIER_RED = '-'
@@ -59,18 +59,6 @@ const CHARS = {
    // LATIN_SMALL: [] as string[],
 }
 
-const fillChars = () => {
-   const max = MAX_TABLE_SIZE ** 2
-   const chars = []
-
-   for (let i = 1; i <= max; ++i) {
-      chars.push(String(i))
-   }
-
-   CHARS.ARABIC_NUMERALS = chars
-}
-
-fillChars()
 const localeCompare = (a: string, b: string) => a.localeCompare(b, 'ru')
 
 const equalLowerUpperCase = (a: string) => a.toLowerCase() === a.toUpperCase()
@@ -141,76 +129,6 @@ const getcharsFromUnicodeCodeRange = (
    return chars
 }
 
-const fillCyrillic = () => {
-   const chars = getcharsFromUnicodeCodeRange(CYRILLIC_CAPITAL_ALPHABET, {
-      includeCodes: CYRILLIC_CAPITAL_ALPHABET_INCLUDE,
-      letterCase: 'CAPITAL',
-   })
-   chars.sort(localeCompare)
-   CHARS.CYRILLIC_CAPITAL_ALPHABET = chars
-   const charsAdd = getcharsFromUnicodeCodeRange(CYRILLIC_CAPITAL_ADDITIONAL, {
-      excludeCodes: CYRILLIC_CAPITAL_ALPHABET_INCLUDE,
-      letterCase: 'CAPITAL',
-   })
-   charsAdd.sort(localeCompare)
-   console.log(charsAdd)
-   const charsSmall = getcharsFromUnicodeCodeRange(CYRILLIC_SMALL_ALPHABET, {
-      includeCodes: CYRILLIC_SMALL_ALPHABET_INCLUDE,
-      letterCase: 'CAPITAL',
-   })
-   charsSmall.sort(localeCompare)
-   CHARS.CYRILLIC_SMALL_ALPHABET = charsSmall
-   return CHARS.CYRILLIC_CAPITAL_ALPHABET
-}
-fillCyrillic()
-const fillCyrillicAdd = () => {
-   CHARS.CYRILLIC_CAPITAL_ADDITIONAL = getcharsFromUnicodeCodeRange(CYRILLIC_CAPITAL_ADDITIONAL_1, {
-      letterCase: 'CAPITAL',
-   })
-      .concat(
-         getcharsFromUnicodeCodeRange(CYRILLIC_CAPITAL_ADDITIONAL_2, {
-            letterCase: 'CAPITAL',
-         })
-      )
-      .concat(
-         getcharsFromUnicodeCodeRange(CYRILLIC_CAPITAL_ADDITIONAL_3, {
-            letterCase: 'CAPITAL',
-         })
-      )
-      .concat(
-         getcharsFromUnicodeCodeRange(CYRILLIC_CAPITAL_ADDITIONAL_4, {
-            letterCase: 'CAPITAL',
-         })
-      )
-      .concat(
-         getcharsFromUnicodeCodeRange(CYRILLIC_CAPITAL_ADDITIONAL, {
-            letterCase: 'CAPITAL',
-            excludeCodes: CYRILLIC_CAPITAL_ALPHABET_INCLUDE,
-         })
-      )
-      .sort(localeCompare)
-   return CHARS.CYRILLIC_CAPITAL_ADDITIONAL
-}
-fillCyrillicAdd()
-const fillCyrillicExt = () => {
-   CHARS.CYRILLIC_CAPITAL_EXTENDED = getcharsFromUnicodeCodeRange(CYRILLIC_CAPITAL_EXTENDED_B_1, {
-      letterCase: 'CAPITAL',
-   }).concat(
-      getcharsFromUnicodeCodeRange(CYRILLIC_CAPITAL_EXTENDED_B_2, {
-         letterCase: 'CAPITAL',
-      })
-   )
-   return CHARS.CYRILLIC_CAPITAL_EXTENDED
-}
-fillCyrillicExt()
-const fillCyrillicSupl = () => {
-   CHARS.CYRILLIC_CAPITAL_SUPPLEMENT = getcharsFromUnicodeCodeRange(CYRILLIC_CAPITAL_SUPPLEMENT, {
-      letterCase: 'CAPITAL',
-   })
-   return CHARS.CYRILLIC_CAPITAL_SUPPLEMENT
-}
-fillCyrillicSupl()
-
 export const getEmptyFilledArray = (length: number): string[] => {
    return Array<string>(length).fill('')
 }
@@ -221,15 +139,15 @@ export const shuffleArray = <T>(arr: Array<T>) => {
 
 export const getSizeWithX = (size: number) => `${size}x${size}`
 
-export const getMaxSize = (tableType: TableType): number => {
+export const getMaxSize = (tableType: string): number => {
    switch (tableType) {
-      case TableType.NUMBERS: {
+      case 'TableType.NUMBERS': {
          return 21
       }
-      case TableType.LATIN: {
+      case 'TableType.LATIN': {
          break
       }
-      case TableType.CYRILLIC: {
+      case 'TableType.CYRILLIC': {
          break
       }
       default: {
@@ -242,15 +160,12 @@ export const getMaxSize = (tableType: TableType): number => {
 
 interface IGenerateSequenceParams {
    length: number
-   tableType: TableType
-   tableVariant: TableVariant
+   tableType: string
 }
 
 export const generateSequence = (params: IGenerateSequenceParams) => {
    const generator = new SequenceGenerator({
       length: params.length,
-      tableType: params.tableType,
-      tableVariant: params.tableVariant,
    })
    generator.generate()
 
@@ -308,32 +223,19 @@ function romanize(num: number) {
    return Array(+digits.join('') + 1).join('M') + roman
 }
 
-export const LetterCase = {
-   [CAPITAL_CASE]: CAPITAL_CASE,
-   [SMALL_CASE]: SMALL_CASE,
-}
-
 interface ISequenceGeneratorProps {
    length: number
-   tableType: TableType
-   tableVariant: TableVariant
-   startsWithLetterCase?: keyof typeof LetterCase
 }
 
 class SequenceGenerator {
    private chars: string[] = []
    sequence: string[]
 
-   private type: TableType
-   private variant: TableVariant
    private length: number
-   private startsWithLetterCase: keyof typeof LetterCase
 
    constructor(props: ISequenceGeneratorProps) {
       this.length = props.length
-      this.startsWithLetterCase = props.startsWithLetterCase || 'CAPITAL'
-      this.type = props.tableType
-      this.variant = props.tableVariant
+
       this.sequence = getEmptyFilledArray(props.length)
 
       this.chars = CHARS.ARABIC_NUMERALS
@@ -381,27 +283,7 @@ class SequenceGenerator {
 
    private fillSequencePlatonov() {}
 
-   public generate() {
-      switch (this.variant) {
-         case TableVariant.STANDARD: {
-            this.fillSequenceStandard()
-            break
-         }
-         case TableVariant.GORBOV: {
-            this.fillSequenceGorbov()
-            break
-         }
-         /*  case TableVariant.PLATONOV: {
-            this.fillSequencePlatonov()
-            break
-         } */
-         default: {
-            throw new Error('Некорректный вариант')
-         }
-      }
-      return this.sequence
-      // this.shuffle()
-   }
+   public generate() {}
 
    public shuffle() {
       return this.sequence.sort(randomSort)
@@ -411,29 +293,14 @@ class SequenceGenerator {
    }
 }
 
-//resolvers
-export const resolveTableSize = (tableMode: TableMode, tableSize: number) => {
-   switch (tableMode) {
-      case TableMode.CLASSIC: {
-         return CLASSIC_MODE_SIZE
-      }
-      case TableMode.HARD: {
-         return HARD_MODE_SIZE
-      }
-      default: {
-         return tableSize
-      }
-   }
-}
+// interface IResolveSizeTableParams extends Pick<ITableParams, 'tableSize' | 'tableVariant' | 'tableMode'> {}
 
-interface IResolveSizeTableParams extends Pick<ITableParams, 'tableSize' | 'tableVariant' | 'tableMode'> {}
+// interface IResolvedSizeTable extends Pick<ITableParams, 'tableSize'> {}
 
-interface IResolvedSizeTable extends Pick<ITableParams, 'tableSize'> {}
+// export const resolveSequenceAndSizeTable = (params: IResolveSizeTableParams): IResolvedSizeTable => {
+//    const resolvedParams: IResolvedSizeTable = {
+//       tableSize: resolveTableSize(params.tableMode, params.tableSize),
+//    }
 
-export const resolveSequenceAndSizeTable = (params: IResolveSizeTableParams): IResolvedSizeTable => {
-   const resolvedParams: IResolvedSizeTable = {
-      tableSize: resolveTableSize(params.tableMode, params.tableSize),
-   }
-
-   return resolvedParams
-}
+//    return resolvedParams
+// }

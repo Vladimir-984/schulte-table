@@ -10,12 +10,9 @@ import { PanelSettingsAppearance } from '../panels/options/settingsAppearacne/Pa
 import { PanelSettingsHints } from '../panels/options/settingsHints/PanelSettingsHints'
 import { PanelSettingsHintsTimeout } from '../panels/options/settingsHintsTimeout/PanelSettingsHintsTimeout'
 import { PanelSettingsHintsStyle } from '../panels/options/settingsHintsStyle/PanelSettingsHintsStyle'
-import { PanelSettingsCells } from '../panels/options/settingsCells/PanelSettingsCells'
 import { PanelAbout } from '../panels/options/about/PanelAbout'
 import { PanelHelp } from '../panels/options/help/PanelHelp'
 import { PanelSettingsTableDisplay } from '../panels/options/settingsTableDisplay/PanelSettingsTableDisplay'
-import { PanelSettingsCellsColorCell } from '../panels/options/settingsCellsColorCell/PanelSettingsCellsColorCell'
-import { PanelSettingsCellsColorSymbol } from '../panels/options/settingsCellsColorSymbol/PanelSettingsCellsColorSymbol'
 
 export const ViewOptions: React.FC<NavProp> = ({ nav }) => {
    const location = useLocation()
@@ -32,10 +29,6 @@ export const ViewOptions: React.FC<NavProp> = ({ nav }) => {
          <PanelSettingsHints nav={PANELS.SETTINGS_HINTS} />
          <PanelSettingsHintsTimeout nav={PANELS.SETTINGS_HINTS_TIMEOUT} />
          <PanelSettingsHintsStyle nav={PANELS.SETTINGS_HINTS_STYLE} />
-
-         <PanelSettingsCells nav={PANELS.SETTINGS_CELLS} />
-         <PanelSettingsCellsColorCell nav={PANELS.SETTINGS_CELLS_COLOR_CELL} />
-         <PanelSettingsCellsColorSymbol nav={PANELS.SETTINGS_CELLS_COLOR_SYMBOL} />
 
          <PanelAbout nav={PANELS.ABOUT} />
          <PanelHelp nav={PANELS.HELP} />

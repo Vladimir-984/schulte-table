@@ -1,14 +1,13 @@
 import React from 'react'
 import { useRouter } from '@happysanta/router'
-import { Avatar, FixedLayout, Group, Panel, PanelHeaderBack, PanelProps, PromoBanner } from '@vkontakte/vkui'
+import { Avatar, Group, Panel, PanelHeaderBack, PanelProps } from '@vkontakte/vkui'
 
 import { TableView } from 'components/ui/TableView/TableView'
-import { defaultPromoBannerData } from 'utils/vkui'
+import {} from 'utils/vkui'
 
-import { SymbolView } from 'components/ui/SymbolView/SymbolView'
 import { PanelHeaderSeparator } from 'components/ui/PanelHeaderSeparator/PanelHeaderSeparator'
 import { TableHeader } from 'components/ui/TableHeader/TableHeader'
-import { VisibilityHidden } from 'components/ui/VisibilityHidden/VisibilityHidden'
+import {} from 'components/ui/VisibilityHidden/VisibilityHidden'
 import { useAppSelector } from 'hooks/redux'
 import { TableCellContent } from 'components/ui/TableCellContent/TableCellContent'
 
@@ -38,7 +37,7 @@ export const PanelTable: React.FC<PanelProps> = (panelProps) => {
 }
 
 export const TableNextValue = () => {
-   const value = useAppSelector((state) => state.table.active.nextCell)
+   const nextSequenceCell = useAppSelector((state) => state.table.active.nextSequenceCell)
    return (
       <div
          style={{
@@ -51,7 +50,7 @@ export const TableNextValue = () => {
          }}
       >
          <Avatar size={48} mode='image'>
-            <TableCellContent {...value} />
+            {nextSequenceCell !== null && <TableCellContent {...nextSequenceCell} />}
          </Avatar>
       </div>
    )

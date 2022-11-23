@@ -6,6 +6,11 @@
    display: none;
 }
 
+.vkuiTappable[aria-disabled='true'] .vkuiSwitch,
+.vkuiTappable[disabled] .vkuiSwitch {
+   pointer-events: auto;
+}
+
 .vkuiButton.Button--round {
    border-radius: 500px;
 }

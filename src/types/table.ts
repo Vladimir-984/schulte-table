@@ -1,42 +1,71 @@
-export enum TableType {
-   NUMBERS = 'numbers',
-   CYRILLIC = 'cyrillic',
-   LATIN = 'latin',
+export type TypeCaseGroupOfSymbols = 'all' | 'small' | 'capital'
+export type TypeRange = [string, string]
+
+export interface IGroupOfSymbols {
+   id: string
+   typeId: string
+   name: string
+   description?: string
+   range: TypeRange
+   case: TypeCaseGroupOfSymbols
+   unicodeVersion: string
+}
+
+export interface ITableType {
+   id: string
+   name: string
+   title: string
+}
+
+export interface ITableVariant {
+   id: string
+   name: string
+   title: string
+   description?: string
+}
+export interface ITableMode {
+   id: string
+   name: string
+   title: string
+   description?: string
+}
+
+export interface IAdditionalTableOptionsOfMode extends IAdditionalTableOptions {
+   id: string
+   modeId: string
 }
 
 /**возрастающем порядке черные числа, и в убывающем порядке красные */
-export enum TableVariant {
+enum TableVariant {
    STANDARD = 'standard',
    GORBOV = 'gorbov',
    // PLATONOV = 'platonov',
 }
-export enum TableMode {
-   CLASSIC = 'classic',
-   HARD = 'hard',
-   CUSTOM = 'custom',
-}
-
 export enum TableSequence {
    DEFAULT = 'default',
    RIGHT = 'right',
    RANDOM = 'random',
 }
 
-export enum TableColor {
-   DEFAULT = 'default',
-   RANDOM = 'random',
+export interface IMainTableOptions {
+   type: ITableType
+   variant: ITableVariant
+   mode: ITableMode
 }
+export interface IAdditionalTableOptions {
+   size: number
 
-export interface ITableParams {
-   tableType: TableType
-   tableVariant: TableVariant
-   tableMode: TableMode
-   tableSize: number
+   isColoredSymbols: boolean
+   isColoredCells: boolean
 
-   tableIsShuffleCells: boolean
-   tableIsFlipHorizontally: boolean
-   tableIsFlipVertically: boolean
+   isShuffleCellsAfterPress: boolean
+   isChangeColorsAfterPress: boolean
+   isFlipHorizontally: boolean
+   isFlipVertically: boolean
+
+   isChangeColorsPartCells: boolean
 }
+export interface ITableOptions extends IMainTableOptions, IAdditionalTableOptions {}
 
 export type TypeOutlineCell = 'primary' | 'secondary'
 export type TypeTappableMode = 'opacity' | 'background'
@@ -66,7 +95,6 @@ export type TypeColorSymbol = 'primary' | 'white' | 'custom'
 export interface ISymbol {
    id: string
    value: string
-   sequenceItemIdx: number
 
    disabled?: boolean
    typeColor?: TypeColorSymbol
