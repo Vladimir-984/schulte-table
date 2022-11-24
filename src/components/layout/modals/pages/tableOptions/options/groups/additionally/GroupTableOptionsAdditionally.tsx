@@ -10,10 +10,10 @@ import { selectIsShownAdditionalOptions } from 'store/selectors/tableOptions'
 import { CellTableOptionsCellsShuffle } from './cells/shuffle/CellTableOptionsCellsShuffle'
 import { CellTableOptionsCellsFlipHorizontally } from './cells/flipHorizontally/CellTableOptionsCellsFlipHorizontally'
 import { CellTableOptionsCellsFlipVertically } from './cells/flipVertically/CellTableOptionsCellsFlipVertically'
-import { CellTableOptionsAdditionallyChangeColorsAfterPress } from './cells/changeColorsAfterPress/CellTableOptionsAdditionallyChangeColorsAfterPress'
-import { CellTableOptionsAutochangeColors } from './cells/autochangeColors/CellTableOptionsAutochangeColors'
-import { CellTableOptionsAdditionallyColoredSymbols } from './cells/coloredSymbols/CellTableOptionsAdditionallyColoredSymbols'
-import { CellTableOptionsAdditionallyColoredCells } from './cells/coloredCells/CellTableOptionsAdditionallyColoredCells'
+// import { CellTableOptionsAdditionallyChangeColorsAfterPress } from './cells/changeColorsAfterPress/CellTableOptionsAdditionallyChangeColorsAfterPress'
+// import { CellTableOptionsAutochangeColors } from './cells/autochangeColors/CellTableOptionsAutochangeColors'
+// import { CellTableOptionsAdditionallyColoredSymbols } from './cells/coloredSymbols/CellTableOptionsAdditionallyColoredSymbols'
+// import { CellTableOptionsAdditionallyColoredCells } from './cells/coloredCells/CellTableOptionsAdditionallyColoredCells'
 
 export const GroupTableOptionsAdditionally: React.FC = () => {
    const isShownAdditionalOptions = useAppSelector(selectIsShownAdditionalOptions)
@@ -26,21 +26,20 @@ export const GroupTableOptionsAdditionally: React.FC = () => {
       >
          <CellTableOptionsAdditionallySize />
          <Separator wide />
+         <CellTableOptionsCellsShuffle />
+         <Separator wide />
 
-         <CellTableOptionsAdditionallyColoredSymbols />
+         {/* <CellTableOptionsAdditionallyColoredSymbols />
          <Separator wide />
 
          <CellTableOptionsAdditionallyColoredCells />
-         <Separator wide />
-
-         <CellTableOptionsCellsShuffle />
          <Separator wide />
 
          <CellTableOptionsAdditionallyChangeColorsAfterPress />
          <Separator wide />
 
          <CellTableOptionsAutochangeColors />
-         <Separator wide />
+         <Separator wide /> */}
 
          <CellTableOptionsCellsFlipHorizontally />
          <Separator wide />

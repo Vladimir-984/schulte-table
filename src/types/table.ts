@@ -1,13 +1,23 @@
 export type TypeCaseGroupOfSymbols = 'all' | 'small' | 'capital'
 export type TypeRange = [string, string]
 
+export type TypeTableColorVariant = 'cell' | 'symbol' | 'all'
+
 export interface IGroupOfSymbols {
    id: string
    typeId: string
    name: string
    description?: string
+   index: number
+}
+
+export interface ISymbolsRangeOfGroup {
+   id: string
+   groupId: string
+   description?: string
    range: TypeRange
    case: TypeCaseGroupOfSymbols
+
    unicodeVersion: string
 }
 
@@ -29,8 +39,18 @@ export interface ITableMode {
    title: string
    description?: string
 }
+export interface ITableColorVariant {
+   id: string
+   name: string
+   title: string
+   description?: string
+}
 
 export interface IAdditionalTableOptionsOfMode extends IAdditionalTableOptions {
+   id: string
+   modeId: string
+}
+export interface IColoredTableOptionsOfMode extends IColoredTableOptions {
    id: string
    modeId: string
 }
@@ -55,31 +75,33 @@ export interface IMainTableOptions {
 export interface IAdditionalTableOptions {
    size: number
 
-   isColoredSymbols: boolean
-   isColoredCells: boolean
-
    isShuffleCellsAfterPress: boolean
-   isChangeColorsAfterPress: boolean
    isFlipHorizontally: boolean
    isFlipVertically: boolean
-
-   isChangeColorsPartCells: boolean
 }
+
+export interface IColoredTableOptions {
+   colorVariant: ITableColorVariant
+
+   isChangeColorsAfterPress: boolean
+   isAutoChangeColors: boolean
+}
+
 export interface ITableOptions extends IMainTableOptions, IAdditionalTableOptions {}
 
 export type TypeOutlineCell = 'primary' | 'secondary'
 export type TypeTappableMode = 'opacity' | 'background'
 
-export type TypeColorCell = TypeRedBlack | 'custom' | 'none'
+export type TypeColorModeCell = TypeRedBlack | 'custom' | 'none'
 
 export interface ICell {
    id: string
-   symbol: ISymbol
+   symbol: ISymbol | null
    tappableMode?: TypeTappableMode
    isTappableDisabled?: boolean
 
-   typeOutline?: TypeOutlineCell
-   typeColor?: TypeColorCell
+   outline?: TypeOutlineCell
+   colorMode?: TypeColorModeCell
    color?: string
 
    animation?: string
@@ -90,14 +112,14 @@ export interface ICell {
  * `custom` - устанавлиет цвет из `color`;
  * `white` - для красно-чёрной таблицы;
  */
-export type TypeColorSymbol = 'primary' | 'white' | 'custom'
+export type TypeColorModeSymbol = TypeRedBlack | 'primary' | 'white' | 'custom'
 
 export interface ISymbol {
    id: string
    value: string
 
    disabled?: boolean
-   typeColor?: TypeColorSymbol
+   colorMode?: TypeColorModeSymbol
    color?: string
    // animation?: string
 
@@ -106,14 +128,3 @@ export interface ISymbol {
 }
 
 export type TypeRedBlack = 'red' | 'black'
-
-//TODO
-const getTypeColor = (modeRedBlack: TypeRedBlack | undefined, color: string | undefined) => {
-   if (!!modeRedBlack) {
-      return 'white'
-   }
-   if (!!color) {
-      return 'custom'
-   }
-   return 'primary'
-}

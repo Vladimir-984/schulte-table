@@ -6,10 +6,11 @@ import { getRandomColor } from 'utils/color'
 
 import cloneDeep from 'lodash/cloneDeep'
 import { defaultTableOptions } from './tableOptions'
+import { shuffleArray } from 'table/generator'
 
 type TypeTableCompletedStatus = 'done' | 'terminated' | 'closed' | null
 
-interface INextSequenceCell extends Pick<ICell, 'id' | 'symbol' | 'color' | 'typeColor'> {}
+interface INextSequenceCell extends Pick<ICell, 'id' | 'symbol' | 'color' | 'colorMode'> {}
 
 interface IHistoryChangesDisplayedCells {
    cells: ICell[]
@@ -92,23 +93,24 @@ const tableSlice = createSlice({
          const cells: ICell[] = sequence.map((v, idx) => {
             const cell: ICell = {
                id: `cell--id--${v}`,
-               // typeColor: 'none',
-               typeColor: 'custom',
+               // colorMode: 'none',
+               colorMode: 'custom',
                color: getRandomColor(),
                // typeColor: idx % 2 === 0 ? 'black' : 'red',
                // tappableMode: 'background',
                tappableMode: 'opacity',
                isTappableDisabled: false,
-               // typeOutline: 'primary',
-               typeOutline: 'secondary',
+               // outline: 'primary',
+               outline: undefined,
                symbol: {
                   id: `symbol--id--${v}`,
                   disabled: false,
                   value: v,
-                  color: getRandomColor(),
+                  // color: getRandomColor(),
 
-                  // typeColor: 'primary',
-                  typeColor: 'custom',
+                  // colorMode: idx % 2 === 0 ? 'black' : 'red',
+                  // colorMode: 'primary',
+                  colorMode: 'white',
                },
             }
             return cell
@@ -152,12 +154,20 @@ const tableSlice = createSlice({
          if (state.active.nextSequenceCell?.id === cellId) {
             VKWebAppTapticImpactOccurred()
 
-            cell.isTappableDisabled = true
-            cell.symbol.disabled = true
+            // cell.isTappableDisabled = true
+
+            // cell.symbol.disabled = true
 
             state.active.idxOfNextCellInSequence++
 
             if (state.active.idxOfNextCellInSequence <= state.active.sequenceCells.length - 1) {
+               if (state.options.isShuffleCellsAfterPress) {
+                  state.active.displayedCells.sort(randomSort)
+
+                  // state.active.displayedCells = shuffleArray(state.active.displayedCells)
+               }
+               // cell.symbol = null
+
                const nextCell = state.active.sequenceCells[state.active.idxOfNextCellInSequence]
                if (nextCell) {
                   state.active.nextSequenceCell = cloneDeep(nextCell)
@@ -172,7 +182,9 @@ const tableSlice = createSlice({
 
             console.log('progress: ', state.active.idxOfNextCellInSequence / state.active.sequenceCells.length)
          } else if (
-            state.active.clickedCells.findIndex((click) => click.cell.id === cellId && click.action === 'ok') !== -1
+            state.active.clickedCells.findIndex(
+               (clickedCell) => clickedCell.cell.id === cellId && clickedCell.action === 'ok'
+            ) !== -1
          ) {
             click.action = 'repeated'
          } else {

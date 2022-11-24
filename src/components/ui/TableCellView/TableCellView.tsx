@@ -10,23 +10,18 @@ interface TableCellViewProps extends ICell {}
 export const TableCellView: React.FC<TableCellViewProps> = ({
    id,
    color,
-   typeColor,
+   colorMode,
    isTappableDisabled,
    tappableMode,
    animation,
-   typeOutline,
+   outline,
    symbol,
 }) => {
    return (
-      <TableCellTappable
-         id={id}
-         typeOutline={typeOutline}
-         isTappableDisabled={isTappableDisabled}
-         tappableMode={tappableMode}
-      >
+      <TableCellTappable id={id} outline={outline} isTappableDisabled={isTappableDisabled} tappableMode={tappableMode}>
          <TableCellContent
             color={color}
-            typeColor={typeColor}
+            colorMode={colorMode}
             animation={animation}
             symbol={symbol}
             // animation={sequenceValue === '5' ? 'wiggle' : undefined}

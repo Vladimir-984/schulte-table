@@ -8,10 +8,13 @@ import {
    ITableType,
    ITableVariant,
    ITableMode,
+   IColoredTableOptions,
+   TypeTableColorVariant,
+   ITableColorVariant,
 } from 'types/table'
 
 import cloneDeep from 'lodash/cloneDeep'
-import { tableModes, tableTypes, tableVariants } from 'table/data'
+import { colorVariants, tableModes, tableTypes, tableVariants } from 'table/data'
 
 export const getSizeWithX = (size: number) => `${size}x${size}`
 
@@ -30,15 +33,21 @@ export const defaultMainTableOptions: IMainTableOptions = {
 }
 export const defaultAdditionalTableOptions: IAdditionalTableOptions = {
    size: 5,
-   isColoredSymbols: false,
-   isColoredCells: false,
+   // isColoredSymbols: false,
+   // isColoredCells: false,
 
-   isShuffleCellsAfterPress: false,
-   isChangeColorsAfterPress: false,
+   isShuffleCellsAfterPress: true,
+   // isShuffleCellsAfterPress: false,
+   // isChangeColorsAfterPress: false,
    isFlipVertically: false,
    isFlipHorizontally: false,
 
-   isChangeColorsPartCells: false,
+   // isChangeColorsPartCells: false,
+}
+export const defaultColoredTableOptions: IColoredTableOptions = {
+   colorVariant: colorVariants[0],
+   isChangeColorsAfterPress: false,
+   isAutoChangeColors: false,
 }
 
 export const defaultTableOptions: ITableOptions = Object.assign(defaultMainTableOptions, defaultAdditionalTableOptions)
@@ -47,6 +56,7 @@ interface IDataMainTableOptions {
    type: ITableType[]
    variant: ITableVariant[]
    mode: ITableMode[]
+   colorVariants: ITableColorVariant[]
 }
 
 interface ITableOptionsState {
@@ -56,10 +66,14 @@ interface ITableOptionsState {
    currentAdditionalTableOptions: IAdditionalTableOptions
    changeableAdditionalTableOptions: IAdditionalTableOptions
 
+   currentColoredTableOptions: IColoredTableOptions
+   changeableColoredTableOptions: IColoredTableOptions
+
    dataMainTableOptions: IDataMainTableOptions
 
-   availableTableSizes: IListItem<number>[]
    shownAdditionalOptions: boolean
+   shownColoredOptions: boolean
+   availableTableSizes: IListItem<number>[]
 }
 
 const initialState: ITableOptionsState = {
@@ -69,13 +83,18 @@ const initialState: ITableOptionsState = {
    currentAdditionalTableOptions: cloneDeep(defaultAdditionalTableOptions),
    changeableAdditionalTableOptions: cloneDeep(defaultAdditionalTableOptions),
 
+   currentColoredTableOptions: cloneDeep(defaultColoredTableOptions),
+   changeableColoredTableOptions: cloneDeep(defaultColoredTableOptions),
+
    dataMainTableOptions: {
       type: tableTypes,
       variant: tableVariants,
       mode: tableModes,
+      colorVariants: colorVariants,
    },
 
    shownAdditionalOptions: false,
+   shownColoredOptions: false,
    availableTableSizes: _fillSizes(15),
 }
 
@@ -97,6 +116,12 @@ const tableOptionsSlice = createSlice({
          const variant = state.dataMainTableOptions.variant.find((variant) => variant.id === action.payload)
          if (!variant) return
          state.changeableMainTableOptions.variant = variant
+
+         if (variant.name === 'color') {
+            state.shownColoredOptions = true
+         } else {
+            state.shownColoredOptions = false
+         }
       },
 
       setMainTableOptionsMode: (state, action: PayloadAction<string>) => {
@@ -111,31 +136,33 @@ const tableOptionsSlice = createSlice({
          }
       },
 
+      //additional
       setAdditionalTableOptionsSize: (state, action: PayloadAction<number>) => {
          state.changeableAdditionalTableOptions.size = action.payload
       },
-
-      setAdditionalTableOptionsIsColoredSymbols: (state, action: PayloadAction<boolean>) => {
-         state.changeableAdditionalTableOptions.isColoredSymbols = action.payload
-      },
-      setAdditionalTableOptionsIsColoredCells: (state, action: PayloadAction<boolean>) => {
-         state.changeableAdditionalTableOptions.isColoredCells = action.payload
-      },
-
       setAdditionalTableOptionsIsShuffleCellsAfterPress: (state, action: PayloadAction<boolean>) => {
          state.changeableAdditionalTableOptions.isShuffleCellsAfterPress = action.payload
-      },
-      setAdditionalTableOptionsIsChangeColorsAfterPress: (state, action: PayloadAction<boolean>) => {
-         state.changeableAdditionalTableOptions.isChangeColorsAfterPress = action.payload
-      },
-      setAdditionalTableOptionsIsAutochangeColors: (state, action: PayloadAction<boolean>) => {
-         state.changeableAdditionalTableOptions.isChangeColorsPartCells = action.payload
       },
       setAdditionalTableOptionsIsFlipHorizontally: (state, action: PayloadAction<boolean>) => {
          state.changeableAdditionalTableOptions.isFlipHorizontally = action.payload
       },
       setAdditionalTableOptionsIsFlipVertically: (state, action: PayloadAction<boolean>) => {
          state.changeableAdditionalTableOptions.isFlipVertically = action.payload
+      },
+
+      //colored
+      setColoredTableOptionsColorVariant: (state, action: PayloadAction<string>) => {
+         const color = state.dataMainTableOptions.colorVariants.find(
+            (colorVariant) => colorVariant.id === action.payload
+         )
+         if (!color) return
+         state.changeableColoredTableOptions.colorVariant = color
+      },
+      setColoredTableOptionsIsChangeColorsAfterPress: (state, action: PayloadAction<boolean>) => {
+         state.changeableColoredTableOptions.isChangeColorsAfterPress = action.payload
+      },
+      setColoredTableOptionsIsAutoChangeColors: (state, action: PayloadAction<boolean>) => {
+         state.changeableColoredTableOptions.isAutoChangeColors = action.payload
       },
    },
    extraReducers: (builder) => {
@@ -151,23 +178,25 @@ const tableOptionsSlice = createSlice({
       builder.addCase(applyTableOptions.fulfilled, (state, action) => {
          state.currentMainTableOptions = action.payload.main
          state.currentAdditionalTableOptions = action.payload.additional
+         state.currentColoredTableOptions = action.payload.colored
       })
       builder.addCase(applyTableOptions.rejected, (state, action) => {})
    },
 })
 
 export const {
-   setAdditionalTableOptionsIsChangeColorsAfterPress,
-   setAdditionalTableOptionsIsFlipHorizontally,
-   setAdditionalTableOptionsIsFlipVertically,
-   setAdditionalTableOptionsIsShuffleCellsAfterPress,
-   setAdditionalTableOptionsIsAutochangeColors,
-   setAdditionalTableOptionsSize,
-   setAdditionalTableOptionsIsColoredCells,
-   setAdditionalTableOptionsIsColoredSymbols,
    setMainTableOptionsMode,
    setMainTableOptionsType,
    setMainTableOptionsVariant,
+
+   setAdditionalTableOptionsIsFlipHorizontally,
+   setAdditionalTableOptionsIsFlipVertically,
+   setAdditionalTableOptionsIsShuffleCellsAfterPress,
+   setAdditionalTableOptionsSize,
+
+   setColoredTableOptionsColorVariant,
+   setColoredTableOptionsIsAutoChangeColors,
+   setColoredTableOptionsIsChangeColorsAfterPress,
 } = tableOptionsSlice.actions
 
 export const tableOptionsReducer = tableOptionsSlice.reducer

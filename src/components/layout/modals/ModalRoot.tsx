@@ -9,6 +9,7 @@ import { ModalPageTableParamsVariant } from './pages/tableOptions/variant/ModalP
 import { ModalPageTableParamsMode } from './pages/tableOptions/mode/ModalPageTableParamsMode'
 import { ModalPageTableOptionsSize } from './pages/tableOptions/size/ModalPageTableOptionsSize'
 import { ModalPageTableParamsSequence } from './pages/tableOptions/sequence/ModalPageTableParamsSequence'
+import { ModalPageTableOptionsColor } from './pages/tableOptions/color/ModalPageTableOptionsColor'
 
 export const ModalRoot: React.FC = () => {
    const router = useRouter()
@@ -34,6 +35,7 @@ export const ModalRoot: React.FC = () => {
          <ModalPageTableParamsVariant nav={MODAL_PAGES.TABLE_VARIANT} />
          <ModalPageTableParamsMode nav={MODAL_PAGES.TABLE_MODE} />
          <ModalPageTableOptionsSize nav={MODAL_PAGES.TABLE_SIZE} />
+         <ModalPageTableOptionsColor nav={MODAL_PAGES.TABLE_COLOR} />
          <ModalPageTableParamsSequence nav={MODAL_PAGES.TABLE_SEQUENCE} />
       </VKUIModalRoot>
    )

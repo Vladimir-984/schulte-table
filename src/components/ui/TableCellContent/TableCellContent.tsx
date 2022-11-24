@@ -5,21 +5,21 @@ import { normalizeHEXColor } from 'utils/color'
 import { SymbolView } from '../SymbolView/SymbolView'
 import './TableCellContent.css'
 
-interface TableCellContentProps extends Pick<ICell, 'symbol' | 'typeColor' | 'color' | 'animation'> {}
+interface TableCellContentProps extends Pick<ICell, 'symbol' | 'colorMode' | 'color' | 'animation'> {}
 
-export const TableCellContent: React.FC<TableCellContentProps> = ({ symbol, typeColor, color, animation }) => {
-   const resolvedBackgroundColor = typeColor === 'custom' ? normalizeHEXColor(color) : undefined
+export const TableCellContent: React.FC<TableCellContentProps> = ({ symbol, colorMode, color, animation }) => {
+   const resolvedBackgroundColor = colorMode === 'custom' ? normalizeHEXColor(color) : undefined
 
    return (
       <div
          style={{ backgroundColor: resolvedBackgroundColor }}
          className={classNames(
             'TableCellContent',
-            typeColor && `TableCellContent--clr-${typeColor}`,
+            colorMode && `TableCellContent--clr-${colorMode}`,
             animation && `TableCellContent--animation-${animation}`
          )}
       >
-         <SymbolView {...symbol} />
+         {!!symbol && <SymbolView {...symbol} />}
       </div>
    )
 }

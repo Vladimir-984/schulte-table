@@ -17,7 +17,7 @@ export const startTable = createAsyncThunk('table/start', async (_, thunkAPI) =>
 
 export const onClickTableCell = createAsyncThunk('table/clickCell', async (id: string, thunkAPI) => {
    try {
-      const state = (thunkAPI.getState() as RootState).table.options.isChangeColorsAfterPress
+      const state = (thunkAPI.getState() as RootState).table.options
    } catch (e) {
       return thunkAPI.rejectWithValue(e)
    }

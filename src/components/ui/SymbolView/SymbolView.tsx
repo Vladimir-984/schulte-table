@@ -15,20 +15,20 @@ export const SymbolView: React.FC<SymbolViewProps> = ({
    value,
    disabled,
    textSize = 'm',
-   typeColor = 'white',
+   colorMode = 'white',
 
    isFlipHorizontally,
    isFlipVertically,
    color,
 }) => {
-   const resolvedStyleColor = typeColor === 'custom' ? normalizeHEXColor(color) : undefined
+   const resolvedStyleColor = colorMode === 'custom' ? normalizeHEXColor(color) : undefined
 
    const resolvedTextFlip =
       isFlipHorizontally && isFlipVertically ? 'both' : isFlipHorizontally ? 'h' : isFlipVertically ? 'v' : undefined
 
    return (
       <div
-         className={classNames('Symbol', disabled && 'Symbol--disabled', typeColor && `Symbol--clr-${typeColor}`)}
+         className={classNames('Symbol', disabled && 'Symbol--disabled', colorMode && `Symbol--clr-${colorMode}`)}
          style={{ color: resolvedStyleColor }}
       >
          <svg

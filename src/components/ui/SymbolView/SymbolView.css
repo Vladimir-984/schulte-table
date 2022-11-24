@@ -11,6 +11,14 @@
    color: var(--white);
 }
 
+.Symbol--clr-red {
+   color: var(--vkui--color_background_negative);
+}
+
+.Symbol--clr-black {
+   color: black;
+}
+
 .Symbol--disabled {
    opacity: 0.5;
 }

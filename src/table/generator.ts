@@ -1,50 +1,8 @@
-import { IMainTableOptions } from 'types/table'
+import { IGroupOfSymbols, IMainTableOptions, ISymbolsRangeOfGroup, TypeRange } from 'types/table'
 import { randomSort } from 'utils/array'
+import { groupsOfSymbols, symbolsRangeOfGroups } from './data'
 const GORBOV_MODIFIER_BLACK = '+'
 const GROBOV_MODIFIER_RED = '-'
-const CYRILLIC = 'CYRILLIC'
-const CAPITAL_CASE = 'CAPITAL'
-const SMALL_CASE = 'SMALL'
-const CLASSIC_MODE_SIZE = 5
-const HARD_MODE_SIZE = 9
-const MAX_TABLE_SIZE = 21
-export type TypeUTFRange = [string, string]
-
-const CYRILLIC_CAPITAL_ALPHABET: TypeUTFRange = ['0410', '042F'] //А-Я, Ё
-
-const CYRILLIC_CAPITAL_ALPHABET_INCLUDE = ['0401'] // Ё
-
-const CYRILLIC_CAPITAL_ADDITIONAL: TypeUTFRange = ['0400', '040F'] //Ѐ-Џ
-
-const CYRILLIC_SMALL_ADDITIONAL: TypeUTFRange = ['0450', '045F'] //ѐ-џ
-
-const CYRILLIC_CAPITAL_ADDITIONAL_1: TypeUTFRange = ['0460', '0480'] //Ѡ-Ҁ
-
-const CYRILLIC_CAPITAL_ADDITIONAL_2: TypeUTFRange = ['048A', '04BE'] //Ҋ-Ҿ
-
-const CYRILLIC_CAPITAL_ADDITIONAL_3: TypeUTFRange = ['04C1', '04CD'] //Ӂ-Ӎ
-
-const CYRILLIC_CAPITAL_ADDITIONAL_4: TypeUTFRange = ['04D0', '04FE'] //Ӑ-Ӿ
-
-const CYRILLIC_CAPITAL_SUPPLEMENT: TypeUTFRange = ['0500', '052E']
-const CYRILLIC_CAPITAL_EXTENDED_B_1: TypeUTFRange = ['A640', 'A66C'] // Ꙁ-Ꙭ
-
-const CYRILLIC_CAPITAL_EXTENDED_B_2: TypeUTFRange = ['A680', 'A69A'] // Ꚁ-Ꚛ
-
-const CYRILLIC_SMALL_ALPHABET: TypeUTFRange = ['0430', '044F'] // а-я, ё
-
-const CYRILLIC_SMALL_ALPHABET_INCLUDE = ['0451'] // ё
-
-const CYRILLIC_SMALL_ADDITIONAL_1 = ['0461', '0481'] // ѡ-ҁ //04CF - palochka смещает коды
-
-const CYRILLIC_SMALL_ADDITIONAL_2 = ['048B', '04FF'] // ҋ-ӿ //
-
-const CYRILLIC_SMALL_SUPPLEMENT = ['0501', '052F']
-const CYRILLIC_SMALL_EXTENDED_B_1 = ['A641', 'A66D'] // ꙁ-ꙭ
-
-const CYRILLIC_SMALL_EXTENDED_B_2 = ['A681', 'A69B'] // ꚁ-ꚛ
-// const LATIN_CAPITAL_ALPHABET = ['0041', '005A'] //А-Z
-// const LATIN_SMALL_ALPHABET = ['0061', '007A'] // а-z
 
 const CHARS = {
    ARABIC_NUMERALS: [] as string[],
@@ -67,67 +25,55 @@ const isUpperCase = (str: string) => str.toUpperCase() === str
 const isLowerCase = (str: string) => str.toLowerCase() === str
 const parseInt16 = (strInt: string) => parseInt(strInt, 16)
 
-type TypeLetterCase = 'ALL' | 'SMALL' | 'CAPITAL'
-interface IOptions {
-   letterCase?: TypeLetterCase
-   includeCodes?: string[]
-   excludeCodes?: string[]
-}
-
-const getcharsFromUnicodeCodeRange = (
-   unicodeRange: TypeUTFRange,
-   options: IOptions = { letterCase: 'ALL', excludeCodes: [], includeCodes: [] }
-) => {
-   const startCode = parseInt16(unicodeRange[0])
-   const endCode = parseInt16(unicodeRange[1])
+const getSymbolsFromGroup = (ranges: ISymbolsRangeOfGroup) => {
+   const startCode = parseInt16(ranges.range[0])
+   const endCode = parseInt16(ranges.range[1])
 
    if (startCode > endCode) throw new Error('startCode > endCode')
 
-   const mapExcludeCodes = new Map()
-
    const checkLetterCase = (a: string) => {
-      switch (options.letterCase) {
-         case 'ALL':
+      switch (ranges.case) {
+         case 'all':
             return true
 
-         case 'CAPITAL':
+         case 'capital':
             return isUpperCase(a)
 
-         case 'SMALL':
+         case 'small':
             return isLowerCase(a)
 
          default:
             return true
       }
    }
-   if (options.excludeCodes?.length) {
-      options.excludeCodes.forEach((UTF16Code) => mapExcludeCodes.set(parseInt16(UTF16Code), true))
-   }
+
    const chars = []
 
    for (let currentCode = startCode; currentCode <= endCode; currentCode++) {
-      if (mapExcludeCodes.has(currentCode)) {
-         continue
-      }
-
       const char = String.fromCodePoint(currentCode)
 
       if (checkLetterCase(char)) {
          chars.push(char)
       }
    }
-   if (options.includeCodes?.length) {
-      options.includeCodes.forEach((UTF16Code) => {
-         const code = parseInt16(UTF16Code)
-         const char = String.fromCodePoint(code)
 
-         if (checkLetterCase(char)) {
-            chars.push(char)
-         }
-      })
-   }
    return chars
 }
+
+const g = symbolsRangeOfGroups.filter((g) => g.groupId === '7')
+
+const r: string[][] = []
+g.forEach((g) => {
+   r.push(getSymbolsFromGroup(g))
+})
+// console.log(r)
+
+console.log(r.flat(1).sort(localeCompare))
+
+// const a = getSymbolsFromGroup(groupsOfSymbols[0])
+// const b = getSymbolsFromGroup(groupsOfSymbols[1])
+// const c = getSymbolsFromGroup(groupsOfSymbols[3])
+// console.log(a.concat(c).sort(localeCompare))
 
 export const getEmptyFilledArray = (length: number): string[] => {
    return Array<string>(length).fill('')
