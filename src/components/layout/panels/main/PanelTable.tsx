@@ -9,7 +9,8 @@ import { PanelHeaderSeparator } from 'components/ui/PanelHeaderSeparator/PanelHe
 import { TableHeader } from 'components/ui/TableHeader/TableHeader'
 import {} from 'components/ui/VisibilityHidden/VisibilityHidden'
 import { useAppSelector } from 'hooks/redux'
-import { TableCellContent } from 'components/ui/TableCellContent/TableCellContent'
+import { TableCellBackground } from 'components/ui/TableCellBackground/TableCellBackground'
+import { TableCellChar } from 'components/ui/TableCellChar/TableCellChar'
 
 export const PanelTable: React.FC<PanelProps> = (panelProps) => {
    const router = useRouter()
@@ -37,7 +38,8 @@ export const PanelTable: React.FC<PanelProps> = (panelProps) => {
 }
 
 export const TableNextValue = () => {
-   const nextSequenceCell = useAppSelector((state) => state.table.active.nextSequenceCell)
+   const currentSequenceCell = useAppSelector((state) => state.table.active.currentSequenceCell)
+
    return (
       <div
          style={{
@@ -50,7 +52,11 @@ export const TableNextValue = () => {
          }}
       >
          <Avatar size={48} mode='image'>
-            {nextSequenceCell !== null && <TableCellContent {...nextSequenceCell} />}
+            {!!currentSequenceCell && !!currentSequenceCell.char && (
+               <TableCellBackground background={currentSequenceCell.background}>
+                  <TableCellChar {...currentSequenceCell.char} />
+               </TableCellBackground>
+            )}
          </Avatar>
       </div>
    )

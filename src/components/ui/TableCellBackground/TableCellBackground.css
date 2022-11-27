@@ -1,35 +1,36 @@
-.TableCellContent {
+.TableCellBackground {
    height: 100%;
    width: 100%;
    position: relative;
    z-index: 1;
-   user-select: none;
-
+   /* user-select: none; */
    border-radius: inherit;
 }
 
 /* 
-.TableCellContent--clr-custom {}
+.TableCellBackground--clr-custom {}
 .TableCellContent--clr-none {}
 */
 
-.TableCellContent--clr-red {
+.TableCellBackground--bg-clr-md-red {
    background-color: var(--vkui--color_background_negative);
 }
 
-.TableCellContent--clr-black {
+.TableCellBackground--bg-clr-md-black {
    background-color: black;
 }
-
+.TableCellBackground--shadow {
+   box-shadow: inset 0px 0px 2px 3px rgba(0, 0, 0, 0.1);
+}
 /* background-color: var(--vkui--color_background_contrast_inverse); */
 
-.TableCellContent--animation-shockwave {
+.TableCellBackground--animation-shockwave {
    transform-origin: center;
    z-index: 2;
    animation: shockwaveJump 1s ease-out infinite;
 }
-.TableCellContent--animation-shockwave::after,
-.TableCellContent--animation-shockwave::before {
+.TableCellBackground--animation-shockwave::after,
+.TableCellBackground--animation-shockwave::before {
    content: '';
    position: absolute;
    width: 100%;
@@ -40,11 +41,11 @@
    left: 0;
    z-index: 2;
 }
-.TableCellContent--animation-shockwave::after {
+.TableCellBackground--animation-shockwave::after {
    animation: shockwave 1s 0.65s ease-out infinite;
 }
 
-.TableCellContent--animation-shockwave::before {
+.TableCellBackground--animation-shockwave::before {
    animation: shockwave 1s 0.5s ease-out infinite;
 }
 
@@ -82,7 +83,7 @@
    }
 }
 
-.TableCellContent--animation-jump {
+.TableCellBackground--animation-jump {
    z-index: 2;
    animation: 0.4s jump ease infinite alternate;
 }
@@ -97,7 +98,7 @@
    }
 }
 
-.TableCellContent--animation-wiggle {
+.TableCellBackground--animation-wiggle {
    z-index: 2;
    animation: 1s wiggle ease infinite;
 }

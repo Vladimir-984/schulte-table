@@ -1,25 +1,23 @@
 import React from 'react'
 import { classNames } from '@vkontakte/vkui'
-import { ISymbol } from 'types/table'
-import { normalizeHEXColor } from 'utils/color'
 
-import './SymbolView.css'
+import './TableCellChar.css'
+import { IChar } from 'types/table'
+import { normalizeHEXColor } from 'utils/color'
 
 export type TypeSize = 's' | 'm' | 'l'
 
-interface SymbolViewProps extends Pick<ISymbol, 'value'>, Partial<Omit<ISymbol, 'value'>> {
+interface TableCellCharProps extends IChar {
    textSize?: TypeSize
 }
 
-export const SymbolView: React.FC<SymbolViewProps> = ({
+export const TableCellChar: React.FC<TableCellCharProps> = ({
    value,
-   disabled,
-   textSize = 'm',
-   colorMode = 'white',
-
+   color,
+   colorMode,
    isFlipHorizontally,
    isFlipVertically,
-   color,
+   textSize = 'm',
 }) => {
    const resolvedStyleColor = colorMode === 'custom' ? normalizeHEXColor(color) : undefined
 
@@ -28,11 +26,11 @@ export const SymbolView: React.FC<SymbolViewProps> = ({
 
    return (
       <div
-         className={classNames('Symbol', disabled && 'Symbol--disabled', colorMode && `Symbol--clr-${colorMode}`)}
+         className={classNames('TableCellChar', colorMode && `TableCellChar--clr-md-${colorMode}`)}
          style={{ color: resolvedStyleColor }}
       >
          <svg
-            className='Symbol__svg'
+            className='TableCellChar__svg'
             x={0}
             y={0}
             width='100%'
@@ -48,9 +46,9 @@ export const SymbolView: React.FC<SymbolViewProps> = ({
                dominantBaseline='central'
                fill='currentColor'
                className={classNames(
-                  'Symbol__text',
-                  `Symbol__text--sz-${textSize}`,
-                  resolvedTextFlip && `Symbol__text--flip-${resolvedTextFlip}`
+                  'TableCellChar__text',
+                  `TableCellChar__text--sz-${textSize}`,
+                  resolvedTextFlip && `TableCellChar__text--flip-${resolvedTextFlip}`
                )}
             >
                {value}

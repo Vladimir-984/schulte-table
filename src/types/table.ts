@@ -1,9 +1,9 @@
-export type TypeCaseGroupOfSymbols = 'all' | 'small' | 'capital'
+export type TypeCaseGroupOfChars = 'all' | 'small' | 'capital'
 export type TypeRange = [string, string]
 
-export type TypeTableColorVariant = 'cell' | 'symbol' | 'all'
+export type TypeTableColorVariant = 'background' | 'char' | 'all'
 
-export interface IGroupOfSymbols {
+export interface IGroupOfChars {
    id: string
    typeId: string
    name: string
@@ -11,12 +11,12 @@ export interface IGroupOfSymbols {
    index: number
 }
 
-export interface ISymbolsRangeOfGroup {
+export interface ICharsRangeOfGroup {
    id: string
    groupId: string
    description?: string
    range: TypeRange
-   case: TypeCaseGroupOfSymbols
+   case: TypeCaseGroupOfChars
 
    unicodeVersion: string
 }
@@ -66,15 +66,22 @@ export enum TableSequence {
    RIGHT = 'right',
    RANDOM = 'random',
 }
+export interface ITableCellShape {
+   id: string
+   name: string
+   title: string
+}
 
 export interface IMainTableOptions {
    type: ITableType
    variant: ITableVariant
    mode: ITableMode
+   cellsShape: ITableCellShape
 }
 export interface IAdditionalTableOptions {
    size: number
 
+   isHideSelectedChars: boolean
    isShuffleCellsAfterPress: boolean
    isFlipHorizontally: boolean
    isFlipVertically: boolean
@@ -96,30 +103,33 @@ export type TypeColorModeCell = TypeRedBlack | 'custom' | 'none'
 
 export interface ICell {
    id: string
-   symbol: ISymbol | null
-   tappableMode?: TypeTappableMode
-   isTappableDisabled?: boolean
-
+   char: IChar | null
+   tappable?: ICellTappable
+   background?: ICellBackground
+   borderRadius?: number | string
    outline?: TypeOutlineCell
-   colorMode?: TypeColorModeCell
-   color?: string
-
    animation?: string
 }
-
+export interface ICellTappable {
+   tappableMode?: TypeTappableMode
+   isTappableDisabled?: boolean
+}
+export interface ICellBackground {
+   backgroundColorMode?: TypeColorModeCell
+   backgroundColor?: string
+   backgroundShadow?: boolean
+}
 /**
  * `primary` - цвет зависит от темы;
  * `custom` - устанавлиет цвет из `color`;
  * `white` - для красно-чёрной таблицы;
  */
-export type TypeColorModeSymbol = TypeRedBlack | 'primary' | 'white' | 'custom'
+export type TypeColorModeChar = TypeRedBlack | 'primary' | 'white' | 'custom'
 
-export interface ISymbol {
-   id: string
+export interface IChar {
    value: string
 
-   disabled?: boolean
-   colorMode?: TypeColorModeSymbol
+   colorMode?: TypeColorModeChar
    color?: string
    // animation?: string
 

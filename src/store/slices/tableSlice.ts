@@ -7,10 +7,11 @@ import { getRandomColor } from 'utils/color'
 import cloneDeep from 'lodash/cloneDeep'
 import { defaultTableOptions } from './tableOptions'
 import { shuffleArray } from 'table/generator'
+import { getRandomNumber } from 'utils/number'
 
 type TypeTableCompletedStatus = 'done' | 'terminated' | 'closed' | null
 
-interface INextSequenceCell extends Pick<ICell, 'id' | 'symbol' | 'color' | 'colorMode'> {}
+interface ICurrentSequenceCell extends Pick<ICell, 'id' | 'char' | 'background'> {}
 
 interface IHistoryChangesDisplayedCells {
    cells: ICell[]
@@ -32,8 +33,8 @@ interface ITable {
    completedStatus: TypeTableCompletedStatus
 }
 interface IActiveTable extends ITable {
-   idxOfNextCellInSequence: number
-   nextSequenceCell: INextSequenceCell | null
+   idxOfCurrentCellInSequence: number
+   currentSequenceCell: ICurrentSequenceCell | null
 }
 
 /**
@@ -70,8 +71,8 @@ const initialState: ITableState = {
       sequenceCells: [],
       clickedCells: [],
       hintedCells: [],
-      idxOfNextCellInSequence: 0,
-      nextSequenceCell: { id: '1', symbol: { id: '1', value: '1' } },
+      idxOfCurrentCellInSequence: 0,
+      currentSequenceCell: { id: '1', char: { value: '1' } },
       startedAt: null,
       completedAt: null,
       completedStatus: null,
@@ -81,10 +82,16 @@ const initialState: ITableState = {
 
 let size = 3
 
+// const autoChangedColors = new Set()
+
 const tableSlice = createSlice({
    name: 'table',
    initialState,
    reducers: {
+      start: (state) => {
+         state.active.startedAt = Date.now()
+      },
+      // pause: (state) => {},
       restart: (state) => {
          const sequence = Array(size ** 2)
             .fill('')
@@ -93,24 +100,28 @@ const tableSlice = createSlice({
          const cells: ICell[] = sequence.map((v, idx) => {
             const cell: ICell = {
                id: `cell--id--${v}`,
-               // colorMode: 'none',
-               colorMode: 'custom',
-               color: getRandomColor(),
+               background: {
+                  // backgroundColorMode: 'custom',
+                  // backgroundColor: getRandomColor(),
+                  backgroundColorMode: 'none',
+                  backgroundShadow: false,
+                  // backgroundShadow: true,
+               },
                // typeColor: idx % 2 === 0 ? 'black' : 'red',
-               // tappableMode: 'background',
-               tappableMode: 'opacity',
-               isTappableDisabled: false,
-               // outline: 'primary',
-               outline: undefined,
-               symbol: {
-                  id: `symbol--id--${v}`,
-                  disabled: false,
+               tappable: {
+                  tappableMode: 'background',
+                  // tappableMode: 'opacity',
+                  isTappableDisabled: false,
+               },
+               // borderRadius: 8,
+               outline: 'secondary',
+               char: {
                   value: v,
                   // color: getRandomColor(),
 
                   // colorMode: idx % 2 === 0 ? 'black' : 'red',
-                  // colorMode: 'primary',
-                  colorMode: 'white',
+                  colorMode: 'primary',
+                  // colorMode: 'white',
                },
             }
             return cell
@@ -118,8 +129,8 @@ const tableSlice = createSlice({
 
          state.active.sequenceCells = cloneDeep(cells)
 
-         state.active.idxOfNextCellInSequence = 0
-         state.active.nextSequenceCell = cloneDeep(state.active.sequenceCells[0])
+         state.active.idxOfCurrentCellInSequence = 0
+         state.active.currentSequenceCell = cloneDeep(state.active.sequenceCells[0])
          state.active.displayedCells = cells.sort(randomSort)
 
          state.active.historyChangesDisplayedCells = []
@@ -151,36 +162,35 @@ const tableSlice = createSlice({
             action: 'ok',
          }
 
-         if (state.active.nextSequenceCell?.id === cellId) {
+         if (state.active.currentSequenceCell?.id === cellId) {
             VKWebAppTapticImpactOccurred()
 
-            // cell.isTappableDisabled = true
+            state.active.idxOfCurrentCellInSequence++
 
-            // cell.symbol.disabled = true
+            if (state.options.isHideSelectedChars) {
+               cell.char = null
+            }
 
-            state.active.idxOfNextCellInSequence++
-
-            if (state.active.idxOfNextCellInSequence <= state.active.sequenceCells.length - 1) {
+            if (state.active.idxOfCurrentCellInSequence <= state.active.sequenceCells.length - 1) {
                if (state.options.isShuffleCellsAfterPress) {
                   state.active.displayedCells.sort(randomSort)
 
                   // state.active.displayedCells = shuffleArray(state.active.displayedCells)
                }
-               // cell.symbol = null
 
-               const nextCell = state.active.sequenceCells[state.active.idxOfNextCellInSequence]
-               if (nextCell) {
-                  state.active.nextSequenceCell = cloneDeep(nextCell)
+               const nextCurrentCell = state.active.sequenceCells[state.active.idxOfCurrentCellInSequence]
+               if (nextCurrentCell) {
+                  state.active.currentSequenceCell = cloneDeep(nextCurrentCell)
                }
             } else {
-               state.active.nextSequenceCell = null
+               state.active.currentSequenceCell = null
                state.active.completedAt = Date.now()
                state.active.completedStatus = 'done'
 
                console.log('time: ', (state.active.completedAt - state.active.startedAt!) / 1000)
             }
 
-            console.log('progress: ', state.active.idxOfNextCellInSequence / state.active.sequenceCells.length)
+            console.log('progress: ', state.active.idxOfCurrentCellInSequence / state.active.sequenceCells.length)
          } else if (
             state.active.clickedCells.findIndex(
                (clickedCell) => clickedCell.cell.id === cellId && clickedCell.action === 'ok'
@@ -194,6 +204,18 @@ const tableSlice = createSlice({
 
          state.active.clickedCells.push(click)
       },
+      autoChangeColor: (state) => {
+         const idx = getRandomNumber(0, state.active.displayedCells.length - 1)
+         const cell = state.active.displayedCells[idx]
+
+         if (cell?.background?.backgroundColorMode === 'custom' && !!cell?.background?.backgroundColor) {
+            cell.background.backgroundColor = getRandomColor()
+         }
+
+         if (cell?.char?.colorMode === 'custom' && !!cell?.char?.color) {
+            cell.char.color = getRandomColor()
+         }
+      },
    },
    extraReducers: (builder) => {
       /*  builder.addCase(startTable.pending, (state, action) => {})  
@@ -201,5 +223,5 @@ const tableSlice = createSlice({
  builder.addCase(startTable.rejected, (state, action) => {})  */
    },
 })
-export const { clickCell, restart } = tableSlice.actions
+export const { clickCell, restart, autoChangeColor } = tableSlice.actions
 export const tableReducer = tableSlice.reducer

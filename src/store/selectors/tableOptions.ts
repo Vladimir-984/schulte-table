@@ -18,6 +18,9 @@ export const selectChangeableTableModeTitle = (state: RootState) =>
 export const selectChangeableTableSize = (state: RootState) => state.tableOptions.changeableAdditionalTableOptions.size
 // export const selectChangeableTableSequence = (state: RootState) => state.tableOptions.changeableAdditionalTableOptions.tableSequence
 
+export const selectChangeableTableIsHideSelected = (state: RootState) =>
+   state.tableOptions.changeableAdditionalTableOptions.isHideSelectedChars
+
 export const selectChangeableTableIsShuffleCells = (state: RootState) =>
    state.tableOptions.changeableAdditionalTableOptions.isShuffleCellsAfterPress
 

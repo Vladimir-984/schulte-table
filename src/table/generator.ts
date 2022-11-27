@@ -1,8 +1,23 @@
-import { IGroupOfSymbols, IMainTableOptions, ISymbolsRangeOfGroup, TypeRange } from 'types/table'
+import { IGroupOfChars, IMainTableOptions, ICharsRangeOfGroup, TypeRange } from 'types/table'
 import { randomSort } from 'utils/array'
-import { groupsOfSymbols, symbolsRangeOfGroups } from './data'
-const GORBOV_MODIFIER_BLACK = '+'
-const GROBOV_MODIFIER_RED = '-'
+import { groupsOfChars, charsRangeOfGroups } from './data'
+const REDBLACK_TABLE_MODIFIER_BLACK = '+'
+const REDBLACK_TABLE_MODIFIER_RED = '-'
+
+const getLengthOfRangesChars = (rangesCharsOfGroup: ICharsRangeOfGroup[]) => {
+   const length = rangesCharsOfGroup.reduce((acc, current) => {
+      const [start16, end16] = current.range
+      const startCode = parseInt16(start16)
+      const endCode = parseInt16(end16)
+      if (isNaN(startCode) || isNaN(endCode)) return acc //throw new Error('range is NaN')
+      if (startCode > endCode) return acc //throw new Error('startCode > endCode')
+
+      return acc + (endCode - startCode + 1)
+   }, 0)
+   return length
+}
+
+console.log(getLengthOfRangesChars(charsRangeOfGroups))
 
 const CHARS = {
    ARABIC_NUMERALS: [] as string[],
@@ -25,7 +40,24 @@ const isUpperCase = (str: string) => str.toUpperCase() === str
 const isLowerCase = (str: string) => str.toLowerCase() === str
 const parseInt16 = (strInt: string) => parseInt(strInt, 16)
 
-const getSymbolsFromGroup = (ranges: ISymbolsRangeOfGroup) => {
+const getCharsFromRange = (range: TypeRange) => {
+   const startCode = parseInt16(range[0])
+   const endCode = parseInt16(range[1])
+
+   if (isNaN(startCode) || isNaN(endCode)) throw new Error('range is NaN')
+   if (startCode > endCode) throw new Error('startCode > endCode')
+
+   const chars: string[] = []
+
+   for (let currentCode = startCode; currentCode <= endCode; currentCode++) {
+      const char = String.fromCodePoint(currentCode)
+      chars.push(char)
+   }
+
+   return chars
+}
+
+const getSymbolsFromGroup = (ranges: ICharsRangeOfGroup) => {
    const startCode = parseInt16(ranges.range[0])
    const endCode = parseInt16(ranges.range[1])
 
@@ -60,20 +92,9 @@ const getSymbolsFromGroup = (ranges: ISymbolsRangeOfGroup) => {
    return chars
 }
 
-const g = symbolsRangeOfGroups.filter((g) => g.groupId === '7')
+const charsRangesOfGroup = charsRangeOfGroups.filter((g) => g.groupId === '7')
 
-const r: string[][] = []
-g.forEach((g) => {
-   r.push(getSymbolsFromGroup(g))
-})
-// console.log(r)
-
-console.log(r.flat(1).sort(localeCompare))
-
-// const a = getSymbolsFromGroup(groupsOfSymbols[0])
-// const b = getSymbolsFromGroup(groupsOfSymbols[1])
-// const c = getSymbolsFromGroup(groupsOfSymbols[3])
-// console.log(a.concat(c).sort(localeCompare))
+const getA = (charsRanges: ICharsRangeOfGroup[]) => {}
 
 export const getEmptyFilledArray = (length: number): string[] => {
    return Array<string>(length).fill('')
@@ -102,20 +123,6 @@ export const getMaxSize = (tableType: string): number => {
    }
 
    return 1
-}
-
-interface IGenerateSequenceParams {
-   length: number
-   tableType: string
-}
-
-export const generateSequence = (params: IGenerateSequenceParams) => {
-   const generator = new SequenceGenerator({
-      length: params.length,
-   })
-   generator.generate()
-
-   return generator.sequence
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -177,25 +184,8 @@ class SequenceGenerator {
    private chars: string[] = []
    sequence: string[]
 
-   private length: number
-
    constructor(props: ISequenceGeneratorProps) {
-      this.length = props.length
-
       this.sequence = getEmptyFilledArray(props.length)
-
-      this.chars = CHARS.ARABIC_NUMERALS
-      this.getChars()
-   }
-
-   private getChars() {
-      //установить нужные символы в this.chars
-   }
-
-   private fillSequenceStandard() {
-      for (let idx = 0; idx < this.sequence.length; idx++) {
-         this.sequence[idx] = this.chars[idx]
-      }
    }
 
    private fillSequenceGorbov() {
@@ -215,10 +205,10 @@ class SequenceGenerator {
 
       while (blackCharIdx < this.sequence.length || redCharIdx > 0) {
          if (this.sequence[blackCharIdx] !== undefined) {
-            this.sequence[blackCharIdx] = `${GORBOV_MODIFIER_BLACK}${this.chars[charIdx]}`
+            this.sequence[blackCharIdx] = `${REDBLACK_TABLE_MODIFIER_BLACK}${this.chars[charIdx]}`
          }
          if (this.sequence[redCharIdx] !== undefined) {
-            this.sequence[redCharIdx] = `${GROBOV_MODIFIER_RED}${this.chars[charIdx]}`
+            this.sequence[redCharIdx] = `${REDBLACK_TABLE_MODIFIER_RED}${this.chars[charIdx]}`
          }
          charIdx++
 
@@ -226,27 +216,4 @@ class SequenceGenerator {
          redCharIdx -= 2
       }
    }
-
-   private fillSequencePlatonov() {}
-
-   public generate() {}
-
-   public shuffle() {
-      return this.sequence.sort(randomSort)
-   }
-   public reverse() {
-      return this.sequence.reverse()
-   }
 }
-
-// interface IResolveSizeTableParams extends Pick<ITableParams, 'tableSize' | 'tableVariant' | 'tableMode'> {}
-
-// interface IResolvedSizeTable extends Pick<ITableParams, 'tableSize'> {}
-
-// export const resolveSequenceAndSizeTable = (params: IResolveSizeTableParams): IResolvedSizeTable => {
-//    const resolvedParams: IResolvedSizeTable = {
-//       tableSize: resolveTableSize(params.tableMode, params.tableSize),
-//    }
-
-//    return resolvedParams
-// }

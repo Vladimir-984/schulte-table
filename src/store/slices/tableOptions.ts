@@ -9,12 +9,12 @@ import {
    ITableVariant,
    ITableMode,
    IColoredTableOptions,
-   TypeTableColorVariant,
    ITableColorVariant,
+   ITableCellShape,
 } from 'types/table'
 
 import cloneDeep from 'lodash/cloneDeep'
-import { colorVariants, tableModes, tableTypes, tableVariants } from 'table/data'
+import { cellsShapes, colorVariants, tableModes, tableTypes, tableVariants } from 'table/data'
 
 export const getSizeWithX = (size: number) => `${size}x${size}`
 
@@ -30,19 +30,15 @@ export const defaultMainTableOptions: IMainTableOptions = {
    type: tableTypes[0],
    variant: tableVariants[0],
    mode: tableModes[0],
+   cellsShape: cellsShapes[0],
 }
 export const defaultAdditionalTableOptions: IAdditionalTableOptions = {
    size: 5,
-   // isColoredSymbols: false,
-   // isColoredCells: false,
 
+   isHideSelectedChars: true,
    isShuffleCellsAfterPress: true,
-   // isShuffleCellsAfterPress: false,
-   // isChangeColorsAfterPress: false,
    isFlipVertically: false,
    isFlipHorizontally: false,
-
-   // isChangeColorsPartCells: false,
 }
 export const defaultColoredTableOptions: IColoredTableOptions = {
    colorVariant: colorVariants[0],
@@ -57,6 +53,7 @@ interface IDataMainTableOptions {
    variant: ITableVariant[]
    mode: ITableMode[]
    colorVariants: ITableColorVariant[]
+   cellsShapes: ITableCellShape[]
 }
 
 interface ITableOptionsState {
@@ -91,6 +88,7 @@ const initialState: ITableOptionsState = {
       variant: tableVariants,
       mode: tableModes,
       colorVariants: colorVariants,
+      cellsShapes: cellsShapes,
    },
 
    shownAdditionalOptions: false,
@@ -107,10 +105,6 @@ const tableOptionsSlice = createSlice({
          if (!type) return
 
          state.changeableMainTableOptions.type = type
-
-         // if(state.changeableMainTableOptions.tableVariant === TableVariant.PLATONOV) {
-         //     state.changeableMainTableOptions.tableVariant = TableVariant.STANDARD
-         // }
       },
       setMainTableOptionsVariant: (state, action: PayloadAction<string>) => {
          const variant = state.dataMainTableOptions.variant.find((variant) => variant.id === action.payload)
@@ -139,6 +133,9 @@ const tableOptionsSlice = createSlice({
       //additional
       setAdditionalTableOptionsSize: (state, action: PayloadAction<number>) => {
          state.changeableAdditionalTableOptions.size = action.payload
+      },
+      setAdditionalTableOptionsIsHideSelected: (state, action: PayloadAction<boolean>) => {
+         state.changeableAdditionalTableOptions.isHideSelectedChars = action.payload
       },
       setAdditionalTableOptionsIsShuffleCellsAfterPress: (state, action: PayloadAction<boolean>) => {
          state.changeableAdditionalTableOptions.isShuffleCellsAfterPress = action.payload
@@ -189,10 +186,11 @@ export const {
    setMainTableOptionsType,
    setMainTableOptionsVariant,
 
+   setAdditionalTableOptionsSize,
+   setAdditionalTableOptionsIsHideSelected,
+   setAdditionalTableOptionsIsShuffleCellsAfterPress,
    setAdditionalTableOptionsIsFlipHorizontally,
    setAdditionalTableOptionsIsFlipVertically,
-   setAdditionalTableOptionsIsShuffleCellsAfterPress,
-   setAdditionalTableOptionsSize,
 
    setColoredTableOptionsColorVariant,
    setColoredTableOptionsIsAutoChangeColors,

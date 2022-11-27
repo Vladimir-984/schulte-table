@@ -6,15 +6,9 @@ import { ICell } from 'types/table'
 
 import './TableCellTappable.css'
 
-interface TableCellTappableProps extends Pick<ICell, 'id' | 'isTappableDisabled' | 'tappableMode' | 'outline'> {}
+interface TableCellTappableProps extends Pick<ICell, 'id' | 'tappable'> {}
 
-export const TableCellTappable: React.FC<TableCellTappableProps> = ({
-   id,
-   isTappableDisabled,
-   tappableMode,
-   children,
-   outline,
-}) => {
+export const TableCellTappable: React.FC<TableCellTappableProps> = ({ id, tappable, children }) => {
    // const appearance = useAppearance()
    const dispatch = useAppDispatch()
 
@@ -24,18 +18,15 @@ export const TableCellTappable: React.FC<TableCellTappableProps> = ({
    return (
       <Tappable
          onClick={onClickCell}
-         activeMode={tappableMode}
-         hoverMode={tappableMode}
+         activeMode={tappable?.tappableMode}
+         hoverMode={tappable?.tappableMode}
          hasHover
          hasActive={false}
          activeEffectDelay={100}
-         disabled={isTappableDisabled}
+         disabled={tappable?.isTappableDisabled}
          className={classNames(
             'TableCellTappable',
-            // `TableCellTappable--appearance-${appearance}`,
-            tappableMode && `Tappable--active-${tappableMode}`,
-            outline && `TableCellTappable--outline TableCellTappable--outline-${outline}`
-            // outline && `TableCellTappable--outline TableCellTappable--outline-${outline}`
+            tappable?.tappableMode && `Tappable--active-${tappable.tappableMode}`
          )}
       >
          {children}

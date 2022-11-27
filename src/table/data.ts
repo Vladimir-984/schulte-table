@@ -1,8 +1,9 @@
 import {
    IAdditionalTableOptionsOfMode,
    IColoredTableOptionsOfMode,
-   IGroupOfSymbols,
-   ISymbolsRangeOfGroup,
+   IGroupOfChars,
+   ICharsRangeOfGroup,
+   ITableCellShape,
    ITableColorVariant,
    ITableMode,
    ITableType,
@@ -15,7 +16,7 @@ export const tableTypes: ITableType[] = [
    { id: '3', name: 'cyrillic', title: 'Кириллица' },
 ]
 
-export const symbolsRangeOfGroups: ISymbolsRangeOfGroup[] = [
+export const charsRangeOfGroups: ICharsRangeOfGroup[] = [
    {
       id: '1',
       groupId: '1',
@@ -146,7 +147,7 @@ export const symbolsRangeOfGroups: ISymbolsRangeOfGroup[] = [
       unicodeVersion: '1',
    },
 ]
-export const groupsOfSymbols: IGroupOfSymbols[] = [
+export const groupsOfChars: IGroupOfChars[] = [
    {
       id: '1',
       name: 'Basic Russian capital alphabet',
@@ -210,9 +211,13 @@ export const tableModes: ITableMode[] = [
    { id: '3', name: 'custom', title: 'Настраиваемый' },
 ]
 export const colorVariants: ITableColorVariant[] = [
-   { id: '1', name: 'cell', title: 'Ячейка' },
-   { id: '2', name: 'symbol', title: 'Символ' },
-   { id: '3', name: 'all', title: 'Ячейка и символ' },
+   { id: '1', name: 'background', title: 'Фон' },
+   { id: '2', name: 'char', title: 'Символ' },
+   { id: '3', name: 'all', title: 'Фон и символ' },
+]
+export const cellsShapes: ITableCellShape[] = [
+   { id: '2', name: 'rect', title: 'Квадратная' },
+   { id: '1', name: 'round', title: 'Круглая' },
 ]
 
 export const additionalTableOptionsOfModes: IAdditionalTableOptionsOfMode[] = [
@@ -223,6 +228,7 @@ export const additionalTableOptionsOfModes: IAdditionalTableOptionsOfMode[] = [
       isFlipHorizontally: false,
       isFlipVertically: false,
       isShuffleCellsAfterPress: false,
+      isHideSelectedChars: true,
    },
    {
       id: '2',
@@ -231,6 +237,7 @@ export const additionalTableOptionsOfModes: IAdditionalTableOptionsOfMode[] = [
       isFlipHorizontally: false,
       isFlipVertically: false,
       isShuffleCellsAfterPress: true,
+      isHideSelectedChars: false,
    },
 ]
 export const coloredTableOptionsOfModes: IColoredTableOptionsOfMode[] = [

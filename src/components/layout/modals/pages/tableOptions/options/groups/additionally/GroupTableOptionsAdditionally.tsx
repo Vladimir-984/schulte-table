@@ -1,5 +1,5 @@
 import React from 'react'
-import { Header, Separator } from '@vkontakte/vkui'
+import { Header, Separator, SimpleCell, Switch } from '@vkontakte/vkui'
 
 import { GroupCard } from 'components/ui/GroupCard/GroupCard'
 import { CellTableOptionsAdditionallySize } from './cells/size/CellTableOptionsAdditionallySize'
@@ -10,6 +10,7 @@ import { selectIsShownAdditionalOptions } from 'store/selectors/tableOptions'
 import { CellTableOptionsCellsShuffle } from './cells/shuffle/CellTableOptionsCellsShuffle'
 import { CellTableOptionsCellsFlipHorizontally } from './cells/flipHorizontally/CellTableOptionsCellsFlipHorizontally'
 import { CellTableOptionsCellsFlipVertically } from './cells/flipVertically/CellTableOptionsCellsFlipVertically'
+import { CellTableOptionsAdditionallyHideSelected } from './cells/hideSelected/CellTableOptionsAdditionallyHideSelected'
 // import { CellTableOptionsAdditionallyChangeColorsAfterPress } from './cells/changeColorsAfterPress/CellTableOptionsAdditionallyChangeColorsAfterPress'
 // import { CellTableOptionsAutochangeColors } from './cells/autochangeColors/CellTableOptionsAutochangeColors'
 // import { CellTableOptionsAdditionallyColoredSymbols } from './cells/coloredSymbols/CellTableOptionsAdditionallyColoredSymbols'
@@ -26,20 +27,12 @@ export const GroupTableOptionsAdditionally: React.FC = () => {
       >
          <CellTableOptionsAdditionallySize />
          <Separator wide />
+
+         <CellTableOptionsAdditionallyHideSelected />
+         <Separator wide />
+
          <CellTableOptionsCellsShuffle />
          <Separator wide />
-
-         {/* <CellTableOptionsAdditionallyColoredSymbols />
-         <Separator wide />
-
-         <CellTableOptionsAdditionallyColoredCells />
-         <Separator wide />
-
-         <CellTableOptionsAdditionallyChangeColorsAfterPress />
-         <Separator wide />
-
-         <CellTableOptionsAutochangeColors />
-         <Separator wide /> */}
 
          <CellTableOptionsCellsFlipHorizontally />
          <Separator wide />
