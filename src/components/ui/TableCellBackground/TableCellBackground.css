@@ -3,7 +3,6 @@
    width: 100%;
    position: relative;
    z-index: 1;
-   /* user-select: none; */
    border-radius: inherit;
 }
 
@@ -11,6 +10,10 @@
 .TableCellBackground--clr-custom {}
 .TableCellContent--clr-none {}
 */
+.TableCellBackground--bg-clr-md-secondary {
+   background-color: var(--vkui--color_background_secondary);
+   /* background-color: var(--vkui--color_background_tertiary)*/
+}
 
 .TableCellBackground--bg-clr-md-red {
    background-color: var(--vkui--color_background_negative);
@@ -19,9 +22,31 @@
 .TableCellBackground--bg-clr-md-black {
    background-color: black;
 }
-.TableCellBackground--shadow {
-   box-shadow: inset 0px 0px 2px 3px rgba(0, 0, 0, 0.1);
+
+.TableCellBackground--appearance-dark {
+   --color_table_cell_background_shadow: rgba(255, 255, 255, 0.12);
 }
+.TableCellBackground--appearance-light {
+   --color_table_cell_background_shadow: rgba(0, 0, 0, 0.12);
+}
+
+.TableCellBackground--shadow {
+   box-shadow: inset 0px 0px 3px 2px var(--color_table_cell_background_shadow);
+}
+
+/* 
+.TableCellBackground--shadow-light::before {
+   content: '';
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   opacity: 0.12;
+   box-shadow: inset 0px 0px 3px 2px currentColor;
+}
+*/
+
 /* background-color: var(--vkui--color_background_contrast_inverse); */
 
 .TableCellBackground--animation-shockwave {

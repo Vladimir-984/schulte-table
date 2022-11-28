@@ -10,11 +10,12 @@ import {
    ITableMode,
    IColoredTableOptions,
    ITableColorVariant,
-   ITableCellShape,
+   IRedBlackTableOptions,
+   ITableRedBlackVariant,
 } from 'types/table'
 
 import cloneDeep from 'lodash/cloneDeep'
-import { cellsShapes, colorVariants, tableModes, tableTypes, tableVariants } from 'table/data'
+import { colorVariants, redBlackVariants, tableModes, tableTypes, tableVariants } from 'table/data'
 
 export const getSizeWithX = (size: number) => `${size}x${size}`
 
@@ -30,7 +31,6 @@ export const defaultMainTableOptions: IMainTableOptions = {
    type: tableTypes[0],
    variant: tableVariants[0],
    mode: tableModes[0],
-   cellsShape: cellsShapes[0],
 }
 export const defaultAdditionalTableOptions: IAdditionalTableOptions = {
    size: 5,
@@ -46,6 +46,10 @@ export const defaultColoredTableOptions: IColoredTableOptions = {
    isAutoChangeColors: false,
 }
 
+export const defaultRedBlackTableOptions: IRedBlackTableOptions = {
+   redBlackVariant: redBlackVariants[0],
+}
+
 export const defaultTableOptions: ITableOptions = Object.assign(defaultMainTableOptions, defaultAdditionalTableOptions)
 
 interface IDataMainTableOptions {
@@ -53,7 +57,7 @@ interface IDataMainTableOptions {
    variant: ITableVariant[]
    mode: ITableMode[]
    colorVariants: ITableColorVariant[]
-   cellsShapes: ITableCellShape[]
+   redBlackVariants: ITableRedBlackVariant[]
 }
 
 interface ITableOptionsState {
@@ -66,10 +70,14 @@ interface ITableOptionsState {
    currentColoredTableOptions: IColoredTableOptions
    changeableColoredTableOptions: IColoredTableOptions
 
+   currentRedBlackTableOptions: IRedBlackTableOptions
+   changeableRedBlackTableOptions: IRedBlackTableOptions
+
    dataMainTableOptions: IDataMainTableOptions
 
    shownAdditionalOptions: boolean
    shownColoredOptions: boolean
+   shownRedBlackOptions: boolean
    availableTableSizes: IListItem<number>[]
 }
 
@@ -83,16 +91,20 @@ const initialState: ITableOptionsState = {
    currentColoredTableOptions: cloneDeep(defaultColoredTableOptions),
    changeableColoredTableOptions: cloneDeep(defaultColoredTableOptions),
 
+   currentRedBlackTableOptions: cloneDeep(defaultRedBlackTableOptions),
+   changeableRedBlackTableOptions: cloneDeep(defaultRedBlackTableOptions),
+
    dataMainTableOptions: {
       type: tableTypes,
       variant: tableVariants,
       mode: tableModes,
       colorVariants: colorVariants,
-      cellsShapes: cellsShapes,
+      redBlackVariants: redBlackVariants,
    },
 
    shownAdditionalOptions: false,
    shownColoredOptions: false,
+   shownRedBlackOptions: false,
    availableTableSizes: _fillSizes(15),
 }
 
@@ -109,12 +121,19 @@ const tableOptionsSlice = createSlice({
       setMainTableOptionsVariant: (state, action: PayloadAction<string>) => {
          const variant = state.dataMainTableOptions.variant.find((variant) => variant.id === action.payload)
          if (!variant) return
+
          state.changeableMainTableOptions.variant = variant
 
-         if (variant.name === 'color') {
+         if (variant.showVariantOptions === 'colored') {
             state.shownColoredOptions = true
          } else {
             state.shownColoredOptions = false
+         }
+
+         if (variant.showVariantOptions === 'red-black') {
+            state.shownRedBlackOptions = true
+         } else {
+            state.shownRedBlackOptions = false
          }
       },
 
@@ -123,7 +142,7 @@ const tableOptionsSlice = createSlice({
          if (!mode) return
          state.changeableMainTableOptions.mode = mode
 
-         if (mode.name === 'custom') {
+         if (mode.isShowOptions) {
             state.shownAdditionalOptions = true
          } else {
             state.shownAdditionalOptions = false
@@ -161,6 +180,15 @@ const tableOptionsSlice = createSlice({
       setColoredTableOptionsIsAutoChangeColors: (state, action: PayloadAction<boolean>) => {
          state.changeableColoredTableOptions.isAutoChangeColors = action.payload
       },
+
+      //redBlack
+      setRedBlackTableOptionsVariant: (state, action: PayloadAction<string>) => {
+         const redBlackVariant = state.dataMainTableOptions.redBlackVariants.find(
+            (redBlackVariant) => redBlackVariant.id === action.payload
+         )
+         if (!redBlackVariant) return
+         state.changeableRedBlackTableOptions.redBlackVariant = redBlackVariant
+      },
    },
    extraReducers: (builder) => {
       builder.addCase(getTableOptions.pending, (state, action) => {})
@@ -176,6 +204,7 @@ const tableOptionsSlice = createSlice({
          state.currentMainTableOptions = action.payload.main
          state.currentAdditionalTableOptions = action.payload.additional
          state.currentColoredTableOptions = action.payload.colored
+         state.currentRedBlackTableOptions = action.payload.redBlack
       })
       builder.addCase(applyTableOptions.rejected, (state, action) => {})
    },
@@ -195,6 +224,8 @@ export const {
    setColoredTableOptionsColorVariant,
    setColoredTableOptionsIsAutoChangeColors,
    setColoredTableOptionsIsChangeColorsAfterPress,
+
+   setRedBlackTableOptionsVariant,
 } = tableOptionsSlice.actions
 
 export const tableOptionsReducer = tableOptionsSlice.reducer

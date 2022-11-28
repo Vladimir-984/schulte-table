@@ -1,6 +1,17 @@
 .TableCell {
    position: relative;
+   /*  */
 }
+.TableCell--shape-round {
+   border-radius: 50%;
+}
+.TableCell--shape-square {
+   border-radius: 0px;
+}
+.TableCell--shape-rounded-square {
+   border-radius: 8px;
+}
+
 .TableCell--outline::before {
    content: '';
    /* z-index: 3; */

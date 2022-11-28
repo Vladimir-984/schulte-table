@@ -44,12 +44,21 @@ export const selectChangeableTableIsAutoChangeColors = (state: RootState) =>
    state.tableOptions.changeableColoredTableOptions.isAutoChangeColors
 //
 
+//redBlack
+export const selectChangeableTableRedBlackVariant = (state: RootState) =>
+   state.tableOptions.changeableRedBlackTableOptions.redBlackVariant
+export const selectChangeableTableRedBlackVariantTitle = (state: RootState) =>
+   state.tableOptions.changeableRedBlackTableOptions.redBlackVariant.title
+
 export const selectAvailableTableSizes = (state: RootState) => state.tableOptions.availableTableSizes
 
 export const selectIsShownAdditionalOptions = (state: RootState) => state.tableOptions.shownAdditionalOptions
 export const selectIsShownColoredOptions = (state: RootState) => state.tableOptions.shownColoredOptions
+export const selectIsShownRedBlackOptions = (state: RootState) => state.tableOptions.shownRedBlackOptions
 
 export const selectDataTableType = (state: RootState) => state.tableOptions.dataMainTableOptions.type
 export const selectDataTableVariant = (state: RootState) => state.tableOptions.dataMainTableOptions.variant
 export const selectDataTableMode = (state: RootState) => state.tableOptions.dataMainTableOptions.mode
 export const selectDataTableColorVariants = (state: RootState) => state.tableOptions.dataMainTableOptions.colorVariants
+export const selectDataTableRedBlackVariants = (state: RootState) =>
+   state.tableOptions.dataMainTableOptions.redBlackVariants

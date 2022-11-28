@@ -9,11 +9,16 @@ import { TableCellChar } from '../TableCellChar/TableCellChar'
 
 export const TableCell: React.FC<ICell> = (cell) => {
    const resolvedBorderRadius = cell.borderRadius
+   const shape = cell.shape
    const appearance = useAppearance()
    return (
       <div
          style={{ borderRadius: resolvedBorderRadius }}
-         className={classNames('TableCell', cell.outline && `TableCell--outline TableCell--appearance-${appearance}`)}
+         className={classNames(
+            'TableCell',
+            cell.outline && `TableCell--outline TableCell--appearance-${appearance}`,
+            shape && `TableCell--shape-${shape}`
+         )}
       >
          <TableCellTappable id={cell.id} tappable={cell?.tappable}>
             <TableCellBackground background={cell.background}>

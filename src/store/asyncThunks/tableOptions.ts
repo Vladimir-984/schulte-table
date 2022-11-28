@@ -16,8 +16,14 @@ export const applyTableOptions = createAsyncThunk('tableOptions/apply', async (_
       const mainTableOptions = (thunkAPI.getState() as RootState).tableOptions.changeableMainTableOptions
       const additionalTableOptions = (thunkAPI.getState() as RootState).tableOptions.changeableAdditionalTableOptions
       const coloredTableOptions = (thunkAPI.getState() as RootState).tableOptions.changeableColoredTableOptions
+      const redBlackTableOptions = (thunkAPI.getState() as RootState).tableOptions.changeableRedBlackTableOptions
 
-      return { main: mainTableOptions, additional: additionalTableOptions, colored: coloredTableOptions }
+      return {
+         main: mainTableOptions,
+         additional: additionalTableOptions,
+         colored: coloredTableOptions,
+         redBlack: redBlackTableOptions,
+      }
    } catch (e) {
       return thunkAPI.rejectWithValue(e)
    }

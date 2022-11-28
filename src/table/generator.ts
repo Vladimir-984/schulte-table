@@ -4,6 +4,10 @@ import { groupsOfChars, charsRangeOfGroups } from './data'
 const REDBLACK_TABLE_MODIFIER_BLACK = '+'
 const REDBLACK_TABLE_MODIFIER_RED = '-'
 
+const isUpperCase = (str: string) => str.toUpperCase() === str
+const isLowerCase = (str: string) => str.toLowerCase() === str
+const parseInt16 = (strInt: string) => parseInt(strInt, 16)
+
 const getLengthOfRangesChars = (rangesCharsOfGroup: ICharsRangeOfGroup[]) => {
    const length = rangesCharsOfGroup.reduce((acc, current) => {
       const [start16, end16] = current.range
@@ -35,10 +39,6 @@ const CHARS = {
 const localeCompare = (a: string, b: string) => a.localeCompare(b, 'ru')
 
 const equalLowerUpperCase = (a: string) => a.toLowerCase() === a.toUpperCase()
-
-const isUpperCase = (str: string) => str.toUpperCase() === str
-const isLowerCase = (str: string) => str.toLowerCase() === str
-const parseInt16 = (strInt: string) => parseInt(strInt, 16)
 
 const getCharsFromRange = (range: TypeRange) => {
    const startCode = parseInt16(range[0])

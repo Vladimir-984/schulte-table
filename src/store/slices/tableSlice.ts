@@ -100,28 +100,31 @@ const tableSlice = createSlice({
          const cells: ICell[] = sequence.map((v, idx) => {
             const cell: ICell = {
                id: `cell--id--${v}`,
+               shape: 'rounded-square',
+               // shape: 'rounded-square',
+               // outline: 'secondary',
+               // borderRadius: 8,
                background: {
-                  // backgroundColorMode: 'custom',
-                  // backgroundColor: getRandomColor(),
-                  backgroundColorMode: 'none',
-                  backgroundShadow: false,
-                  // backgroundShadow: true,
+                  backgroundColorMode: 'custom',
+                  backgroundColor: getRandomColor(),
+                  // backgroundColorMode: 'none',
+                  backgroundShadow: true,
                },
                // typeColor: idx % 2 === 0 ? 'black' : 'red',
                tappable: {
-                  tappableMode: 'background',
-                  // tappableMode: 'opacity',
+                  // tappableMode: 'background',
+                  tappableMode: 'opacity',
                   isTappableDisabled: false,
                },
-               // borderRadius: 8,
-               outline: 'secondary',
                char: {
                   value: v,
-                  // color: getRandomColor(),
+                  visibility: 'visible',
+                  color: getRandomColor(),
+                  // colorMode: 'custom',
+                  colorMode: 'white',
 
                   // colorMode: idx % 2 === 0 ? 'black' : 'red',
-                  colorMode: 'primary',
-                  // colorMode: 'white',
+                  // colorMode: 'primary',
                },
             }
             return cell
@@ -168,7 +171,9 @@ const tableSlice = createSlice({
             state.active.idxOfCurrentCellInSequence++
 
             if (state.options.isHideSelectedChars) {
-               cell.char = null
+               if (cell.char.visibility) {
+                  cell.char.visibility = 'hidden'
+               }
             }
 
             if (state.active.idxOfCurrentCellInSequence <= state.active.sequenceCells.length - 1) {

@@ -8,6 +8,7 @@ import {
    ITableMode,
    ITableType,
    ITableVariant,
+   ITableRedBlackVariant,
 } from 'types/table'
 
 export const tableTypes: ITableType[] = [
@@ -201,14 +202,14 @@ export const groupsOfChars: IGroupOfChars[] = [
 /**возрастающем порядке черные числа, и в убывающем порядке красные */
 export const tableVariants: ITableVariant[] = [
    { id: '1', name: 'standard', title: 'Стандартный' },
-   { id: '2', name: 'gorbov', title: 'Шульте-Горбова' },
-   { id: '3', name: 'color', title: 'Цветной' },
+   { id: '2', name: 'gorbov', title: 'Шульте-Горбова', showVariantOptions: 'red-black' },
+   { id: '3', name: 'color', title: 'Цветной', showVariantOptions: 'colored' },
 ]
 
 export const tableModes: ITableMode[] = [
    { id: '1', name: 'classic', title: 'Классический' },
    { id: '2', name: 'hard', title: 'Сложный' },
-   { id: '3', name: 'custom', title: 'Настраиваемый' },
+   { id: '3', name: 'custom', title: 'Настраиваемый', isShowOptions: true },
 ]
 export const colorVariants: ITableColorVariant[] = [
    { id: '1', name: 'background', title: 'Фон' },
@@ -216,8 +217,13 @@ export const colorVariants: ITableColorVariant[] = [
    { id: '3', name: 'all', title: 'Фон и символ' },
 ]
 export const cellsShapes: ITableCellShape[] = [
-   { id: '2', name: 'rect', title: 'Квадратная' },
-   { id: '1', name: 'round', title: 'Круглая' },
+   { id: '1', name: 'square', title: 'Квадрат' },
+   { id: '2', name: 'round', title: 'Круг' },
+   { id: '3', name: 'rounded-square', title: 'Квадрат скруглённый' },
+]
+export const redBlackVariants: ITableRedBlackVariant[] = [
+   { id: '1', name: 'background', title: 'Фон' },
+   { id: '2', name: 'char', title: 'Символ' },
 ]
 
 export const additionalTableOptionsOfModes: IAdditionalTableOptionsOfMode[] = [

@@ -48,12 +48,7 @@ export const PanelSettingsTableDisplay: React.FC<PanelProps> = (panelProps) => {
                </SimpleCell>
                <Separator wide />
                <SimpleCell disabled after={<Switch />}>
-                  Контур цветных ячеек
-               </SimpleCell>
-            </GroupCard>
-            <GroupCard description='Отображается при квадратных, не цветных ячейках'>
-               <SimpleCell disabled after={<Switch />}>
-                  Сетка
+                  Контур ячеек
                </SimpleCell>
             </GroupCard>
 

@@ -27,19 +27,29 @@ export interface ITableType {
    title: string
 }
 
+/** 1 проп showVariantOptions */
+export type TypeShowVariantOptions = 'red-black' | 'colored'
 export interface ITableVariant {
    id: string
    name: string
    title: string
+   showVariantOptions?: TypeShowVariantOptions
    description?: string
 }
 export interface ITableMode {
    id: string
    name: string
    title: string
+   isShowOptions?: boolean
    description?: string
 }
 export interface ITableColorVariant {
+   id: string
+   name: string
+   title: string
+   description?: string
+}
+export interface ITableRedBlackVariant {
    id: string
    name: string
    title: string
@@ -76,7 +86,6 @@ export interface IMainTableOptions {
    type: ITableType
    variant: ITableVariant
    mode: ITableMode
-   cellsShape: ITableCellShape
 }
 export interface IAdditionalTableOptions {
    size: number
@@ -94,19 +103,35 @@ export interface IColoredTableOptions {
    isAutoChangeColors: boolean
 }
 
+export interface IRedBlackTableOptions {
+   redBlackVariant: ITableRedBlackVariant
+}
+
 export interface ITableOptions extends IMainTableOptions, IAdditionalTableOptions {}
 
+export type TypeShapeCell = 'square' | 'round' | 'rounded-square'
+export type TypeRedBlackVariant = 'background' | 'char'
+
+/** @deprecated */
 export type TypeOutlineCell = 'primary' | 'secondary'
+
 export type TypeTappableMode = 'opacity' | 'background'
 
-export type TypeColorModeCell = TypeRedBlack | 'custom' | 'none'
+export type TypeColorModeCell = TypeRedBlack | 'secondary' | 'custom' | 'none'
 
 export interface ICell {
    id: string
-   char: IChar | null
+   char: IChar
+   shape: TypeShapeCell
    tappable?: ICellTappable
    background?: ICellBackground
+   /**
+    * @deprecated
+    */
    borderRadius?: number | string
+   /**
+    * @deprecated
+    */
    outline?: TypeOutlineCell
    animation?: string
 }
@@ -125,10 +150,12 @@ export interface ICellBackground {
  * `white` - для красно-чёрной таблицы;
  */
 export type TypeColorModeChar = TypeRedBlack | 'primary' | 'white' | 'custom'
+export type TypeVisibilityChar = 'visible' | 'hidden'
 
 export interface IChar {
    value: string
 
+   visibility?: TypeVisibilityChar
    colorMode?: TypeColorModeChar
    color?: string
    // animation?: string
