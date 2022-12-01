@@ -15,10 +15,8 @@ export const GroupTableVariant: React.FC = () => {
    const tableVariant = useAppSelector(selectChangeableTableVariant)
    const dataTableVariants = useAppSelector(selectDataTableVariant)
 
-   const onClickTableType = (_tabelVariant: ITableVariant['id']) => () => {
-      if (_tabelVariant !== tableVariant.id) {
-         dispatch(setMainTableOptionsVariant(_tabelVariant))
-      }
+   const onClickTableVariant = (_tableVariant: ITableVariant) => () => {
+      dispatch(setMainTableOptionsVariant(_tableVariant))
    }
    return (
       <Group>
@@ -27,7 +25,7 @@ export const GroupTableVariant: React.FC = () => {
                <SimpleCell
                   activeEffectDelay={BUTTON_ACTIVE_EFFECT_DELAY}
                   after={tableVariant.id === tableVariantItem.id && <Icon28DoneOutline />}
-                  onClick={onClickTableType(tableVariantItem.id)}
+                  onClick={onClickTableVariant(tableVariantItem)}
                >
                   {tableVariantItem.title}
                </SimpleCell>

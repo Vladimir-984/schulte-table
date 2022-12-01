@@ -14,10 +14,8 @@ export const GroupTableType: React.FC = () => {
    const tableType = useAppSelector(selectChangeableTableType)
    const dataTableTypes = useAppSelector(selectDataTableType)
 
-   const onClickTableType = (_tabelType: ITableType['id']) => () => {
-      if (_tabelType !== tableType.id) {
-         dispatch(setMainTableOptionsType(_tabelType))
-      }
+   const onClickTableType = (_tableType: ITableType) => () => {
+      dispatch(setMainTableOptionsType(_tableType))
    }
    return (
       <Group>
@@ -26,7 +24,7 @@ export const GroupTableType: React.FC = () => {
                <SimpleCell
                   activeEffectDelay={BUTTON_ACTIVE_EFFECT_DELAY}
                   after={tableType.id === tableTypeItem.id && <Icon28DoneOutline />}
-                  onClick={onClickTableType(tableTypeItem.id)}
+                  onClick={onClickTableType(tableTypeItem)}
                >
                   {tableTypeItem.title}
                </SimpleCell>

@@ -1,11 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { cloneDeep } from 'lodash'
 import { RootState } from 'store'
-import { defaultMainTableOptions } from 'store/slices/tableOptions'
+import { defaultTableOptions } from 'store/slices/tableOptions'
+import { ITableCellShape, ITableHintStyle } from 'types/table'
 
 export const getTableOptions = createAsyncThunk('tableOptions/get', async (_, thunkAPI) => {
    try {
       //
-      return defaultMainTableOptions
+      return defaultTableOptions
    } catch (e) {
       return thunkAPI.rejectWithValue(e)
    }
@@ -13,18 +15,76 @@ export const getTableOptions = createAsyncThunk('tableOptions/get', async (_, th
 
 export const applyTableOptions = createAsyncThunk('tableOptions/apply', async (_, thunkAPI) => {
    try {
-      const mainTableOptions = (thunkAPI.getState() as RootState).tableOptions.changeableMainTableOptions
-      const additionalTableOptions = (thunkAPI.getState() as RootState).tableOptions.changeableAdditionalTableOptions
-      const coloredTableOptions = (thunkAPI.getState() as RootState).tableOptions.changeableColoredTableOptions
-      const redBlackTableOptions = (thunkAPI.getState() as RootState).tableOptions.changeableRedBlackTableOptions
+      const changeableTableOptions = (thunkAPI.getState() as RootState).tableOptions.changeableTableOptions
 
-      return {
-         main: mainTableOptions,
-         additional: additionalTableOptions,
-         colored: coloredTableOptions,
-         redBlack: redBlackTableOptions,
-      }
+      return cloneDeep(changeableTableOptions)
    } catch (e) {
       return thunkAPI.rejectWithValue(e)
    }
 })
+
+//hints
+export const setHintsTableOptionsIsEnabled = createAsyncThunk<boolean, boolean>(
+   'tableOptions/setIsEnabledHints',
+   async (isEnabledHints, thunkAPI) => {
+      try {
+         return isEnabledHints
+      } catch (e) {
+         return thunkAPI.rejectWithValue(e)
+      }
+   }
+)
+export const setHintsTableOptionsStyle = createAsyncThunk<ITableHintStyle, ITableHintStyle>(
+   'tableOptions/setStyleHints',
+   async (styleHints, thunkAPI) => {
+      try {
+         return styleHints
+      } catch (e) {
+         return thunkAPI.rejectWithValue(e)
+      }
+   }
+)
+export const setHintsTableOptionsTimeout = createAsyncThunk<number, number>(
+   'tableOptions/setTimeoutHints',
+   async (timeoutHints, thunkAPI) => {
+      try {
+         return timeoutHints
+      } catch (e) {
+         return thunkAPI.rejectWithValue(e)
+      }
+   }
+)
+//
+
+//display
+export const setDisplayTableOptionsIsShowTime = createAsyncThunk<boolean, boolean>(
+   'tableOptions/setIsShowTime',
+   async (isShowTime, thunkAPI) => {
+      try {
+         return isShowTime
+      } catch (e) {
+         return thunkAPI.rejectWithValue(e)
+      }
+   }
+)
+export const setDisplayTableOptionsCellsShape = createAsyncThunk<ITableCellShape, ITableCellShape>(
+   'tableOptions/setCellsShape',
+   async (cellsShape, thunkAPI) => {
+      try {
+         return cellsShape
+      } catch (e) {
+         return thunkAPI.rejectWithValue(e)
+      }
+   }
+)
+export const setDisplayTableOptionsIsEnabledShadow = createAsyncThunk<boolean, boolean>(
+   'tableOptions/setIsEnabledShadow',
+   async (isEnabledShadow, thunkAPI) => {
+      try {
+         return isEnabledShadow
+      } catch (e) {
+         return thunkAPI.rejectWithValue(e)
+      }
+   }
+)
+//

@@ -81,6 +81,16 @@ export interface ITableCellShape {
    name: string
    title: string
 }
+export interface ITableHintTimeout {
+   id: string
+   value: number
+   title: string
+}
+export interface ITableHintStyle {
+   id: string
+   value: string
+   title: string
+}
 
 export interface IMainTableOptions {
    type: ITableType
@@ -107,7 +117,32 @@ export interface IRedBlackTableOptions {
    redBlackVariant: ITableRedBlackVariant
 }
 
-export interface ITableOptions extends IMainTableOptions, IAdditionalTableOptions {}
+export interface IDisplayTableOptions {
+   isShowTime: boolean
+
+   cellsShape: ITableCellShape
+   cellsIsEnabledShadow: boolean
+
+   isShowCorrect: boolean
+   //Анимация, если не та ячейка
+   isShowMistakes: boolean
+}
+// isTerminateOnWrongPress?: boolean
+
+export interface IHintsTableOptions {
+   isEnabledHints: boolean
+   timeoutHints: number
+   styleHints: ITableHintStyle
+}
+
+export interface ITableOptions {
+   mainOptions: IMainTableOptions
+   additionalOptions: IAdditionalTableOptions
+   coloredOptions: IColoredTableOptions
+   redBlackOptions: IRedBlackTableOptions
+   display: IDisplayTableOptions
+   hints: IHintsTableOptions
+}
 
 export type TypeShapeCell = 'square' | 'round' | 'rounded-square'
 export type TypeRedBlackVariant = 'background' | 'char'

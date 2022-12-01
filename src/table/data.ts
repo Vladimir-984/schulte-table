@@ -9,7 +9,10 @@ import {
    ITableType,
    ITableVariant,
    ITableRedBlackVariant,
+   ITableHintTimeout,
+   ITableHintStyle,
 } from 'types/table'
+import { secondLongFormatter } from 'utils/format'
 
 export const tableTypes: ITableType[] = [
    { id: '1', name: 'numbers', title: 'Цифры' },
@@ -224,6 +227,18 @@ export const cellsShapes: ITableCellShape[] = [
 export const redBlackVariants: ITableRedBlackVariant[] = [
    { id: '1', name: 'background', title: 'Фон' },
    { id: '2', name: 'char', title: 'Символ' },
+]
+
+export const hintsTimeouts: ITableHintTimeout[] = new Array(6).fill('').map((_, idx) => {
+   // const value = (idx + 1) * 10 - idx * 5
+   const value = (idx + 1) * 5
+   const hintTimeout: ITableHintTimeout = { id: String(idx + 1), value, title: secondLongFormatter.format(value) }
+   return hintTimeout
+})
+
+export const hintsStyles: ITableHintStyle[] = [
+   { id: '1', value: '111', title: '111' },
+   { id: '2', value: '222', title: '222' },
 ]
 
 export const additionalTableOptionsOfModes: IAdditionalTableOptionsOfMode[] = [

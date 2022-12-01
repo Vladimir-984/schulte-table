@@ -14,10 +14,8 @@ export const GroupTableOptionsMode: React.FC = () => {
    const tableMode = useAppSelector(selectChangeableTableMode)
    const dataTableModes = useAppSelector(selectDataTableMode)
 
-   const onClickTableType = (_tableMode: ITableMode['id']) => () => {
-      if (_tableMode !== tableMode.id) {
-         dispatch(setMainTableOptionsMode(_tableMode))
-      }
+   const onClickTableType = (_tableMode: ITableMode) => () => {
+      dispatch(setMainTableOptionsMode(_tableMode))
    }
    return (
       <>
@@ -26,7 +24,7 @@ export const GroupTableOptionsMode: React.FC = () => {
                <SimpleCell
                   activeEffectDelay={BUTTON_ACTIVE_EFFECT_DELAY}
                   after={tableMode.id === tableModeItem.id && <Icon28DoneOutline />}
-                  onClick={onClickTableType(tableModeItem.id)}
+                  onClick={onClickTableType(tableModeItem)}
                >
                   {tableModeItem.title}
                </SimpleCell>

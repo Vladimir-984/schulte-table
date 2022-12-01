@@ -1,5 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { applyTableOptions, getTableOptions } from 'store/asyncThunks/tableOptions'
+import {
+   applyTableOptions,
+   getTableOptions,
+   setDisplayTableOptionsCellsShape,
+   setDisplayTableOptionsIsEnabledShadow,
+   setDisplayTableOptionsIsShowTime,
+   setHintsTableOptionsIsEnabled,
+   setHintsTableOptionsStyle,
+   setHintsTableOptionsTimeout,
+} from 'store/asyncThunks/tableOptions'
 import { IListItem } from 'types/list'
 import {
    IMainTableOptions,
@@ -12,10 +21,24 @@ import {
    ITableColorVariant,
    IRedBlackTableOptions,
    ITableRedBlackVariant,
+   ITableCellShape,
+   IDisplayTableOptions,
+   IHintsTableOptions,
+   ITableHintTimeout,
+   ITableHintStyle,
 } from 'types/table'
 
 import cloneDeep from 'lodash/cloneDeep'
-import { colorVariants, redBlackVariants, tableModes, tableTypes, tableVariants } from 'table/data'
+import {
+   cellsShapes,
+   colorVariants,
+   hintsStyles,
+   hintsTimeouts,
+   redBlackVariants,
+   tableModes,
+   tableTypes,
+   tableVariants,
+} from 'table/data'
 
 export const getSizeWithX = (size: number) => `${size}x${size}`
 
@@ -50,30 +73,44 @@ export const defaultRedBlackTableOptions: IRedBlackTableOptions = {
    redBlackVariant: redBlackVariants[0],
 }
 
-export const defaultTableOptions: ITableOptions = Object.assign(defaultMainTableOptions, defaultAdditionalTableOptions)
+export const defaultDisplayTableOptions: IDisplayTableOptions = {
+   cellsShape: cellsShapes[0],
+   cellsIsEnabledShadow: true,
+   isShowTime: true,
+   isShowCorrect: true,
+   isShowMistakes: true,
+}
+export const defaultHintsTableOptions: IHintsTableOptions = {
+   isEnabledHints: false,
+   styleHints: hintsStyles[0],
+   timeoutHints: 10,
+}
 
-interface IDataMainTableOptions {
+export const defaultTableOptions: ITableOptions = {
+   mainOptions: defaultMainTableOptions,
+   additionalOptions: defaultAdditionalTableOptions,
+   coloredOptions: defaultColoredTableOptions,
+   redBlackOptions: defaultRedBlackTableOptions,
+   display: defaultDisplayTableOptions,
+   hints: defaultHintsTableOptions,
+}
+
+interface IDataTableOptions {
    type: ITableType[]
    variant: ITableVariant[]
    mode: ITableMode[]
    colorVariants: ITableColorVariant[]
    redBlackVariants: ITableRedBlackVariant[]
+   cellsShapes: ITableCellShape[]
+   hintTimeouts: ITableHintTimeout[]
+   hintStyles: ITableHintStyle[]
 }
 
 interface ITableOptionsState {
-   currentMainTableOptions: IMainTableOptions
-   changeableMainTableOptions: IMainTableOptions
+   currentTableOptions: ITableOptions
+   changeableTableOptions: ITableOptions
 
-   currentAdditionalTableOptions: IAdditionalTableOptions
-   changeableAdditionalTableOptions: IAdditionalTableOptions
-
-   currentColoredTableOptions: IColoredTableOptions
-   changeableColoredTableOptions: IColoredTableOptions
-
-   currentRedBlackTableOptions: IRedBlackTableOptions
-   changeableRedBlackTableOptions: IRedBlackTableOptions
-
-   dataMainTableOptions: IDataMainTableOptions
+   dataTableOptions: IDataTableOptions
 
    shownAdditionalOptions: boolean
    shownColoredOptions: boolean
@@ -82,24 +119,18 @@ interface ITableOptionsState {
 }
 
 const initialState: ITableOptionsState = {
-   currentMainTableOptions: cloneDeep(defaultMainTableOptions),
-   changeableMainTableOptions: cloneDeep(defaultMainTableOptions),
+   currentTableOptions: cloneDeep(defaultTableOptions),
+   changeableTableOptions: cloneDeep(defaultTableOptions),
 
-   currentAdditionalTableOptions: cloneDeep(defaultAdditionalTableOptions),
-   changeableAdditionalTableOptions: cloneDeep(defaultAdditionalTableOptions),
-
-   currentColoredTableOptions: cloneDeep(defaultColoredTableOptions),
-   changeableColoredTableOptions: cloneDeep(defaultColoredTableOptions),
-
-   currentRedBlackTableOptions: cloneDeep(defaultRedBlackTableOptions),
-   changeableRedBlackTableOptions: cloneDeep(defaultRedBlackTableOptions),
-
-   dataMainTableOptions: {
+   dataTableOptions: {
       type: tableTypes,
       variant: tableVariants,
       mode: tableModes,
       colorVariants: colorVariants,
       redBlackVariants: redBlackVariants,
+      cellsShapes: cellsShapes,
+      hintTimeouts: hintsTimeouts,
+      hintStyles: hintsStyles,
    },
 
    shownAdditionalOptions: false,
@@ -112,37 +143,29 @@ const tableOptionsSlice = createSlice({
    name: 'tableOptions',
    initialState,
    reducers: {
-      setMainTableOptionsType: (state, action: PayloadAction<string>) => {
-         const type = state.dataMainTableOptions.type.find((type) => type.id === action.payload)
-         if (!type) return
-
-         state.changeableMainTableOptions.type = type
+      setMainTableOptionsType: (state, action: PayloadAction<ITableType>) => {
+         state.changeableTableOptions.mainOptions.type = action.payload
       },
-      setMainTableOptionsVariant: (state, action: PayloadAction<string>) => {
-         const variant = state.dataMainTableOptions.variant.find((variant) => variant.id === action.payload)
-         if (!variant) return
+      setMainTableOptionsVariant: (state, action: PayloadAction<ITableVariant>) => {
+         state.changeableTableOptions.mainOptions.variant = action.payload
 
-         state.changeableMainTableOptions.variant = variant
-
-         if (variant.showVariantOptions === 'colored') {
+         if (action.payload.showVariantOptions === 'colored') {
             state.shownColoredOptions = true
          } else {
             state.shownColoredOptions = false
          }
 
-         if (variant.showVariantOptions === 'red-black') {
+         if (action.payload.showVariantOptions === 'red-black') {
             state.shownRedBlackOptions = true
          } else {
             state.shownRedBlackOptions = false
          }
       },
 
-      setMainTableOptionsMode: (state, action: PayloadAction<string>) => {
-         const mode = state.dataMainTableOptions.mode.find((mode) => mode.id === action.payload)
-         if (!mode) return
-         state.changeableMainTableOptions.mode = mode
+      setMainTableOptionsMode: (state, action: PayloadAction<ITableMode>) => {
+         state.changeableTableOptions.mainOptions.mode = action.payload
 
-         if (mode.isShowOptions) {
+         if (action.payload.isShowOptions) {
             state.shownAdditionalOptions = true
          } else {
             state.shownAdditionalOptions = false
@@ -151,60 +174,116 @@ const tableOptionsSlice = createSlice({
 
       //additional
       setAdditionalTableOptionsSize: (state, action: PayloadAction<number>) => {
-         state.changeableAdditionalTableOptions.size = action.payload
+         state.changeableTableOptions.additionalOptions.size = action.payload
       },
       setAdditionalTableOptionsIsHideSelected: (state, action: PayloadAction<boolean>) => {
-         state.changeableAdditionalTableOptions.isHideSelectedChars = action.payload
+         state.changeableTableOptions.additionalOptions.isHideSelectedChars = action.payload
       },
       setAdditionalTableOptionsIsShuffleCellsAfterPress: (state, action: PayloadAction<boolean>) => {
-         state.changeableAdditionalTableOptions.isShuffleCellsAfterPress = action.payload
+         state.changeableTableOptions.additionalOptions.isShuffleCellsAfterPress = action.payload
       },
       setAdditionalTableOptionsIsFlipHorizontally: (state, action: PayloadAction<boolean>) => {
-         state.changeableAdditionalTableOptions.isFlipHorizontally = action.payload
+         state.changeableTableOptions.additionalOptions.isFlipHorizontally = action.payload
       },
       setAdditionalTableOptionsIsFlipVertically: (state, action: PayloadAction<boolean>) => {
-         state.changeableAdditionalTableOptions.isFlipVertically = action.payload
+         state.changeableTableOptions.additionalOptions.isFlipVertically = action.payload
       },
 
       //colored
-      setColoredTableOptionsColorVariant: (state, action: PayloadAction<string>) => {
-         const color = state.dataMainTableOptions.colorVariants.find(
-            (colorVariant) => colorVariant.id === action.payload
-         )
-         if (!color) return
-         state.changeableColoredTableOptions.colorVariant = color
+      setColoredTableOptionsColorVariant: (state, action: PayloadAction<ITableColorVariant>) => {
+         state.changeableTableOptions.coloredOptions.colorVariant = action.payload
       },
       setColoredTableOptionsIsChangeColorsAfterPress: (state, action: PayloadAction<boolean>) => {
-         state.changeableColoredTableOptions.isChangeColorsAfterPress = action.payload
+         state.changeableTableOptions.coloredOptions.isChangeColorsAfterPress = action.payload
       },
       setColoredTableOptionsIsAutoChangeColors: (state, action: PayloadAction<boolean>) => {
-         state.changeableColoredTableOptions.isAutoChangeColors = action.payload
+         state.changeableTableOptions.coloredOptions.isAutoChangeColors = action.payload
       },
 
       //redBlack
-      setRedBlackTableOptionsVariant: (state, action: PayloadAction<string>) => {
-         const redBlackVariant = state.dataMainTableOptions.redBlackVariants.find(
-            (redBlackVariant) => redBlackVariant.id === action.payload
-         )
-         if (!redBlackVariant) return
-         state.changeableRedBlackTableOptions.redBlackVariant = redBlackVariant
+      setRedBlackTableOptionsVariant: (state, action: PayloadAction<ITableRedBlackVariant>) => {
+         state.changeableTableOptions.redBlackOptions.redBlackVariant = action.payload
       },
    },
    extraReducers: (builder) => {
       builder.addCase(getTableOptions.pending, (state, action) => {})
       builder.addCase(getTableOptions.fulfilled, (state, action) => {
-         state.currentMainTableOptions = action.payload
-         state.changeableMainTableOptions = action.payload
+         state.currentTableOptions = action.payload
+         state.changeableTableOptions = action.payload
       })
       builder.addCase(getTableOptions.rejected, (state, action) => {})
+
+      //hints
+      builder.addCase(setHintsTableOptionsIsEnabled.pending, (state, action) => {
+         state.changeableTableOptions.hints.isEnabledHints = action.meta.arg
+      })
+      builder.addCase(setHintsTableOptionsIsEnabled.fulfilled, (state, action) => {
+         state.currentTableOptions.hints.isEnabledHints = action.payload
+      })
+      builder.addCase(setHintsTableOptionsIsEnabled.rejected, (state, action) => {
+         state.changeableTableOptions.hints.isEnabledHints = state.currentTableOptions.hints.isEnabledHints
+      })
+
+      builder.addCase(setHintsTableOptionsStyle.pending, (state, action) => {
+         state.changeableTableOptions.hints.styleHints = action.meta.arg
+      })
+      builder.addCase(setHintsTableOptionsStyle.fulfilled, (state, action) => {
+         state.currentTableOptions.hints.styleHints = action.payload
+      })
+      builder.addCase(setHintsTableOptionsStyle.rejected, (state, action) => {
+         state.changeableTableOptions.hints.styleHints = state.currentTableOptions.hints.styleHints
+      })
+
+      builder.addCase(setHintsTableOptionsTimeout.pending, (state, action) => {
+         state.changeableTableOptions.hints.timeoutHints = action.meta.arg
+      })
+      builder.addCase(setHintsTableOptionsTimeout.fulfilled, (state, action) => {
+         state.currentTableOptions.hints.timeoutHints = action.payload
+      })
+      builder.addCase(setHintsTableOptionsTimeout.rejected, (state, action) => {
+         state.changeableTableOptions.hints.timeoutHints = state.currentTableOptions.hints.timeoutHints
+      })
+
+      //
+      //display
+
+      builder.addCase(setDisplayTableOptionsIsShowTime.pending, (state, action) => {
+         state.changeableTableOptions.display.isShowTime = action.meta.arg
+      })
+      builder.addCase(setDisplayTableOptionsIsShowTime.fulfilled, (state, action) => {
+         state.currentTableOptions.display.isShowTime = action.payload
+      })
+      builder.addCase(setDisplayTableOptionsIsShowTime.rejected, (state, action) => {
+         state.changeableTableOptions.display.isShowTime = state.currentTableOptions.display.isShowTime
+      })
+
+      builder.addCase(setDisplayTableOptionsCellsShape.pending, (state, action) => {
+         state.changeableTableOptions.display.cellsShape = action.meta.arg
+      })
+      builder.addCase(setDisplayTableOptionsCellsShape.fulfilled, (state, action) => {
+         state.currentTableOptions.display.cellsShape = action.payload
+      })
+      builder.addCase(setDisplayTableOptionsCellsShape.rejected, (state, action) => {
+         state.changeableTableOptions.display.cellsShape = state.currentTableOptions.display.cellsShape
+      })
+
+      builder.addCase(setDisplayTableOptionsIsEnabledShadow.pending, (state, action) => {
+         state.changeableTableOptions.display.cellsIsEnabledShadow = action.meta.arg
+      })
+      builder.addCase(setDisplayTableOptionsIsEnabledShadow.fulfilled, (state, action) => {
+         state.currentTableOptions.display.cellsIsEnabledShadow = action.payload
+      })
+      builder.addCase(setDisplayTableOptionsIsEnabledShadow.rejected, (state, action) => {
+         state.changeableTableOptions.display.cellsIsEnabledShadow =
+            state.currentTableOptions.display.cellsIsEnabledShadow
+      })
+      //
 
       //===
       builder.addCase(applyTableOptions.pending, (state, action) => {})
       builder.addCase(applyTableOptions.fulfilled, (state, action) => {
-         state.currentMainTableOptions = action.payload.main
-         state.currentAdditionalTableOptions = action.payload.additional
-         state.currentColoredTableOptions = action.payload.colored
-         state.currentRedBlackTableOptions = action.payload.redBlack
+         state.currentTableOptions = action.payload
+         state.changeableTableOptions = action.payload
       })
       builder.addCase(applyTableOptions.rejected, (state, action) => {})
    },

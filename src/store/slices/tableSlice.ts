@@ -147,7 +147,7 @@ const tableSlice = createSlice({
          state.active.completedAt = null
          state.active.completedStatus = null
 
-         state.options.size = size
+         state.options.additionalOptions.size = size
          if (size < 7) {
             size++
          }
@@ -170,14 +170,14 @@ const tableSlice = createSlice({
 
             state.active.idxOfCurrentCellInSequence++
 
-            if (state.options.isHideSelectedChars) {
+            if (state.options.additionalOptions.isHideSelectedChars) {
                if (cell.char.visibility) {
                   cell.char.visibility = 'hidden'
                }
             }
 
             if (state.active.idxOfCurrentCellInSequence <= state.active.sequenceCells.length - 1) {
-               if (state.options.isShuffleCellsAfterPress) {
+               if (state.options.additionalOptions.isShuffleCellsAfterPress) {
                   state.active.displayedCells.sort(randomSort)
 
                   // state.active.displayedCells = shuffleArray(state.active.displayedCells)

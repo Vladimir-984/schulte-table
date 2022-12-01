@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { applicationReducer } from './slices/applicationSlice'
 import { tableOptionsReducer } from './slices/tableOptions'
-import { tableSettingsReducer } from './slices/tableSettingsSlice'
 import { tableReducer } from './slices/tableSlice'
 
 export const store = configureStore({
@@ -9,7 +8,6 @@ export const store = configureStore({
       application: applicationReducer,
       tableOptions: tableOptionsReducer,
       table: tableReducer,
-      tableSettings: tableSettingsReducer,
    },
 })
 

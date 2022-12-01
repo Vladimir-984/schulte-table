@@ -1,4 +1,4 @@
-import { APPEARANCE_TYPE, HINTS_STYLE_TYPE, TableHintsStyle, TABLE_SEQUENCE } from 'lists'
+import { APPEARANCE_TYPE, TABLE_SEQUENCE } from 'lists'
 import { TypeApplicationAppearance } from 'store/slices/applicationSlice'
 import { IListItem } from 'types/list'
 import { TableSequence } from 'types/table'
@@ -10,11 +10,6 @@ export const appearanceItems: IListItem<TypeApplicationAppearance>[] = [
    { value: 'dark', label: APPEARANCE_TYPE['dark'] },
 ]
 
-export const hintsStyleItems: IListItem<TableHintsStyle>[] = [
-   { value: TableHintsStyle.GLOW, label: HINTS_STYLE_TYPE[TableHintsStyle.GLOW] },
-   { value: TableHintsStyle.SCALE, label: HINTS_STYLE_TYPE[TableHintsStyle.SCALE] },
-]
-
 // export const hintsTimeoutItems: IListItem<number>[] = [
 //    { value: 10, label: secondLongFormatter.format(10) },
 //    { value: 15, label: secondLongFormatter.format(15) },
@@ -22,11 +17,6 @@ export const hintsStyleItems: IListItem<TableHintsStyle>[] = [
 //    { value: 25, label: secondLongFormatter.format(25) },
 //    { value: 30, label: secondLongFormatter.format(30) },
 // ]
-export const hintsTimeoutItems: IListItem<number>[] = new Array(6).fill('').map((_, idx) => {
-   // const value = (idx + 1) * 10 - idx * 5
-   const value = (idx + 1) * 5
-   return { value, label: secondLongFormatter.format(value) }
-})
 
 //  const tableModeItems: IListItem<TableMode>[] = [
 //    { value: TableMode.CLASSIC, label: TABLE_MODE[TableMode.CLASSIC], description: '' },

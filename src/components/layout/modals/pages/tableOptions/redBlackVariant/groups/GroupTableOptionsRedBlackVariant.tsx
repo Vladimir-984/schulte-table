@@ -15,12 +15,9 @@ export const GroupTableOptionsRedBlackVariant: React.FC = () => {
    const redBlackVariant = useAppSelector(selectChangeableTableRedBlackVariant)
    const dataRedBlackVariants = useAppSelector(selectDataTableRedBlackVariants)
 
-   const onClickRedBlackVariant = (redBlackVariantItemId: string) => () => {
-      dispatch(setRedBlackTableOptionsVariant(redBlackVariantItemId))
+   const onClickRedBlackVariant = (_redBlackVariant: ITableRedBlackVariant) => () => {
+      dispatch(setRedBlackTableOptionsVariant(_redBlackVariant))
    }
-   // const onClickRedBlackVariant = (redBlackVariantItem:ITableRedBlackVariant) => () => {
-   //     dispatch(setRedBlackTableOptionsVariant(redBlackVariantItem))
-   // }
    return (
       <GroupCard>
          {dataRedBlackVariants.map((redBlackVariantItem, idx, items) => (
@@ -28,7 +25,7 @@ export const GroupTableOptionsRedBlackVariant: React.FC = () => {
                <SimpleCell
                   activeEffectDelay={BUTTON_ACTIVE_EFFECT_DELAY}
                   after={redBlackVariantItem.id === redBlackVariant.id && <Icon28DoneOutline />}
-                  onClick={onClickRedBlackVariant(redBlackVariantItem.id)}
+                  onClick={onClickRedBlackVariant(redBlackVariantItem)}
                >
                   {redBlackVariantItem.title}
                </SimpleCell>

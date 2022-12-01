@@ -23,7 +23,7 @@ const TableViewCells: React.FC = () => {
    /* const dispatch = useAppDispatch()
    const timeoutRef = React.useRef<NodeJS.Timer>() */
 
-   const tableSize = useAppSelector((state) => state.table.options.size)
+   const tableSize = useAppSelector((state) => state.table.options.additionalOptions.size)
 
    const cells = useAppSelector((state) => state.table.active.displayedCells)
 

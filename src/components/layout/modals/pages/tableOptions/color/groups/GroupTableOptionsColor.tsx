@@ -16,8 +16,8 @@ export const GroupTableOptionsColor: React.FC = () => {
    const dataColorVariants = useAppSelector(selectDataTableColorVariants)
    const colorVariant = useAppSelector(selectChangeableTableColorVariant)
 
-   const onClickTableColor = (colorId: ITableColorVariant['id']) => () => {
-      dispatch(setColoredTableOptionsColorVariant(colorId))
+   const onClickTableColor = (_colorVariant: ITableColorVariant) => () => {
+      dispatch(setColoredTableOptionsColorVariant(_colorVariant))
    }
 
    return (
@@ -27,7 +27,7 @@ export const GroupTableOptionsColor: React.FC = () => {
                <SimpleCell
                   activeEffectDelay={BUTTON_ACTIVE_EFFECT_DELAY}
                   after={colorVariant.id === colorVariantItem.id && <Icon28DoneOutline />}
-                  onClick={onClickTableColor(colorVariantItem.id)}
+                  onClick={onClickTableColor(colorVariantItem)}
                >
                   {colorVariantItem.title}
                </SimpleCell>

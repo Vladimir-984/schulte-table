@@ -8,6 +8,7 @@ export const PAGE_OPTIONS = '/options'
 export const PAGE_SETTINGS = '/settings'
 
 export const PAGE_SETTINGS_TABLE_DISPLAY = '/settings-table-display'
+export const PAGE_SETTINGS_TABLE_DISPLAY_CELLS_SHAPE = '/settings-table-display-cells-shape'
 
 export const PAGE_SETTINGS_HINTS = '/settings-hints'
 
