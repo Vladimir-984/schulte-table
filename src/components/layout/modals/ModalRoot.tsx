@@ -4,23 +4,37 @@ import { ModalRoot as VKUIModalRoot } from '@vkontakte/vkui'
 import { useLocation, useRouter } from '@happysanta/router'
 import { ModalPageTableOptions } from './pages/tableOptions/options/ModalPageTableOptions'
 import { MODAL_PAGES } from 'router/modals'
-import { ModalPageTableParamsType } from './pages/tableOptions/type/ModalPageTableParamsType'
 import { ModalPageTableParamsVariant } from './pages/tableOptions/variant/ModalPageTableParamsVariant'
-import { ModalPageTableParamsMode } from './pages/tableOptions/mode/ModalPageTableParamsMode'
 import { ModalPageTableOptionsSize } from './pages/tableOptions/size/ModalPageTableOptionsSize'
-import { ModalPageTableParamsSequence } from './pages/tableOptions/sequence/ModalPageTableParamsSequence'
-import { ModalPageTableOptionsColor } from './pages/tableOptions/color/ModalPageTableOptionsColor'
-import { ModalPageTableOptionsRedBlackVariant } from './pages/tableOptions/redBlackVariant/ModalPageTableOptionsRedBlackVariant'
+// import { ModalPageTableOptionsColor } from './pages/tableOptions/color/ModalPageTableOptionsColor'
+import { ModalPageTableOptionsSequence } from './pages/tableOptions/sequence/ModalPageTableOptionsSequence'
+import { ModalPageTableOptionsTransforms } from './pages/tableOptions/transforms/ModalPageTableOptionsTransforms'
 
 export const ModalRoot: React.FC = () => {
    const router = useRouter()
    const activeModal = useLocation().getModalId()
+   // const prevActiveModalRef = React.useRef<string | null>(null)
+
+   // console.log('activeModal', activeModal)
+
+   /*    React.useEffect(() => {
+      if (prevActiveModalRef.current === MODAL_PAGES.TABLE_OPTIONS) {
+
+      }
+
+      prevActiveModalRef.current = activeModal
+   }, [activeModal]) */
 
    const onOpen = (modal: string) => {}
    const onOpened = (modal: string) => {}
-   const onClose = (modal: string) => {
+
+   const onClose = (modal: typeof MODAL_PAGES[keyof typeof MODAL_PAGES]) => {
+      // console.log('onClose', modal)
+      // if (modal === 'table_options') {}
+
       router.popPageIfModal()
    }
+
    const onClosed = (modal: string) => {}
 
    return (
@@ -32,13 +46,12 @@ export const ModalRoot: React.FC = () => {
          onClosed={onClosed}
       >
          <ModalPageTableOptions nav={MODAL_PAGES.TABLE_OPTIONS} />
-         <ModalPageTableParamsType nav={MODAL_PAGES.TABLE_TYPE} />
          <ModalPageTableParamsVariant nav={MODAL_PAGES.TABLE_VARIANT} />
-         <ModalPageTableParamsMode nav={MODAL_PAGES.TABLE_MODE} />
          <ModalPageTableOptionsSize nav={MODAL_PAGES.TABLE_SIZE} />
-         <ModalPageTableOptionsColor nav={MODAL_PAGES.TABLE_COLOR} />
-         <ModalPageTableOptionsRedBlackVariant nav={MODAL_PAGES.TABLE_RED_BLACK_VARIANT} />
-         <ModalPageTableParamsSequence nav={MODAL_PAGES.TABLE_SEQUENCE} />
+         {/* <ModalPageTableOptionsColor nav={MODAL_PAGES.TABLE_COLOR} /> */}
+         <ModalPageTableOptionsSequence nav={MODAL_PAGES.TABLE_SEQUENCE} />
+
+         <ModalPageTableOptionsTransforms nav={MODAL_PAGES.TABLE_TRANSFORMS} />
       </VKUIModalRoot>
    )
 }

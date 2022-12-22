@@ -6,6 +6,7 @@ import { router } from 'router'
 import { Layout } from './Layout'
 import { VKUIProvider } from './VKUIProvider'
 import { SnackbarProvider } from './snackbar/SnackbarContext'
+import { PopoutProvider } from './popouts/PopoutContext'
 
 export const App: React.FC = () => {
    return (
@@ -13,7 +14,9 @@ export const App: React.FC = () => {
          <Provider store={store}>
             <VKUIProvider>
                <SnackbarProvider>
-                  <Layout />
+                  <PopoutProvider>
+                     <Layout />
+                  </PopoutProvider>
                </SnackbarProvider>
             </VKUIProvider>
          </Provider>

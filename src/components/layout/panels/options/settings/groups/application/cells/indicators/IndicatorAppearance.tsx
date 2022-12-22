@@ -1,9 +1,10 @@
 import React from 'react'
 import { useAppSelector } from 'hooks/redux'
-import { APPEARANCE_TYPE } from 'lists'
+
 import { selectAppAppearanceType } from 'store/selectors/application'
+import { IndicatorTitle } from 'components/ui/IndicatorTitle/IndicatorTitle'
 
 export const IndicatorAppearance: React.FC = () => {
    const appearanceType = useAppSelector(selectAppAppearanceType)
-   return <>{APPEARANCE_TYPE[appearanceType]}</>
+   return <IndicatorTitle>{appearanceType}</IndicatorTitle>
 }

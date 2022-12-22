@@ -5,10 +5,11 @@ import { Icon28ClockOutline } from '@vkontakte/icons'
 import { useAppSelector } from 'hooks/redux'
 
 import './TableTime.css'
+import { selectActiveTableCompletedAt, selectActiveTableStartedAt } from 'store/selectors/activeTable'
 
 export const TableTime: React.FC = () => {
-   const startedAt = useAppSelector((state) => state.table.active.startedAt)
-   const completedAt = useAppSelector((state) => state.table.active.completedAt)
+   const startedAt = useAppSelector(selectActiveTableStartedAt)
+   const completedAt = useAppSelector(selectActiveTableCompletedAt)
 
    const time = useStopwatch(startedAt, completedAt)
 

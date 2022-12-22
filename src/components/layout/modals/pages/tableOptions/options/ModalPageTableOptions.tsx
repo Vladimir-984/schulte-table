@@ -13,9 +13,6 @@ import { useAppDispatch } from 'hooks/redux'
 
 import { applyTableOptions } from 'store/asyncThunks/tableOptions'
 import { GroupTableOptionsMain } from './groups/main/GroupTableOptionsMain'
-import { GroupTableOptionsAdditionally } from './groups/additionally/GroupTableOptionsAdditionally'
-import { GroupTableOptionsColored } from './groups/colored/GroupTableOptionsColored'
-import { GroupTableOptionsRedBlack } from './groups/redBlack/GroupTableOptionsRedBlack'
 
 export const ModalPageTableOptions: React.FC<ModalPageProps> = (modalPageProps) => {
    const onClose = useModalClose()
@@ -36,7 +33,7 @@ export const ModalPageTableOptions: React.FC<ModalPageProps> = (modalPageProps) 
                   before={<PanelHeaderClose onClick={onClose} />}
                   after={<PanelHeaderSubmit onClick={onClickSubmit} />}
                >
-                  Параметры таблицы
+                  Параметры
                </ModalPageHeader>
                <Separator wide />
             </>
@@ -44,9 +41,6 @@ export const ModalPageTableOptions: React.FC<ModalPageProps> = (modalPageProps) 
       >
          <Group>
             <GroupTableOptionsMain />
-            <GroupTableOptionsAdditionally />
-            <GroupTableOptionsColored />
-            <GroupTableOptionsRedBlack />
          </Group>
       </ModalPage>
    )

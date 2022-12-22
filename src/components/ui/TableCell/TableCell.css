@@ -1,16 +1,17 @@
 .TableCell {
    position: relative;
-   /*  */
 }
+.TableCell--rounded {
+   border-radius: 8px;
+}
+/*
 .TableCell--shape-round {
    border-radius: 50%;
 }
 .TableCell--shape-square {
    border-radius: 0px;
 }
-.TableCell--shape-rounded-square {
-   border-radius: 8px;
-}
+*/
 
 .TableCell--outline::before {
    content: '';
@@ -20,7 +21,7 @@
    height: 100%;
    left: 0;
    top: 0;
-   border-radius: 0;
+   border-radius: inherit;
    outline: 1.5px solid currentColor;
 }
 

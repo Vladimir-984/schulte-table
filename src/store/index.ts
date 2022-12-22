@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
+import { activeTableReducer } from './slices/activeTableSlice'
 import { applicationReducer } from './slices/applicationSlice'
 import { tableOptionsReducer } from './slices/tableOptions'
-import { tableReducer } from './slices/tableSlice'
 
 export const store = configureStore({
    reducer: {
       application: applicationReducer,
       tableOptions: tableOptionsReducer,
-      table: tableReducer,
+      activeTable: activeTableReducer,
    },
 })
 

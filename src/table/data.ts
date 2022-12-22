@@ -1,26 +1,14 @@
 import {
-   IAdditionalTableOptionsOfMode,
-   IColoredTableOptionsOfMode,
-   IGroupOfChars,
-   ICharsRangeOfGroup,
-   ITableCellShape,
-   ITableColorVariant,
-   ITableMode,
-   ITableType,
+   // ITableCellShape,
+   // ITableColored,
+   ITableSequence,
+   ITableStyleSelected,
+   ITableTransform,
    ITableVariant,
-   ITableRedBlackVariant,
-   ITableHintTimeout,
-   ITableHintStyle,
+   // TypeTableTransform,
 } from 'types/table'
-import { secondLongFormatter } from 'utils/format'
 
-export const tableTypes: ITableType[] = [
-   { id: '1', name: 'numbers', title: 'Цифры' },
-   { id: '2', name: 'latin', title: 'Латиница' },
-   { id: '3', name: 'cyrillic', title: 'Кириллица' },
-]
-
-export const charsRangeOfGroups: ICharsRangeOfGroup[] = [
+/*  const charsRangeOfGroups = [
    {
       id: '1',
       groupId: '1',
@@ -151,129 +139,122 @@ export const charsRangeOfGroups: ICharsRangeOfGroup[] = [
       unicodeVersion: '1',
    },
 ]
-export const groupsOfChars: IGroupOfChars[] = [
+ const groupsOfChars = [
    {
       id: '1',
-      name: 'Basic Russian capital alphabet',
-      index: 1,
+      value: 'Basic Russian capital alphabet',
+      priority: 1,
+      charsRanges: charsRangeOfGroups.filter((charsRange) => charsRange.groupId === '1'),
       typeId: '3',
    },
    {
       id: '2',
-      name: 'Basic Russian small alphabet',
-      index: 2,
+      value: 'Basic Russian small alphabet',
+      priority: 2,
+      charsRanges: charsRangeOfGroups.filter((charsRange) => charsRange.groupId === '2'),
       typeId: '3',
    },
    {
       id: '3',
-      name: 'Cyrillic extensions capital',
-      index: 5,
+      value: 'Cyrillic extensions capital',
+      priority: 5,
+      charsRanges: charsRangeOfGroups.filter((charsRange) => charsRange.groupId === '3'),
       typeId: '3',
    },
    {
       id: '4',
-      name: 'Cyrillic extensions small',
-      index: 7,
+      value: 'Cyrillic extensions small',
+      priority: 7,
+      charsRanges: charsRangeOfGroups.filter((charsRange) => charsRange.groupId === '4'),
       typeId: '3',
    },
    {
       id: '5',
-      name: 'Historic letters',
-      index: 9,
+      value: 'Historic letters',
+      priority: 9,
+      charsRanges: charsRangeOfGroups.filter((charsRange) => charsRange.groupId === '5'),
       typeId: '3',
    },
    {
       id: '6',
-      name: 'Historic miscellaneous',
-      index: 11,
+      value: 'Historic miscellaneous',
+      priority: 11,
+      charsRanges: charsRangeOfGroups.filter((charsRange) => charsRange.groupId === '6'),
       typeId: '3',
    },
    {
       id: '7',
-      name: 'Extended Cyrillic',
-      index: 12,
+      value: 'Extended Cyrillic',
+      priority: 12,
+      charsRanges: charsRangeOfGroups.filter((charsRange) => charsRange.groupId === '7'),
       typeId: '3',
    },
    {
       id: '8',
-      name: 'Additions for Nivkh',
-      index: 17,
+      value: 'Additions for Nivkh',
+      priority: 17,
+      charsRanges: charsRangeOfGroups.filter((charsRange) => charsRange.groupId === '8'),
       typeId: '3',
    },
 ]
 
+ const tableTypes = [
+   {
+      id: '1',
+      value: 'numbers',
+      title: 'Цифры',
+      groupsCharsRanges: groupsOfChars.filter((groupCharsRanges) => groupCharsRanges.typeId === '1'),
+   },
+   {
+      id: '2',
+      value: 'latin',
+      title: 'Латиница',
+      groupsCharsRanges: groupsOfChars.filter((groupCharsRanges) => groupCharsRanges.typeId === '2'),
+   },
+   {
+      id: '3',
+      value: 'cyrillic',
+      title: 'Кириллица',
+      groupsCharsRanges: groupsOfChars.filter((groupCharsRanges) => groupCharsRanges.typeId === '3'),
+   },
+] */
+
 /**возрастающем порядке черные числа, и в убывающем порядке красные */
 export const tableVariants: ITableVariant[] = [
-   { id: '1', name: 'standard', title: 'Стандартный' },
-   { id: '2', name: 'gorbov', title: 'Шульте-Горбова', showVariantOptions: 'red-black' },
-   { id: '3', name: 'color', title: 'Цветной', showVariantOptions: 'colored' },
+   { id: '1', value: 'standard', title: 'Стандартный' },
+   { id: '2', value: 'gorbov', title: 'Шульте-Горбова' },
 ]
 
-export const tableModes: ITableMode[] = [
-   { id: '1', name: 'classic', title: 'Классический' },
-   { id: '2', name: 'hard', title: 'Сложный' },
-   { id: '3', name: 'custom', title: 'Настраиваемый', isShowOptions: true },
-]
-export const colorVariants: ITableColorVariant[] = [
-   { id: '1', name: 'background', title: 'Фон' },
-   { id: '2', name: 'char', title: 'Символ' },
-   { id: '3', name: 'all', title: 'Фон и символ' },
-]
-export const cellsShapes: ITableCellShape[] = [
-   { id: '1', name: 'square', title: 'Квадрат' },
-   { id: '2', name: 'round', title: 'Круг' },
-   { id: '3', name: 'rounded-square', title: 'Квадрат скруглённый' },
-]
-export const redBlackVariants: ITableRedBlackVariant[] = [
-   { id: '1', name: 'background', title: 'Фон' },
-   { id: '2', name: 'char', title: 'Символ' },
+/* const tableColoredVariants: ITableColored[] = [
+   { id: 'none', value: 'none', title: 'Нет' },
+   { id: 'background', value: 'background', title: 'Фон' },
+   { id: 'symbol', value: 'symbol', title: 'Символ' },
+   { id: 'all', value: 'all', title: 'Фон и символ' },
+] */
+
+/* export const tableCellsShapes: ITableCellShape[] = [
+   // { id: '1', value: 'square', title: 'Квадрат' },
+   { id: '3', value: 'rounded-square', title: 'Квадрат скруглённый' },
+   { id: '2', value: 'round', title: 'Круг' },
+] */
+
+export const defaultTableDirectionSequence: ITableSequence = { id: '1', value: 'default', title: 'Прямой' } // По умолчанию
+
+export const tableSequences: ITableSequence[] = [
+   { ...defaultTableDirectionSequence },
+   { id: '2', value: 'reverse', title: 'Обратный' },
+   { id: '3', value: 'random', title: 'Случайный' },
 ]
 
-export const hintsTimeouts: ITableHintTimeout[] = new Array(6).fill('').map((_, idx) => {
-   // const value = (idx + 1) * 10 - idx * 5
-   const value = (idx + 1) * 5
-   const hintTimeout: ITableHintTimeout = { id: String(idx + 1), value, title: secondLongFormatter.format(value) }
-   return hintTimeout
-})
-
-export const hintsStyles: ITableHintStyle[] = [
-   { id: '1', value: '111', title: '111' },
-   { id: '2', value: '222', title: '222' },
+export const tableStylesSelected: ITableStyleSelected[] = [
+   { id: '1', value: 'default', title: 'default' },
+   { id: '2', value: 'hide', title: 'hide' },
+   { id: '3', value: 'hide_symbol', title: 'hide_symbol' },
+   { id: '4', value: 'opacity_symbol', title: 'opacity_symbol' },
 ]
-
-export const additionalTableOptionsOfModes: IAdditionalTableOptionsOfMode[] = [
-   {
-      id: '1',
-      modeId: '1',
-      size: 5,
-      isFlipHorizontally: false,
-      isFlipVertically: false,
-      isShuffleCellsAfterPress: false,
-      isHideSelectedChars: true,
-   },
-   {
-      id: '2',
-      modeId: '2',
-      size: 7,
-      isFlipHorizontally: false,
-      isFlipVertically: false,
-      isShuffleCellsAfterPress: true,
-      isHideSelectedChars: false,
-   },
-]
-export const coloredTableOptionsOfModes: IColoredTableOptionsOfMode[] = [
-   {
-      id: '1',
-      modeId: '1',
-      colorVariant: colorVariants[0],
-      isAutoChangeColors: false,
-      isChangeColorsAfterPress: false,
-   },
-   {
-      id: '2',
-      modeId: '2',
-      colorVariant: colorVariants[2],
-      isAutoChangeColors: true,
-      isChangeColorsAfterPress: true,
-   },
+export const tableTransforms: ITableTransform[] = [
+   { id: '1', value: 'isTurn', title: 'Поворот' },
+   { id: '2', value: 'isFlipX', title: 'Отражение по горизонтали' },
+   { id: '3', value: 'isFlipY', title: 'Отражение по вертикали' },
+   // { id: '4', value: 'isSpin', title: 'Вращение' },
 ]

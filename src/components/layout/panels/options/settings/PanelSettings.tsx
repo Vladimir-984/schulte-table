@@ -4,7 +4,6 @@ import { Group, Panel, PanelHeaderBack, PanelProps } from '@vkontakte/vkui'
 
 import { PanelHeaderSeparator } from 'components/ui/PanelHeaderSeparator/PanelHeaderSeparator'
 import { GroupApplicationSettings } from './groups/application/GroupApplicationSettings'
-import { GroupTableSettings } from './groups/table/GroupTableSettings'
 
 export const PanelSettings: React.FC<PanelProps> = (panelProps) => {
    const router = useRouter()
@@ -17,10 +16,8 @@ export const PanelSettings: React.FC<PanelProps> = (panelProps) => {
          <PanelHeaderSeparator before={<PanelHeaderBack onClick={onClickBack} label={'Опции'} />}>
             Настройки
          </PanelHeaderSeparator>
-
          <Group separator='hide'>
             <GroupApplicationSettings />
-            <GroupTableSettings />
          </Group>
       </Panel>
    )

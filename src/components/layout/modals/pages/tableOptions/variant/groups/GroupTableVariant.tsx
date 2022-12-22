@@ -3,7 +3,7 @@ import { Icon28DoneOutline } from '@vkontakte/icons'
 import { Group, SimpleCell } from '@vkontakte/vkui'
 import { BUTTON_ACTIVE_EFFECT_DELAY } from 'constants/constants'
 import { useAppDispatch, useAppSelector } from 'hooks/redux'
-import { selectChangeableTableVariant, selectDataTableVariant } from 'store/selectors/tableOptions'
+import { selectChangeableTableVariant, selectDataTableVariants } from 'store/selectors/tableOptions'
 import { setMainTableOptionsVariant } from 'store/slices/tableOptions'
 
 import { GroupCard } from 'components/ui/GroupCard/GroupCard'
@@ -13,7 +13,7 @@ export const GroupTableVariant: React.FC = () => {
    const dispatch = useAppDispatch()
 
    const tableVariant = useAppSelector(selectChangeableTableVariant)
-   const dataTableVariants = useAppSelector(selectDataTableVariant)
+   const dataTableVariants = useAppSelector(selectDataTableVariants)
 
    const onClickTableVariant = (_tableVariant: ITableVariant) => () => {
       dispatch(setMainTableOptionsVariant(_tableVariant))

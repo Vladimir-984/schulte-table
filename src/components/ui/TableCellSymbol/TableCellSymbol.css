@@ -1,0 +1,95 @@
+.TableCellSymbol {
+   width: 100%;
+   height: 100%;
+   user-select: none;
+   border-radius: inherit;
+   overflow: hidden;
+}
+
+.TableCellSymbol--clr-md-primary {
+   color: var(--text_primary, var(--vkui--color_text_primary));
+}
+.TableCellSymbol--clr-md-white {
+   color: var(--white);
+}
+
+/* .TableCellSymbol--clr-md-red {
+   color: var(--vkui--color_background_negative);
+}
+.TableCellSymbol--clr-md-black {
+   color: black;
+} */
+
+.TableCellSymbol__svg {
+   display: block;
+}
+.TableCellSymbol__text {
+   font-size: 20px;
+   font-weight: 500;
+   transform-origin: center;
+}
+
+.TableCellSymbol__text--sz-s {
+   font-size: 20px;
+}
+.TableCellSymbol__text--sz-m {
+   font-size: 25px;
+}
+.TableCellSymbol__text--sz-l {
+   font-size: 30px;
+}
+/*
+
+.TableCellSymbol--transform-flip-x {
+   transform: scaleX(-1);
+}
+.TableCellSymbol--transform-flip-y {
+   transform: scaleY(-1);
+}
+.TableCellSymbol--transform-flip-both {
+   transform: scale(-1, -1);
+}
+
+.TableCellSymbol--transform-turn-90 {
+   transform: rotate(90deg);
+}
+.TableCellSymbol--transform-turn-180 {
+   transform: rotate(180deg);
+}
+.TableCellSymbol--transform-turn-270 {
+   transform: rotate(270deg);
+}
+*/
+/* 
+
+.TableCellSymbol--transform-spin-slow {
+   animation: spin 3s linear infinite;
+}
+.TableCellSymbol--transform-spin-reverse-slow {
+   animation: spin 3s linear infinite reverse;
+}
+.TableCellSymbol--transform-spin-medium {
+   animation: spin 2s linear infinite;
+}
+.TableCellSymbol--transform-spin-reverse-medium {
+   animation: spin 2s linear infinite reverse;
+}
+.TableCellSymbol--transform-spin-fast {
+   animation: spin 1s linear infinite;
+}
+.TableCellSymbol--transform-spin-reverse-fast {
+   animation: spin 1s linear infinite reverse;
+}
+*/
+
+/*
+@keyframes spin {
+   from {
+      transform: rotate(0turn);
+   }
+   to {
+      transform: rotate(1turn);
+   }
+}
+
+   */

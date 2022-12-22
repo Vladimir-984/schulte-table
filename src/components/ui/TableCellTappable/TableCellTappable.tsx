@@ -1,7 +1,7 @@
 import React from 'react'
 import { classNames, Tappable } from '@vkontakte/vkui'
 import { useAppDispatch } from 'hooks/redux'
-import { clickCell } from 'store/slices/tableSlice'
+import { clickDisplayedCell } from 'store/slices/activeTableSlice'
 import { ICell } from 'types/table'
 
 import './TableCellTappable.css'
@@ -13,7 +13,7 @@ export const TableCellTappable: React.FC<TableCellTappableProps> = ({ id, tappab
    const dispatch = useAppDispatch()
 
    const onClickCell = () => {
-      dispatch(clickCell(id))
+      // dispatch(clickDisplayedCell(id))
    }
    return (
       <Tappable
@@ -21,7 +21,7 @@ export const TableCellTappable: React.FC<TableCellTappableProps> = ({ id, tappab
          activeMode={tappable?.tappableMode}
          hoverMode={tappable?.tappableMode}
          hasHover
-         hasActive={false}
+         hasActive
          activeEffectDelay={100}
          disabled={tappable?.isTappableDisabled}
          className={classNames(

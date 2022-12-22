@@ -1,202 +1,151 @@
-export type TypeCaseGroupOfChars = 'all' | 'small' | 'capital'
-export type TypeRange = [string, string]
+// export type TypeShapeCell = 'square' | 'round' | 'rounded-square'
 
-export type TypeTableColorVariant = 'background' | 'char' | 'all'
+export type TypeTableVariant = 'standard' | 'gorbov'
 
-export interface IGroupOfChars {
-   id: string
-   typeId: string
-   name: string
-   description?: string
-   index: number
-}
+export type TypeTableColored = 'background' | 'symbol' | 'all' | 'none'
 
-export interface ICharsRangeOfGroup {
-   id: string
-   groupId: string
-   description?: string
-   range: TypeRange
-   case: TypeCaseGroupOfChars
+export type TypeTableSequence = 'default' | 'reverse' | 'random'
 
-   unicodeVersion: string
-}
+export type TypeTableStyleSelected = 'hide' | 'hide_symbol' | 'opacity_symbol' | 'default'
 
-export interface ITableType {
-   id: string
-   name: string
-   title: string
-}
+// export type TypeTableTransform = 'turn_random' | 'flip_random' | 'flip_both' | 'flip_x' | 'flip_y' | 'none'
 
-/** 1 проп showVariantOptions */
-export type TypeShowVariantOptions = 'red-black' | 'colored'
-export interface ITableVariant {
+export type TypeTableTransform = 'isTurn' | 'isFlipX' | 'isFlipY'
+
+export interface IListItem<T> {
    id: string
-   name: string
-   title: string
-   showVariantOptions?: TypeShowVariantOptions
-   description?: string
-}
-export interface ITableMode {
-   id: string
-   name: string
-   title: string
-   isShowOptions?: boolean
-   description?: string
-}
-export interface ITableColorVariant {
-   id: string
-   name: string
-   title: string
-   description?: string
-}
-export interface ITableRedBlackVariant {
-   id: string
-   name: string
+   value: T
    title: string
    description?: string
 }
 
-export interface IAdditionalTableOptionsOfMode extends IAdditionalTableOptions {
-   id: string
-   modeId: string
-}
-export interface IColoredTableOptionsOfMode extends IColoredTableOptions {
-   id: string
-   modeId: string
-}
+export type ITableSize = IListItem<number>
+export type ITableVariant = IListItem<TypeTableVariant>
+export type ITableColored = IListItem<TypeTableColored>
+// export type ITableCellShape = IListItem<TypeShapeCell>
+export type ITableSequence = IListItem<TypeTableSequence>
+export type ITableStyleSelected = IListItem<TypeTableStyleSelected>
 
-/**возрастающем порядке черные числа, и в убывающем порядке красные */
-enum TableVariant {
-   STANDARD = 'standard',
-   GORBOV = 'gorbov',
-   // PLATONOV = 'platonov',
-}
-export enum TableSequence {
-   DEFAULT = 'default',
-   RIGHT = 'right',
-   RANDOM = 'random',
-}
-export interface ITableCellShape {
-   id: string
-   name: string
-   title: string
-}
-export interface ITableHintTimeout {
-   id: string
-   value: number
-   title: string
-}
-export interface ITableHintStyle {
-   id: string
-   value: string
-   title: string
-}
+export type ITableTransform = IListItem<TypeTableTransform>
 
-export interface IMainTableOptions {
-   type: ITableType
-   variant: ITableVariant
-   mode: ITableMode
-}
-export interface IAdditionalTableOptions {
-   size: number
-
-   isHideSelectedChars: boolean
-   isShuffleCellsAfterPress: boolean
-   isFlipHorizontally: boolean
-   isFlipVertically: boolean
-}
-
-export interface IColoredTableOptions {
-   colorVariant: ITableColorVariant
-
-   isChangeColorsAfterPress: boolean
-   isAutoChangeColors: boolean
-}
-
-export interface IRedBlackTableOptions {
-   redBlackVariant: ITableRedBlackVariant
-}
-
-export interface IDisplayTableOptions {
-   isShowTime: boolean
-
-   cellsShape: ITableCellShape
-   cellsIsEnabledShadow: boolean
-
-   isShowCorrect: boolean
-   //Анимация, если не та ячейка
-   isShowMistakes: boolean
-}
-// isTerminateOnWrongPress?: boolean
-
-export interface IHintsTableOptions {
-   isEnabledHints: boolean
-   timeoutHints: number
-   styleHints: ITableHintStyle
-}
+export type ITableTransforms = Record<TypeTableTransform, boolean>
 
 export interface ITableOptions {
-   mainOptions: IMainTableOptions
-   additionalOptions: IAdditionalTableOptions
-   coloredOptions: IColoredTableOptions
-   redBlackOptions: IRedBlackTableOptions
-   display: IDisplayTableOptions
-   hints: IHintsTableOptions
+   size: ITableSize
+   variant: ITableVariant
+   directionSequence: ITableSequence
+   isPressOnSymbols: boolean
+
+   isShuffleCellsAfterSelect: boolean
+   //TODO
+   transforms?: ITableTransforms
+   styleSelected: ITableStyleSelected
+
+   isChangeTransformAfterSelect: boolean
+
+   isColoredSymbols: boolean
+   isUpdateColorsAfterSelect: boolean
+
+   isShowCurrentSymbol: boolean
+   isShowTimeTable: boolean
+
+   // isAutoChangeColors: boolean
+   // cellShape: ITableCellShape
+   // timer: number
 }
 
-export type TypeShapeCell = 'square' | 'round' | 'rounded-square'
-export type TypeRedBlackVariant = 'background' | 'char'
+// isTerminateOnWrongPress?: boolean
 
-/** @deprecated */
-export type TypeOutlineCell = 'primary' | 'secondary'
+// export type TypeRedBlackVariant = 'background' | 'char'
 
 export type TypeTappableMode = 'opacity' | 'background'
 
-export type TypeColorModeCell = TypeRedBlack | 'secondary' | 'custom' | 'none'
+export type TypeColorModePrimaryOrSecondary = 'primary' | 'secondary'
+export type TypeBackgroundColorMode = TypeRedBlack | TypeColorModePrimaryOrSecondary | 'custom' //| string
+
+// export type TypeTransformSymbol = 'turn-90' | 'turn-180' | 'turn-270' | 'flip-x' | 'flip-y' | 'flip-both' | string
+
+export interface ICellTransforms {
+   [key: string]: string | number
+}
+export type TypeVisibilityCell = 'visible' | 'hidden' | 'hidden_symbol' | 'translucent_symbol'
 
 export interface ICell {
    id: string
-   char: IChar
-   shape: TypeShapeCell
+   symbol: ISymbol
    tappable?: ICellTappable
-   background?: ICellBackground
-   /**
-    * @deprecated
-    */
-   borderRadius?: number | string
-   /**
-    * @deprecated
-    */
-   outline?: TypeOutlineCell
+   background: ICellBackground
    animation?: string
+
+   visibility?: TypeVisibilityCell
+
+   transforms?: ICellTransforms
 }
 export interface ICellTappable {
-   tappableMode?: TypeTappableMode
+   tappableMode: TypeTappableMode
    isTappableDisabled?: boolean
 }
 export interface ICellBackground {
-   backgroundColorMode?: TypeColorModeCell
+   backgroundColorMode: TypeBackgroundColorMode
    backgroundColor?: string
-   backgroundShadow?: boolean
+   // backgroundShadow?: boolean
 }
 /**
  * `primary` - цвет зависит от темы;
  * `custom` - устанавлиет цвет из `color`;
  * `white` - для красно-чёрной таблицы;
  */
-export type TypeColorModeChar = TypeRedBlack | 'primary' | 'white' | 'custom'
-export type TypeVisibilityChar = 'visible' | 'hidden'
+export type TypeSymbolColorMode = TypeRedBlack | TypeColorModePrimaryOrSecondary | 'white' | 'custom'
 
-export interface IChar {
+export type TypeVisibilitySymbol = 'visible' | 'hidden' | 'translucent'
+
+export interface ISymbol {
    value: string
 
-   visibility?: TypeVisibilityChar
-   colorMode?: TypeColorModeChar
+   colorMode: TypeSymbolColorMode
    color?: string
-   // animation?: string
 
-   isFlipHorizontally?: boolean
-   isFlipVertically?: boolean
+   // animation?: string
 }
 
 export type TypeRedBlack = 'red' | 'black'
+
+export type TypeTableStatus = 'started' | 'done' | 'terminated' | 'closed' | null
+
+export interface ICurrentSequenceCell extends Pick<ICell, 'id' | 'symbol' | 'background'> {}
+
+export interface IHistoryChangesDisplayedCells {
+   displayedCells: ICell[]
+   ts: number
+}
+
+export interface ITable {
+   sequence: string[]
+   displayedCells: ICell[]
+   sequenceCells: ICell[]
+
+   historyChangesDisplayedCells: IHistoryChangesDisplayedCells[]
+   clickedCells: IClickedCell[]
+
+   startedAt: number | null
+   completedAt: number | null
+
+   status: TypeTableStatus
+}
+export interface IActiveTableData extends ITable {
+   idxOfCurrentCellInSequence: number
+   currentSequenceCell: ICurrentSequenceCell | null
+}
+
+/**
+ * `mistake` - неверный клик - ошибка
+ * `mark` - правильный клик
+ * `repeated` - клик по `mark` ячейке
+ */
+export type TypeClickedCellAction = 'correct' | 'wrong'
+
+export interface IClickedCell {
+   cell: ICell
+   action: TypeClickedCellAction
+   ts: number
+}

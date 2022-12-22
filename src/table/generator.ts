@@ -1,6 +1,5 @@
-import { IGroupOfChars, IMainTableOptions, ICharsRangeOfGroup, TypeRange } from 'types/table'
 import { randomSort } from 'utils/array'
-import { groupsOfChars, charsRangeOfGroups } from './data'
+// import { groupsOfChars, charsRangeOfGroups } from './data'
 const REDBLACK_TABLE_MODIFIER_BLACK = '+'
 const REDBLACK_TABLE_MODIFIER_RED = '-'
 
@@ -8,7 +7,7 @@ const isUpperCase = (str: string) => str.toUpperCase() === str
 const isLowerCase = (str: string) => str.toLowerCase() === str
 const parseInt16 = (strInt: string) => parseInt(strInt, 16)
 
-const getLengthOfRangesChars = (rangesCharsOfGroup: ICharsRangeOfGroup[]) => {
+/* const getLengthOfRangesChars = (rangesCharsOfGroup: ICharsRangeOfGroup[]) => {
    const length = rangesCharsOfGroup.reduce((acc, current) => {
       const [start16, end16] = current.range
       const startCode = parseInt16(start16)
@@ -19,11 +18,11 @@ const getLengthOfRangesChars = (rangesCharsOfGroup: ICharsRangeOfGroup[]) => {
       return acc + (endCode - startCode + 1)
    }, 0)
    return length
-}
+} */
 
-console.log(getLengthOfRangesChars(charsRangeOfGroups))
+/* console.log(getLengthOfRangesChars(charsRangeOfGroups)) */
 
-const CHARS = {
+/* const CHARS = {
    ARABIC_NUMERALS: [] as string[],
    // ROMAN_NUMERALS:[] as string[], //?
    CYRILLIC_CAPITAL_ALPHABET: [] as string[],
@@ -34,13 +33,13 @@ const CHARS = {
    // CYRILLIC_SMALL_ADDITIONAL_2: [] as string[],
    // LATIN_CAPITAL: [] as string[],
    // LATIN_SMALL: [] as string[],
-}
+} */
 
 const localeCompare = (a: string, b: string) => a.localeCompare(b, 'ru')
 
 const equalLowerUpperCase = (a: string) => a.toLowerCase() === a.toUpperCase()
 
-const getCharsFromRange = (range: TypeRange) => {
+/* const getCharsFromRange = (range: TypeRange) => {
    const startCode = parseInt16(range[0])
    const endCode = parseInt16(range[1])
 
@@ -55,9 +54,9 @@ const getCharsFromRange = (range: TypeRange) => {
    }
 
    return chars
-}
+} */
 
-const getSymbolsFromGroup = (ranges: ICharsRangeOfGroup) => {
+/* const getSymbolsFromGroup = (ranges: ICharsRangeOfGroup) => {
    const startCode = parseInt16(ranges.range[0])
    const endCode = parseInt16(ranges.range[1])
 
@@ -91,13 +90,13 @@ const getSymbolsFromGroup = (ranges: ICharsRangeOfGroup) => {
 
    return chars
 }
+ */
+// const charsRangesOfGroup = charsRangeOfGroups.filter((g) => g.groupId === '7')
 
-const charsRangesOfGroup = charsRangeOfGroups.filter((g) => g.groupId === '7')
-
-const getA = (charsRanges: ICharsRangeOfGroup[]) => {}
-
+/* const getA = (charsRanges: ICharsRangeOfGroup[]) => {}
+ */
 export const getEmptyFilledArray = (length: number): string[] => {
-   return Array<string>(length).fill('')
+   return Array.from({ length }, () => '')
 }
 
 export const shuffleArray = <T>(arr: Array<T>) => {

@@ -3,12 +3,12 @@ import { Icon24RefreshOutline } from '@vkontakte/icons'
 import { Button } from '@vkontakte/vkui'
 import { BUTTON_ACTIVE_EFFECT_DELAY } from 'constants/constants'
 import { useAppDispatch } from 'hooks/redux'
-import { restart } from 'store/slices/tableSlice'
+import { startTable } from 'store/asyncThunks/activeTable'
 
 export const TableHeaderAside: React.FC = () => {
    const dispatch = useAppDispatch()
    const onClickButton = () => {
-      dispatch(restart())
+      dispatch(startTable())
    }
    return (
       <Button
@@ -16,12 +16,10 @@ export const TableHeaderAside: React.FC = () => {
          appearance='accent'
          className='Button--round Tappable--active-opacity'
          align='center'
-         size='m'
+         size='l'
          activeEffectDelay={BUTTON_ACTIVE_EFFECT_DELAY}
-         before={<Icon24RefreshOutline width={24} height={24} />}
+         before={<Icon24RefreshOutline width={28} height={28} />}
          onClick={onClickButton}
-      >
-         Заново
-      </Button>
+      />
    )
 }

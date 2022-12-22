@@ -5,8 +5,9 @@ import { selectAvailableTableSizes, selectChangeableTableSize } from 'store/sele
 import { createReactKeyIdx, isAddSeparator } from 'utils/list'
 import { BUTTON_ACTIVE_EFFECT_DELAY } from 'constants/constants'
 import { Icon28DoneOutline } from '@vkontakte/icons'
-import { setAdditionalTableOptionsSize } from 'store/slices/tableOptions'
+
 import { GroupCard } from 'components/ui/GroupCard/GroupCard'
+import { setTableOptionsSize } from 'store/slices/tableOptions'
 
 export const GroupTableOptionsSize: React.FC = () => {
    const dispatch = useAppDispatch()
@@ -15,19 +16,19 @@ export const GroupTableOptionsSize: React.FC = () => {
    const tableSize = useAppSelector(selectChangeableTableSize)
 
    const onClickTableSize = (_tableSize: number) => () => {
-      dispatch(setAdditionalTableOptionsSize(_tableSize))
+      // dispatch(setTableOptionsSize(_tableSize))
    }
 
    return (
-      <GroupCard description='какое-то описание'>
+      <GroupCard description='Какое-то описание. Наверное'>
          {availableSizes.map((sizeItem, idx, items) => (
             <React.Fragment key={createReactKeyIdx('table-size', idx)}>
                <SimpleCell
                   activeEffectDelay={BUTTON_ACTIVE_EFFECT_DELAY}
-                  after={tableSize === sizeItem.value && <Icon28DoneOutline />}
+                  // after={tableSize === sizeItem.value && <Icon28DoneOutline />}
                   onClick={onClickTableSize(sizeItem.value)}
                >
-                  {sizeItem.label}
+                  {/* {sizeItem.label} */}
                </SimpleCell>
                {isAddSeparator(items, idx) && <Separator wide />}
             </React.Fragment>

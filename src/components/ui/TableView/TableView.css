@@ -16,6 +16,13 @@
    height: 0;
    padding-bottom: 100%;
 }
+.TableView__canvas {
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   display: block;
+}
+
 .TableView__cells {
    position: absolute;
    width: 100%;
@@ -28,4 +35,33 @@
    grid-column-gap: 1px;
    gap: 1px;
    place-content: stretch;
+}
+.TableView__cells--blur {
+   filter: blur(16px);
+}
+
+.TablePlayButton {
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   /* display: flex;
+   justify-content: center;
+   align-items: center; */
+   z-index: 3;
+   /* backdrop-filter: blur(16px); */
+}
+.TablePlayButton > .TablePlayButton__tappable {
+   border-radius: 8px;
+}
+.TablePlayButton__tappable {
+   width: 100%;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.TablePlayButton__icon {
+   padding: 10px;
+   color: white;
 }

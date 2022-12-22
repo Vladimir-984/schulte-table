@@ -1,105 +1,96 @@
 import { RootState } from 'store'
 
 //main
-export const selectChangeableTableType = (state: RootState) =>
+/* export const selectChangeableTableType = (state: RootState) =>
    state.tableOptions.changeableTableOptions.mainOptions.type
 export const selectChangeableTableTypeTitle = (state: RootState) =>
    state.tableOptions.changeableTableOptions.mainOptions.type.title
-
-export const selectChangeableTableVariant = (state: RootState) =>
-   state.tableOptions.changeableTableOptions.mainOptions.variant
+ */
+export const selectChangeableTableVariant = (state: RootState) => state.tableOptions.changeableTableOptions.variant
 export const selectChangeableTableVariantTitle = (state: RootState) =>
-   state.tableOptions.changeableTableOptions.mainOptions.variant.title
+   state.tableOptions.changeableTableOptions.variant.title
 
-export const selectChangeableTableMode = (state: RootState) =>
+/* export const selectChangeableTableMode = (state: RootState) =>
    state.tableOptions.changeableTableOptions.mainOptions.mode
 export const selectChangeableTableModeTitle = (state: RootState) =>
-   state.tableOptions.changeableTableOptions.mainOptions.mode.title
+   state.tableOptions.changeableTableOptions.mainOptions.mode.title */
 //
 
-//additional
-export const selectChangeableTableSize = (state: RootState) =>
-   state.tableOptions.changeableTableOptions.additionalOptions.size
-// export const selectChangeableTableSequence = (state: RootState) => state.tableOptions.changeableTableOptions.additionalOptions.tableSequence
+export const selectChangeableTableSize = (state: RootState) => state.tableOptions.changeableTableOptions.size
+export const selectChangeableTableSizeTitle = (state: RootState) => state.tableOptions.changeableTableOptions.size.title
 
-export const selectChangeableTableIsHideSelected = (state: RootState) =>
-   state.tableOptions.changeableTableOptions.additionalOptions.isHideSelectedChars
+export const selectChangeableTableTransforms = (state: RootState) =>
+   state.tableOptions.changeableTableOptions.transforms
+
+export const selectChangeableTableDirectionSequence = (state: RootState) =>
+   state.tableOptions.changeableTableOptions.directionSequence
+
+export const selectChangeableTableDirectionSequenceTitle = (state: RootState) =>
+   state.tableOptions.changeableTableOptions.directionSequence.title
+
+export const selectChangeableTableIsPressOnSymbols = (state: RootState) =>
+   state.tableOptions.changeableTableOptions.isPressOnSymbols
 
 export const selectChangeableTableIsShuffleCells = (state: RootState) =>
-   state.tableOptions.changeableTableOptions.additionalOptions.isShuffleCellsAfterPress
+   state.tableOptions.changeableTableOptions.isShuffleCellsAfterSelect
 
-export const selectChangeableTableIsFlipHorizontally = (state: RootState) =>
-   state.tableOptions.changeableTableOptions.additionalOptions.isFlipHorizontally
-
-export const selectChangeableTableIsFlipVertically = (state: RootState) =>
-   state.tableOptions.changeableTableOptions.additionalOptions.isFlipVertically
-//
-
+export const selectChangeableTableStyleSelected = (state: RootState) =>
+   state.tableOptions.changeableTableOptions.styleSelected
+export const selectChangeableTableStyleSelectedTitle = (state: RootState) =>
+   state.tableOptions.changeableTableOptions.styleSelected.title
 //colored
-export const selectChangeableTableColorVariant = (state: RootState) =>
-   state.tableOptions.changeableTableOptions.coloredOptions.colorVariant
-export const selectChangeableTableColorVariantTitle = (state: RootState) =>
-   state.tableOptions.changeableTableOptions.coloredOptions.colorVariant.title
+export const selectChangeableTableIsColoredSymbols = (state: RootState) =>
+   state.tableOptions.changeableTableOptions.isColoredSymbols
 
-export const selectChangeableTableIsChangeColorsAfterPress = (state: RootState) =>
-   state.tableOptions.changeableTableOptions.coloredOptions.isChangeColorsAfterPress
+export const selectChangeableTableIsUpdateColorsAfterSelect = (state: RootState) =>
+   state.tableOptions.changeableTableOptions.isUpdateColorsAfterSelect
 
-export const selectChangeableTableIsAutoChangeColors = (state: RootState) =>
-   state.tableOptions.changeableTableOptions.coloredOptions.isAutoChangeColors
 //
 
-//redBlack
+/* //redBlack
 export const selectChangeableTableRedBlackVariant = (state: RootState) =>
    state.tableOptions.changeableTableOptions.redBlackOptions.redBlackVariant
 export const selectChangeableTableRedBlackVariantTitle = (state: RootState) =>
    state.tableOptions.changeableTableOptions.redBlackOptions.redBlackVariant.title
-//
+// */
 
 //display
-export const selectChangeableTableDisplayCellsShape = (state: RootState) =>
-   state.tableOptions.changeableTableOptions.display.cellsShape
+/* export const selectChangeableTableDisplayCellsShape = (state: RootState) =>
+   state.tableOptions.changeableTableOptions.cellShape
+
 export const selectChangeableTableDisplayCellsShapeTitle = (state: RootState) =>
-   state.tableOptions.changeableTableOptions.display.cellsShape.title
+   state.tableOptions.changeableTableOptions.cellShape.title */
 
-export const selectChangeableTableDisplayCellsIsEnabledShadow = (state: RootState) =>
-   state.tableOptions.changeableTableOptions.display.cellsIsEnabledShadow
+/* export const selectChangeableTableDisplayCellsIsEnabledShadow = (state: RootState) =>
+   state.tableOptions.changeableTableOptions.isShowCellShadow
+    */
 
-export const selectChangeableTableDisplayIsShowTime = (state: RootState) =>
-   state.tableOptions.changeableTableOptions.display.isShowTime
-
-export const selectChangeableTableDisplayCellsIsShowCorrect = (state: RootState) =>
-   state.tableOptions.changeableTableOptions.display.isShowCorrect
-
-export const selectChangeableTableDisplayCellsIsShowMistakes = (state: RootState) =>
-   state.tableOptions.changeableTableOptions.display.isShowMistakes
-//
-
-//hints
-export const selectChangeableTableHintsIsEnabled = (state: RootState) =>
-   state.tableOptions.changeableTableOptions.hints.isEnabledHints
-
-export const selectChangeableTableHintsTimeout = (state: RootState) =>
-   state.tableOptions.changeableTableOptions.hints.timeoutHints
-
-export const selectChangeableTableHintsStyle = (state: RootState) =>
-   state.tableOptions.changeableTableOptions.hints.styleHints
-export const selectChangeableTableHintsStyleTitle = (state: RootState) =>
-   state.tableOptions.changeableTableOptions.hints.styleHints.title
-
-//
+export const selectChangeableTableDisplayIsShowTimeTable = (state: RootState) =>
+   state.tableOptions.changeableTableOptions.isShowTimeTable
+export const selectChangeableTableIsShowCurrentSymbol = (state: RootState) =>
+   state.tableOptions.changeableTableOptions.isShowCurrentSymbol
 
 export const selectAvailableTableSizes = (state: RootState) => state.tableOptions.availableTableSizes
 
-export const selectIsShownAdditionalOptions = (state: RootState) => state.tableOptions.shownAdditionalOptions
-export const selectIsShownColoredOptions = (state: RootState) => state.tableOptions.shownColoredOptions
-export const selectIsShownRedBlackOptions = (state: RootState) => state.tableOptions.shownRedBlackOptions
+export const selectIsDisabledChangeDirectionSequence = (state: RootState) =>
+   state.tableOptions.isDisabledChangeDirectionSequence
+export const selectIsDisabledChangeShowCurrentSymbol = (state: RootState) =>
+   state.tableOptions.isDisabledChangeShowCurrentSymbol
+export const selectIsDisabledChangeUpdateColorsAfterSelect = (state: RootState) =>
+   state.tableOptions.isDisabledChangeUpdateColorsAfterSelect
 
-export const selectDataTableType = (state: RootState) => state.tableOptions.dataTableOptions.type
-export const selectDataTableVariant = (state: RootState) => state.tableOptions.dataTableOptions.variant
-export const selectDataTableMode = (state: RootState) => state.tableOptions.dataTableOptions.mode
-export const selectDataTableColorVariants = (state: RootState) => state.tableOptions.dataTableOptions.colorVariants
-export const selectDataTableRedBlackVariants = (state: RootState) =>
-   state.tableOptions.dataTableOptions.redBlackVariants
-export const selectDataTableHintsTimeouts = (state: RootState) => state.tableOptions.dataTableOptions.hintTimeouts
-export const selectDataTableHintsStyles = (state: RootState) => state.tableOptions.dataTableOptions.hintStyles
-export const selectDataTableCellsShapes = (state: RootState) => state.tableOptions.dataTableOptions.cellsShapes
+/* export const selectIsShownAdditionalOptions = (state: RootState) => state.tableOptions.shownCustomAdditionalOptions
+export const selectIsShownColoredOptions = (state: RootState) => state.tableOptions.shownCustomColoredOptions
+export const selectIsShownRedBlackOptions = (state: RootState) => state.tableOptions.shownCustomRedBlackOptions
+ */
+
+export const selectDataTableVariants = (state: RootState) => state.tableOptions.dataTableOptions.variants
+
+export const selectDataTableTransforms = (state: RootState) => state.tableOptions.dataTableOptions.transforms
+
+export const selectDataTableStylesSelected = (state: RootState) => state.tableOptions.dataTableOptions.stylesSelected
+
+export const selectDataTableDirectionSequences = (state: RootState) =>
+   state.tableOptions.dataTableOptions.directionSequences
+
+// export const selectDataTableCellsShapes = (state: RootState) => state.tableOptions.dataTableOptions.cellsShapes

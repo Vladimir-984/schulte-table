@@ -1,3 +1,19 @@
 header.TableHeader {
    align-items: center;
 }
+.TableHeader {
+   display: flex;
+   padding: 0 12px;
+}
+.TableHeader__item {
+   flex: 1 0 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+.TableHeader__item--before {
+   justify-content: flex-start;
+}
+.TableHeader__item--after {
+   justify-content: flex-end;
+}

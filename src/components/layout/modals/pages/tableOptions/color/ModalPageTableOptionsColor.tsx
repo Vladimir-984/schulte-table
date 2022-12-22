@@ -1,7 +1,6 @@
 import React from 'react'
 import { useRouter } from '@happysanta/router'
 import { Group, ModalPage, ModalPageHeader, ModalPageProps, PanelHeaderBack, Separator } from '@vkontakte/vkui'
-import { GroupTableOptionsColor } from './groups/GroupTableOptionsColor'
 
 export const ModalPageTableOptionsColor: React.FC<ModalPageProps> = (modalPageProps) => {
    const router = useRouter()
@@ -19,9 +18,7 @@ export const ModalPageTableOptionsColor: React.FC<ModalPageProps> = (modalPagePr
             </>
          }
       >
-         <Group separator='hide'>
-            <GroupTableOptionsColor />
-         </Group>
+         <Group separator='hide'></Group>
       </ModalPage>
    )
 }

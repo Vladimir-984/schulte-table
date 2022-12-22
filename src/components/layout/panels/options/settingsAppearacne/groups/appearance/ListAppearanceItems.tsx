@@ -1,6 +1,6 @@
 import React from 'react'
 import { List, Separator, SimpleCell } from '@vkontakte/vkui'
-import { appearanceItems } from 'lists/items'
+import { dataAppearances } from 'lists/items'
 import { createReactKeyIdx, isAddSeparator } from 'utils/list'
 import { BUTTON_ACTIVE_EFFECT_DELAY } from 'constants/constants'
 import { Icon28DoneOutline } from '@vkontakte/icons'
@@ -23,14 +23,14 @@ export const ListAppearanceItems: React.FC = () => {
 
    return (
       <List>
-         {appearanceItems.map((appearanceItem, idx, items) => (
-            <React.Fragment key={createReactKeyIdx('appearance', idx)}>
+         {dataAppearances.map((appearanceItem, idx, items) => (
+            <React.Fragment key={appearanceItem.id}>
                <SimpleCell
                   activeEffectDelay={BUTTON_ACTIVE_EFFECT_DELAY}
                   after={appearanceType === appearanceItem.value && <Icon28DoneOutline />}
                   onClick={onClickAppearance(appearanceItem.value)}
                >
-                  {appearanceItem.label}
+                  {appearanceItem.title}
                </SimpleCell>
                {isAddSeparator(items, idx) && <Separator wide />}
             </React.Fragment>

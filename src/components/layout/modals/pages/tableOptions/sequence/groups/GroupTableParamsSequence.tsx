@@ -7,8 +7,6 @@ import { createReactKeyIdx } from 'utils/list'
 import { BUTTON_ACTIVE_EFFECT_DELAY } from 'constants/constants'
 import { Icon28DoneOutline } from '@vkontakte/icons'
 
-import { TableSequence } from 'types/table'
-import { tableSequenceItems } from 'lists/items'
 import { GroupCard } from 'components/ui/GroupCard/GroupCard'
 
 export const GroupTableParamsSequence: React.FC = () => {
